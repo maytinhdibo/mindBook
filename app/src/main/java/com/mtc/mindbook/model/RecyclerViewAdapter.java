@@ -11,7 +11,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
-import com.mtc.mindbook.SongActivity;
+import com.mtc.mindbook.DetailActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(view.getContext(), SongActivity.class);
+                Intent intent = new Intent(view.getContext(), DetailActivity.class);
                 intent.putExtra(EXTRA_MESSAGE, data.get(position).getName());
                 view.getContext().startActivity(intent);
             }
