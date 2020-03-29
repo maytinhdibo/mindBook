@@ -15,11 +15,12 @@
         android:id="@+id/listview_tasks"
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
         android:layout_width="match_parent"
-        android:layout_height="80pt"
+        android:layout_height="wrap_content"
         android:divider="@null"
         android:nestedScrollingEnabled="false"
         android:orientation="horizontal"
         android:paddingEnd="6pt"
+        android:paddingVertical="6pt"
         android:scrollbars="horizontal" />
 
 
