@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">soundMe</string>
     <string name="nav_home">Home</string>
+    <string name="nav_explore">Explore</string>
     <string name="nav_lib">Library</string>
     <string name="nav_profile">Profile</string>
 

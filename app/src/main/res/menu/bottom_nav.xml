@@ -6,8 +6,8 @@
         android:icon="@drawable/ic_instagram"/>
     <item
         android:id="@+id/nav_lib"
-        android:title="@string/nav_lib"
-        android:icon="@drawable/ic_heart"/>
+        android:title="@string/nav_explore"
+        android:icon="@drawable/ic_explore"/>
     <item
         android:id="@+id/nav_profile"
         android:title="@string/nav_profile"
