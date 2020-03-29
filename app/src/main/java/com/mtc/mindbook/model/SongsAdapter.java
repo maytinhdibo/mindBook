@@ -1,4 +1,4 @@
-package com.mtc.soundme.model;
+package com.mtc.mindbook.model;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,12 +8,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.recyclerview.widget.RecyclerView;
-
-import com.mtc.soundme.R;
+import com.mtc.mindbook.R;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class SongsAdapter extends ArrayAdapter<EntryItem> {

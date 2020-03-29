@@ -1,4 +1,4 @@
-package com.mtc.soundme;
+package com.mtc.mindbook;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

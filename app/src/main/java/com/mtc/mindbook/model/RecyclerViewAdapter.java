@@ -1,26 +1,23 @@
-package com.mtc.soundme.model;
+package com.mtc.mindbook.model;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.soundme.R;
-import com.mtc.soundme.SongActivity;
+import com.mtc.mindbook.R;
+import com.mtc.mindbook.SongActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mtc.soundme.MainActivity.EXTRA_MESSAGE;
+import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>{
 

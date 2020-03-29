@@ -1,15 +1,4 @@
-package com.mtc.soundme.model;
-
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
-
-import com.mtc.soundme.R;
-
-import java.util.List;
+package com.mtc.mindbook.model;
 
 public class EntryItem {
     private int id;

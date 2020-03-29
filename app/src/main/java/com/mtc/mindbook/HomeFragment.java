@@ -1,16 +1,9 @@
-package com.mtc.soundme;
+package com.mtc.mindbook;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -18,13 +11,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.soundme.model.EntryItem;
-import com.mtc.soundme.model.RecyclerViewAdapter;
-import com.mtc.soundme.model.SongsAdapter;
-import com.squareup.picasso.Picasso;
+import com.mtc.mindbook.model.EntryItem;
+import com.mtc.mindbook.model.RecyclerViewAdapter;
 
-
-import org.lucasr.twowayview.TwoWayView;
 
 import java.util.ArrayList;
 import java.util.Arrays;

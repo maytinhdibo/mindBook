@@ -1,4 +1,4 @@
-package com.mtc.soundme;
+package com.mtc.mindbook;
 
 import org.junit.Test;
 
