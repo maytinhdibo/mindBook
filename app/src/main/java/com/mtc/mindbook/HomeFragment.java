@@ -25,9 +25,9 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_home, container, false);
         EntryItem[] todoItems = {
-                new EntryItem(1, "https://i1.sndcdn.com/artworks-000553291293-dy0378-t500x500.jpg", "Hard, granular cheese"),
-                new EntryItem(2, "https://nhacchuonghay.me/wp-content/uploads/2019/12/nhac-chuong-duyen-am-hoang-thuy-linh-mp3.jpg","Italian whey cheese"),
-                new EntryItem(3, "https://photo-zmp3.zadn.vn/cover/1/6/7/6/16764a3fec6a43514405817854577bd3.jpg","Italian cow's milk cheese"),
+                new EntryItem(1, "https://a.wattpad.com/cover/155025710-288-k448920.jpg", "Tuyển tập Ngô Tất Tố"),
+                new EntryItem(2, "https://genbooks.net/wp-content/uploads/2019/07/mat-biec.jpg","Mắt biếc"),
+                new EntryItem(3, "https://cdn0.fahasa.com/media/flashmagazine/images/page_images/nha_gia_kim_tai_ban_2017/2019_11_04_14_41_25_1.jpg","Nhà giả kim"),
                 new EntryItem(4, "https://photo-zmp3.zadn.vn/cover/1/6/7/6/16764a3fec6a43514405817854577bd3.jpg","Southern Italian buffalo milk cheese"),
                 new EntryItem(5, "https://photo-zmp3.zadn.vn/cover/1/6/7/6/16764a3fec6a43514405817854577bd3.jpg","Firm, cow's milk cheese"),
         };
