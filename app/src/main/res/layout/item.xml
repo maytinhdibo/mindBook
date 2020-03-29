@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="60pt"
+    android:layout_height="75pt"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="6pt"
+    android:layout_marginLeft="3pt"
+    android:id="@+id/songCard"
+    >
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:elevation="8dp"
+    android:background="@drawable/item"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/songImageView"
+        android:layout_width="60pt"
+        android:layout_height="60pt"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:text="Đi chợ"
+        android:textSize="8pt"
+        android:textStyle="bold" />
+
+</LinearLayout>
+</androidx.cardview.widget.CardView>
