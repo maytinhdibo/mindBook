@@ -11,6 +11,13 @@
         android:layout_height="wrap_content"
         android:text="@string/nav_home" />
 
+    <TextView
+        style="@style/section_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/for_you" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/listview_tasks"
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
@@ -19,11 +26,17 @@
         android:divider="@null"
         android:nestedScrollingEnabled="false"
         android:orientation="horizontal"
-        android:paddingEnd="6pt"
+        android:paddingEnd="8pt"
+        android:clipToPadding="false"
         android:paddingVertical="6pt"
-        android:scrollbars="horizontal" />
+        android:scrollbars="none" />
 
-
+    <TextView
+        style="@style/section_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:text="@string/top_trend" />
     <!--    <WebView-->
     <!--        android:id="@+id/webview"-->
     <!--        android:layout_width="match_parent"-->
