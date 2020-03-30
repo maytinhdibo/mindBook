@@ -13,6 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.model.EntryItem;
 import com.mtc.mindbook.model.RecyclerViewAdapter;
+import com.mtc.mindbook.model.slideshow.SlideShowAdapter;
+import com.smarteist.autoimageslider.SliderView;
 
 
 import java.util.ArrayList;
@@ -45,6 +47,17 @@ public class HomeFragment extends Fragment {
         listView.setLayoutManager(layoutManager);
 
         listView.setAdapter(adapter);
+
+        //
+
+
+        SliderView sliderView = rootView.findViewById(R.id.imageSlider);
+
+        SlideShowAdapter adapterSlide = new SlideShowAdapter(getContext());
+
+        adapterSlide.renewItems(listItem);
+
+        sliderView.setSliderAdapter(adapterSlide);
 
 //        ImageView imageView = rootView.findViewById(R.id.imageView);
 //        Picasso.get().load("https://i.imgur.com/DvpvklR.png").into(imageView);
