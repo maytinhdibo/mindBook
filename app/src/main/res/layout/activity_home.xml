@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="225dp"
             app:sliderAnimationDuration="500"
-            app:sliderAutoCycleDirection="back_and_forth"
+            app:sliderAutoCycleDirection="right"
             app:sliderAutoCycleEnabled="true"
             app:sliderIndicatorAnimationDuration="500"
             app:sliderIndicatorGravity="center_horizontal|bottom"

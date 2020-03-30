@@ -1,34 +1,90 @@
 package com.mtc.mindbook;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.SeekBar;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.io.IOException;
 
+import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
+
 public class DetailActivity extends AppCompatActivity {
+    public static final String EXTRA_MESSAGE_TYPE = "none";
+    public static final String EXTRA_MESSAGE_ID = "none";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_song);
+        setContentView(R.layout.activity_detail);
 
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+        Window window = getWindow();
 
-        // Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.textView);
-        textView.setText(message);
+        Window w = getWindow();
+        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
-        Player player = new Player((SeekBar) findViewById(R.id.seekBar));
-        player.start();
+        View view = findViewById(android.R.id.content).getRootView();
 
+        Button readButton=(Button)findViewById(R.id.read_btn);
+        Button listenButton=(Button)findViewById(R.id.listen_btn);
 
+        readButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(getApplicationContext(), ReaderActivity.class);
+
+                Bundle extras = new Bundle();
+                extras.putString("EXTRA_MESSAGE_TYPE", "read");
+                extras.putString("EXTRA_MESSAGE_ID", "22");
+                intent.putExtras(extras);
+
+                startActivity(intent);
+            }
+        });
+
+        listenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Intent intent = new Intent(getApplicationContext(), ReaderActivity.class);
+
+                Bundle extras = new Bundle();
+                extras.putString("EXTRA_MESSAGE_TYPE", "listen");
+                extras.putString("EXTRA_MESSAGE_ID", "3");
+                intent.putExtras(extras);
+
+                startActivity(intent);
+            }
+        });
+
+//        Intent intent = new Intent(view.getContext(), ReaderActivity.class);
+////        intent.putExtra(EXTRA_MESSAGE, data.get(position).getName());
+//        view.getContext().startActivity(intent);
+
+//
+//        Intent intent = getIntent();
+//        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
+//
+//        // Capture the layout's TextView and set the string as its text
+//        TextView textView = findViewById(R.id.textView);
+//        textView.setText(message);
+
+//        Player player = new Player((SeekBar) findViewById(R.id.seekBar));
+//        player.start();
     }
 }
 
@@ -51,10 +107,10 @@ class Player extends Thread {
         }
         mediaPlayer.start();
 
-        double curPro =0;
+        double curPro = 0;
         while (!Thread.currentThread().isInterrupted()) {
             try {
-                curPro = ((double) (mediaPlayer.getCurrentPosition() )/ mediaPlayer.getDuration() )*100;
+                curPro = ((double) (mediaPlayer.getCurrentPosition()) / mediaPlayer.getDuration()) * 100;
 
                 bar.setProgress((int) (curPro), true);
                 Thread.sleep(1000);
