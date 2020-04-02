@@ -21,52 +21,75 @@
             >
 
 
-            <LinearLayout
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
-                android:background="#553"
-                >
+                android:layout_height="300dp">
+
                 <ImageView
-                    android:id="@+id/backdrop"
+                    android:id="@+id/blur_bg"
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
+                    android:layout_height="match_parent"
                     android:scaleType="centerCrop"
-                    app:layout_collapseMode="parallax"
-                    />
+                    app:layout_constraintBottom_toTopOf="parent"
+                    app:layout_constraintEnd_toStartOf="parent"
+                    app:layout_constraintHorizontal_bias="0.131"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
 
-                <LinearLayout
-                    android:id="@+id/frameLayout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                <ImageView
+                    android:id="@+id/cover"
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.497"
+                    app:layout_constraintStart_toStartOf="parent" />
 
-                    <Button
-                        android:id="@+id/read_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="124dp"
-                        android:text="Read"></Button>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <Button
-                        android:id="@+id/listen_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="124dp"
-                        android:text="Listen"></Button>
-
-                </LinearLayout>
-
-            </LinearLayout>
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
+                android:layout_height="100dp"
                 app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                />
+                >
+
+                <TextView
+                    android:paddingRight="11pt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Tuyển tập Ngô Tất Tố - Ngô Tất Tố"
+                    android:textAlignment="center"
+                    android:textSize="18dp" />
+            </androidx.appcompat.widget.Toolbar>
 
         </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        <LinearLayout
+            android:id="@+id/frameLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/read_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="124dp"
+                android:text="Read"></Button>
+
+            <Button
+                android:id="@+id/listen_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="124dp"
+                android:text="Listen"></Button>
+
+        </LinearLayout>
 
         <TextView
             android:layout_width="match_parent"

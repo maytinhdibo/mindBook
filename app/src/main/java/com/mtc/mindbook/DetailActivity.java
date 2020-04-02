@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -12,13 +13,18 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.IOException;
+
+import jp.wasabeef.picasso.transformations.BlurTransformation;
 
 import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
 
@@ -70,6 +76,16 @@ public class DetailActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+
+        Picasso.get()
+                .load("https://a.wattpad.com/cover/155025710-288-k448920.jpg")
+                .transform(new BlurTransformation(getBaseContext(), 75, 2))
+                .into((ImageView) findViewById(R.id.blur_bg));
+
+        Picasso.get()
+                .load("https://a.wattpad.com/cover/155025710-288-k448920.jpg")
+                .into((ImageView) findViewById(R.id.cover));
 
 //        Intent intent = new Intent(view.getContext(), ReaderActivity.class);
 ////        intent.putExtra(EXTRA_MESSAGE, data.get(position).getName());
