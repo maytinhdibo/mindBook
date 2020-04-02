@@ -1,126 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    >
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
+    android:orientation="vertical">
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         >
 
-        <com.google.android.material.appbar.CollapsingToolbarLayout
+        <View
+            android:id="@+id/view3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:contentScrim="@color/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            >
+            android:layout_height="wrap_content"
+            android:background="@color/backgroundPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/view"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="match_parent"
+                app:contentScrim="@color/colorPrimary"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-                <ImageView
-                    android:id="@+id/blur_bg"
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/view"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintBottom_toTopOf="parent"
-                    app:layout_constraintEnd_toStartOf="parent"
-                    app:layout_constraintHorizontal_bias="0.131"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.0" />
+                    android:layout_height="300dp">
 
-                <ImageView
-                    android:id="@+id/cover"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    <ImageView
+                        android:id="@+id/blur_bg"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:layout_constraintBottom_toTopOf="parent"
+                        app:layout_constraintEnd_toStartOf="parent"
+                        app:layout_constraintHorizontal_bias="0.131"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.0" />
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+                    <ImageView
+                        android:id="@+id/cover"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.497"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:layout_collapseMode="pin">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingRight="11pt"
+                        android:text="Tuyển tập Ngô Tất Tố - Ngô Tất Tố"
+                        android:textAlignment="center"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+                </androidx.appcompat.widget.Toolbar>
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
-                app:layout_collapseMode="pin"
-                >
-
-                <TextView
-                    android:paddingRight="11pt"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Tuyển tập Ngô Tất Tố - Ngô Tất Tố"
-                    android:textAlignment="center"
-                    android:textSize="18dp" />
-            </androidx.appcompat.widget.Toolbar>
-
-        </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-
-        <LinearLayout
-            android:id="@+id/frameLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/read_btn"
-                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="124dp"
-                android:text="Read"></Button>
+                android:text="Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
+Why do we use it?
+It is a long established fact that a reader will beLorem IpsumLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.
 
-            <Button
-                android:id="@+id/listen_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="124dp"
-                android:text="Listen"></Button>
+Why do we use it?
+It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like). is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publi and the like). distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using 'Content here, content here', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."
+                android:textColor="@color/textColor"
+                android:textSize="22dp" />
+        </com.google.android.material.appbar.AppBarLayout>
 
-        </LinearLayout>
+        <!--    <androidx.viewpager.widget.ViewPager-->
+        <!--        android:id="@+id/view_pager"-->
+        <!--        android:layout_width="match_parent"-->
+        <!--        android:layout_height="1600dp"-->
+        <!--        android:background="#973"-->
+        <!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+        <!--        >-->
 
-        <TextView
+        <!--        <TextView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:text="eadfsnjklgnvmksdfngjkrsngjkrsngjkrsngjrnsdgjv"-->
+        <!--            />-->
+
+        <!--&lt;!&ndash;        <com.google.android.material.tabs.TabLayout&ndash;&gt;-->
+        <!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
+        <!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
+        <!--&lt;!&ndash;            android:background="@color/colorPrimary"&ndash;&gt;-->
+        <!--&lt;!&ndash;            app:tabMode="scrollable"&ndash;&gt;-->
+        <!--&lt;!&ndash;            app:tabTextColor="@android:color/white"&ndash;&gt;-->
+        <!--&lt;!&ndash;            />&ndash;&gt;-->
+
+        <!--    </androidx.viewpager.widget.ViewPager>-->
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <LinearLayout
+        android:id="@+id/bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:paddingTop="9dp"
+        android:paddingBottom="9dp"
+        android:elevation="12dp"
+        android:background="@drawable/bottom_nav"
+        >
+
+        <Button
+            android:id="@+id/read_btn"
+            style="?android:attr/borderlessButtonStyle"
             android:layout_width="match_parent"
-            android:layout_height="1000dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="12dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/detail_button"
+            android:elevation="6dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:text="Read"></Button>
 
-            android:text="eadfsnjklgnvmksdfngjkrsngjkrsngjkrsngjrnsdgjv"
-            />
-    </com.google.android.material.appbar.AppBarLayout>
+        <Button
+            android:id="@+id/listen_btn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/detail_button"
+            android:elevation="6dp"
+            android:textColor="#fff"
+            android:textStyle="bold"
+            android:text="Listen"></Button>
 
-<!--    <androidx.viewpager.widget.ViewPager-->
-<!--        android:id="@+id/view_pager"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="1600dp"-->
-<!--        android:background="#973"-->
-<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-<!--        >-->
+        <ImageButton
+            android:id="@+id/like_btn"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="12dp"
+            android:background="@drawable/detail_button"
+            android:elevation="6dp"
+            android:padding="16dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_heart"
+            android:text="Like"
+            android:tint="#fff"></ImageButton>
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:text="eadfsnjklgnvmksdfngjkrsngjkrsngjkrsngjrnsdgjv"-->
-<!--            />-->
-
-<!--&lt;!&ndash;        <com.google.android.material.tabs.TabLayout&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;            android:background="@color/colorPrimary"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:tabMode="scrollable"&ndash;&gt;-->
-<!--&lt;!&ndash;            app:tabTextColor="@android:color/white"&ndash;&gt;-->
-<!--&lt;!&ndash;            />&ndash;&gt;-->
-
-<!--    </androidx.viewpager.widget.ViewPager>-->
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </LinearLayout>
+</LinearLayout>

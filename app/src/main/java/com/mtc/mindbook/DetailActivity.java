@@ -2,6 +2,7 @@ package com.mtc.mindbook;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -14,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
 import androidx.annotation.NonNull;
@@ -42,10 +44,12 @@ public class DetailActivity extends AppCompatActivity {
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
 
+
+
         View view = findViewById(android.R.id.content).getRootView();
 
-        Button readButton=(Button)findViewById(R.id.read_btn);
-        Button listenButton=(Button)findViewById(R.id.listen_btn);
+        Button readButton = (Button) findViewById(R.id.read_btn);
+        Button listenButton = (Button) findViewById(R.id.listen_btn);
 
         readButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,13 +83,18 @@ public class DetailActivity extends AppCompatActivity {
 
 
         Picasso.get()
-                .load("https://a.wattpad.com/cover/155025710-288-k448920.jpg")
+                .load("https://dspncdn.com/a1/media/692x/38/3a/21/383a215d646b32b00b3b44b58bd81fa1.jpg")
                 .transform(new BlurTransformation(getBaseContext(), 75, 2))
                 .into((ImageView) findViewById(R.id.blur_bg));
 
         Picasso.get()
-                .load("https://a.wattpad.com/cover/155025710-288-k448920.jpg")
+                .load("https://dspncdn.com/a1/media/692x/38/3a/21/383a215d646b32b00b3b44b58bd81fa1.jpg")
                 .into((ImageView) findViewById(R.id.cover));
+
+        LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
+        bottomBar.setLayoutParams(new LinearLayout.LayoutParams
+                (LinearLayout.LayoutParams.MATCH_PARENT
+                , 185 + this.getNavigationBarHeight()));
 
 //        Intent intent = new Intent(view.getContext(), ReaderActivity.class);
 ////        intent.putExtra(EXTRA_MESSAGE, data.get(position).getName());
@@ -101,6 +110,15 @@ public class DetailActivity extends AppCompatActivity {
 
 //        Player player = new Player((SeekBar) findViewById(R.id.seekBar));
 //        player.start();
+    }
+
+    public int getNavigationBarHeight() {
+        Resources resources = this.getBaseContext().getResources();
+        int resourceId = resources.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return resources.getDimensionPixelSize(resourceId);
+        }
+        return 0;
     }
 }
 
