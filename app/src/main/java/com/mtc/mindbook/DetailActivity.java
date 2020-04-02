@@ -3,6 +3,7 @@ package com.mtc.mindbook;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -43,7 +44,6 @@ public class DetailActivity extends AppCompatActivity {
 
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-
 
 
         View view = findViewById(android.R.id.content).getRootView();
@@ -94,11 +94,14 @@ public class DetailActivity extends AppCompatActivity {
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
         bottomBar.setLayoutParams(new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT
-                , 185 + this.getNavigationBarHeight()));
+                        , 185 + this.getNavigationBarHeight()));
 
-//        Intent intent = new Intent(view.getContext(), ReaderActivity.class);
-////        intent.putExtra(EXTRA_MESSAGE, data.get(position).getName());
-//        view.getContext().startActivity(intent);
+//        getWindow().setStatusBarColor(Color.parseColor("#20ff1111"));
+//        getWindow().setNavigationBarColor(Color.parseColor("#20111111"));
+
+
+        View decor = getWindow().getDecorView();
+        decor.setSystemUiVisibility(0);
 
 //
 //        Intent intent = getIntent();
