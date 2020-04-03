@@ -86,11 +86,25 @@
                 android:text="@string/desc"
                 android:textStyle="bold" />
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <LinearLayout
                 android:id="@+id/view2"
                 style="@style/container"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <Button
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Outlined button" />
+
+                <Button
+                    android:id="@+id/outlinedButton"
+                    style="?attr/materialButtonOutlinedStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Outlined button" />
 
                 <TextView
                     android:id="@+id/introduction"
@@ -101,7 +115,7 @@
                     android:textSize="18sp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
 
             <TextView
                 style="@style/section_title"
@@ -111,14 +125,18 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                style="@style/container"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
                 <RatingBar
+                    android:transformPivotX="0dp"
+                    android:transformPivotY="0dp"
                     android:theme="@style/RatingBar"
                     android:id="@+id/ratingBar"
                     android:numStars="5"
                     android:rating="4.5"
+                    style="?android:attr/ratingBarStyleIndicator"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                      />
@@ -126,8 +144,12 @@
                 <TextView
                     android:id="@+id/star_rating"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:text="4.0/5.0"
+                    android:layout_marginLeft="3dp"
+                    android:textSize="18dp"
+                    android:textStyle="bold"
+                    android:gravity="bottom|right"
                     android:textColor="@color/textColor"></TextView>
 
             </LinearLayout>
