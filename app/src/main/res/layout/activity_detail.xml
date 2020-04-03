@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="0dp">
@@ -51,41 +51,34 @@
                     android:background="@color/backgroundPrimary"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:id="@+id/view4"
+                        style="@style/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/button"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Viễn tưởng"
+                            android:textColor="@color/textColor" />
+
+                        <Button
+                            android:id="@+id/outlinedButton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Kinh dị"
+                            android:textColor="@color/textColor" />
+                    </LinearLayout>
+
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="@string/desc"
                         style="@style/section_title"
                         android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:id="@+id/view2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-
-                        <LinearLayout
-                            android:id="@+id/view4"
-                            style="@style/container"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <Button
-                                android:id="@+id/button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Viễn tưởng"
-                                android:textColor="@color/textColor" />
-
-                            <Button
-                                android:id="@+id/outlinedButton"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Kinh dị"
-                                android:textColor="@color/textColor" />
-                        </LinearLayout>
 
                         <TextView
                             style="@style/container"
@@ -97,7 +90,6 @@
                             android:textSize="18sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
-                    </LinearLayout>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -149,7 +141,7 @@
 
     </LinearLayout>
     </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
     <LinearLayout
         android:id="@+id/bottom_bar"
