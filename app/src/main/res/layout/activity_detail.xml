@@ -7,30 +7,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
+    <ScrollView
         android:layout_weight="1"
-        >
-
-        <View
-            android:id="@+id/view3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <com.google.android.material.appbar.AppBarLayout
-            android:id="@+id/app_bar_layout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/backgroundPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-            <com.google.android.material.appbar.CollapsingToolbarLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:contentScrim="@color/colorPrimary"
-                app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
+        android:layout_width="wrap_content"
+        android:layout_height="0dp">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/view"
@@ -60,128 +44,112 @@
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    app:layout_collapseMode="pin">
+                <LinearLayout
+                    android:id="@+id/app_bar_layout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/backgroundPrimary"
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingRight="11pt"
-                        android:text="Tuyển tập Ngô Tất Tố - Ngô Tất Tố"
-                        android:textAlignment="center"
-                        android:textSize="18dp"
+                        android:text="@string/desc"
+                        style="@style/section_title"
                         android:textStyle="bold" />
-                </androidx.appcompat.widget.Toolbar>
 
-            </com.google.android.material.appbar.CollapsingToolbarLayout>
-
-            <TextView
-                style="@style/section_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/desc"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                android:id="@+id/view2"
-                style="@style/container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <Button
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Outlined button" />
-
-                <Button
-                    android:id="@+id/outlinedButton"
-                    style="?attr/materialButtonOutlinedStyle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Outlined button" />
-
-                <TextView
-                    android:id="@+id/introduction"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Harry Potter và Hòn Đá Phù Thủy là bộ phim đầu tiên trong series phim “Harry Potter” được xây dựng dựa trên tiểu thuyết của nhà văn J.K.Rowling. Nhân vật chính của phim, Harry Potter - một cậu bé 11 tuổi sau khi mồ côi cha mẹ đã bị gửi đến nhà dì dượng của mình, gia đình Dursley. Tuy nhiên, cậu bé bị ngược đãi và không hề biết về thân phận thực sự của mình."
-                    android:textColor="@color/textColor"
-                    android:textSize="18sp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </LinearLayout>
-
-            <TextView
-                style="@style/section_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/review"
-                android:textStyle="bold" />
-
-            <LinearLayout
-                style="@style/container"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <RatingBar
-                    android:transformPivotX="0dp"
-                    android:transformPivotY="0dp"
-                    android:theme="@style/RatingBar"
-                    android:id="@+id/ratingBar"
-                    android:numStars="5"
-                    android:rating="4.5"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                     />
-
-                <TextView
-                    android:id="@+id/star_rating"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="4.0/5.0"
-                    android:layout_marginLeft="3dp"
-                    android:textSize="18dp"
-                    android:textStyle="bold"
-                    android:gravity="bottom|right"
-                    android:textColor="@color/textColor"></TextView>
-
-            </LinearLayout>
+                    <LinearLayout
+                        android:id="@+id/view2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
 
 
-        </com.google.android.material.appbar.AppBarLayout>
+                        <LinearLayout
+                            android:id="@+id/view4"
+                            style="@style/container"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
 
-        <!--    <androidx.viewpager.widget.ViewPager-->
-        <!--        android:id="@+id/view_pager"-->
-        <!--        android:layout_width="match_parent"-->
-        <!--        android:layout_height="1600dp"-->
-        <!--        android:background="#973"-->
-        <!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-        <!--        >-->
+                            <Button
+                                android:id="@+id/button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Viễn tưởng"
+                                android:textColor="@color/textColor" />
 
-        <!--        <TextView-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:text="eadfsnjklgnvmksdfngjkrsngjkrsngjkrsngjrnsdgjv"-->
-        <!--            />-->
+                            <Button
+                                android:id="@+id/outlinedButton"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Kinh dị"
+                                android:textColor="@color/textColor" />
+                        </LinearLayout>
 
-        <!--&lt;!&ndash;        <com.google.android.material.tabs.TabLayout&ndash;&gt;-->
-        <!--&lt;!&ndash;            android:layout_width="match_parent"&ndash;&gt;-->
-        <!--&lt;!&ndash;            android:layout_height="wrap_content"&ndash;&gt;-->
-        <!--&lt;!&ndash;            android:background="@color/colorPrimary"&ndash;&gt;-->
-        <!--&lt;!&ndash;            app:tabMode="scrollable"&ndash;&gt;-->
-        <!--&lt;!&ndash;            app:tabTextColor="@android:color/white"&ndash;&gt;-->
-        <!--&lt;!&ndash;            />&ndash;&gt;-->
+                        <TextView
+                            style="@style/container"
+                            android:id="@+id/introduction"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Harry Potter và Hòn Đá Phù Thủy là bộ phim đầu tiên trong series phim “Harry Potter” được xây dựng dựa trên tiểu thuyết của nhà văn J.K.Rowling. Nhân vật chính của phim, Harry Potter - một cậu bé 11 tuổi sau khi mồ côi cha mẹ đã bị gửi đến nhà dì dượng của mình, gia đình Dursley. Tuy nhiên, cậu bé bị ngược đãi và không hề biết về thân phận thực sự của mình."
+                            android:textColor="@color/textColor"
+                            android:textSize="18sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                    </LinearLayout>
 
-        <!--    </androidx.viewpager.widget.ViewPager>-->
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/review"
+                        android:textStyle="bold"
+                        style="@style/section_title"
+                        />
 
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/container"
+                        >
+
+                        <RatingBar
+                            android:id="@+id/ratingBar"
+                            style="?android:attr/ratingBarStyleIndicator"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:numStars="5"
+                            android:rating="4.5"
+                            android:theme="@style/RatingBar"
+                            android:transformPivotX="0dp"
+                            android:transformPivotY="0dp" />
+
+                        <TextView
+                            android:id="@+id/star_rating"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_marginLeft="3dp"
+                            android:gravity="bottom|right"
+                            android:text="4.0/5.0"
+                            android:textColor="@color/textColor"
+                            android:textSize="18dp"
+                            android:textStyle="bold"></TextView>
+                    </LinearLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/list_review"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:clipToPadding="true"
+                        android:nestedScrollingEnabled="false"
+                        android:orientation="horizontal"
+                        android:paddingVertical="6pt"
+                        android:scrollbars="none" />
+
+
+    </LinearLayout>
+    </LinearLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/bottom_bar"
