@@ -6,6 +6,10 @@
     <string name="nav_profile">Profile</string>
 
     <string name="for_you">For you</string>
+    <string name="intro">Introduction</string>description
+    <string name="desc">Description</string>
+    <string name="review">Review</string>
+
     <string name="top_trend">Top trending</string>
 
 </resources>
