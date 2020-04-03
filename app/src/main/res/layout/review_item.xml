@@ -14,7 +14,7 @@
         android:layout_height="40pt"
         android:scaleType="centerCrop" />
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="8pt"
@@ -35,14 +35,12 @@
 
         <RatingBar
             android:id="@+id/reviewRating"
-            style="?android:attr/ratingBarStyleIndicator"
+            style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:numStars="5"
             android:rating="4.5"
             android:theme="@style/RatingBar"
-            android:scaleX="0.5"
-            android:scaleY="0.5"
             android:transformPivotX="0dp"
             android:transformPivotY="0dp" />
 
@@ -52,10 +50,9 @@
             android:layout_height="wrap_content"
             android:paddingTop="2pt"
             android:paddingBottom="2pt"
-            android:singleLine="true"
+            android:text="It is the best book very very long long text"
             android:textColor="#345"
-            android:text="It is the best book"
-            android:textSize="7pt"/>
+            android:textSize="7pt" />
     </LinearLayout>
 
 </LinearLayout>
