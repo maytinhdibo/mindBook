@@ -59,18 +59,18 @@
                         android:orientation="horizontal">
 
                         <Button
+                            style="@style/outline_btn"
+                            android:background="@drawable/outline_button"
                             android:id="@+id/button"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Viễn tưởng"
-                            android:textColor="@color/textColor" />
+                            android:text="Viễn tưởng" />
 
                         <Button
+                            style="@style/outline_btn"
+                            android:background="@drawable/outline_button"
                             android:id="@+id/outlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Kinh dị"
-                            android:textColor="@color/textColor" />
+                            android:text="Kinh dị" />
                     </LinearLayout>
 
                     <TextView
@@ -87,7 +87,7 @@
                             android:layout_height="wrap_content"
                             android:text="Harry Potter và Hòn Đá Phù Thủy là bộ phim đầu tiên trong series phim “Harry Potter” được xây dựng dựa trên tiểu thuyết của nhà văn J.K.Rowling. Nhân vật chính của phim, Harry Potter - một cậu bé 11 tuổi sau khi mồ côi cha mẹ đã bị gửi đến nhà dì dượng của mình, gia đình Dursley. Tuy nhiên, cậu bé bị ngược đãi và không hề biết về thân phận thực sự của mình."
                             android:textColor="@color/textColor"
-                            android:textSize="18sp"
+                            android:textSize="16sp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent" />
 
