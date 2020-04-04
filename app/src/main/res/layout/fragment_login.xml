@@ -5,7 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginFragment"
-    android:id="@+id/login_main_frame">
+    android:id="@+id/login_main_frame"
+    android:theme="@style/Platform.MaterialComponents"
+    >
+
+    <!--    Assign for duchm android theme -> custom from AppTheme to use color-->
 
     <!-- TODO: Update blank fragment layout -->
 
