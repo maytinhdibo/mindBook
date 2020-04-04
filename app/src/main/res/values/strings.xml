@@ -10,6 +10,9 @@
     <string name="desc">Description</string>
     <string name="review">Review</string>
 
+    <string name="write_review">Write your review</string>
+
+
     <string name="top_trend">Top trending</string>
 
 </resources>

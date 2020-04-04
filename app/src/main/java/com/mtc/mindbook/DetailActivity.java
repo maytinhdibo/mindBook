@@ -1,6 +1,7 @@
 package com.mtc.mindbook;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -18,9 +19,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -133,6 +136,31 @@ public class DetailActivity extends AppCompatActivity {
         listView.setLayoutManager(layoutManager);
 
         listView.setAdapter(adapter);
+
+
+        //write review
+        TextView more = (TextView) findViewById(R.id.write_review);
+        more.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                //Intent myIntent = new Intent(view.getContext(), agones.class);
+                //startActivityForResult(myIntent, 0);
+
+
+                AlertDialog alertDialog = new AlertDialog.Builder(view.getContext()).create(); //Read Update
+                alertDialog.setTitle(R.string.write_review);
+                alertDialog.setMessage("this is my app");
+
+//                alertDialog.setButton("Continue..", new DialogInterface.OnClickListener() {
+//                    public void onClick(DialogInterface dialog, int which) {
+//                        // here you can add functions
+//                        System.out.println("ahihi");
+//                    }
+//                });
+
+                alertDialog.show();  //<-- See This!
+            }
+
+        });
 
     }
 
