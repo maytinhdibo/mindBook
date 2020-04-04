@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".LoginFragment"
     android:id="@+id/login_main_frame"
-    android:theme="@style/Platform.MaterialComponents"
+    android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"
     >
 
     <!--    Assign for duchm android theme -> custom from AppTheme to use color-->
