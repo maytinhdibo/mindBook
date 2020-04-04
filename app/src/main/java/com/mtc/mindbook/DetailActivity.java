@@ -1,5 +1,6 @@
 package com.mtc.mindbook;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -60,7 +61,7 @@ public class DetailActivity extends AppCompatActivity {
 
         View view = findViewById(android.R.id.content).getRootView();
 
-        Button readButton = (Button) findViewById(R.id.read_btn);
+        final Button readButton = (Button) findViewById(R.id.read_btn);
         Button listenButton = (Button) findViewById(R.id.listen_btn);
 
         readButton.setOnClickListener(new View.OnClickListener() {
@@ -138,28 +139,33 @@ public class DetailActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
 
+        final AppCompatActivity self = this;
+
+        final Dialog reviewDialog = new Dialog(view.getContext());
+
+        reviewDialog.setTitle(R.string.write_review);
+        reviewDialog.setContentView(R.layout.review_dialog);
+
+        int width = (int)(getResources().getDisplayMetrics().widthPixels*0.90);
+
+        reviewDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
         //write review
+
         TextView more = (TextView) findViewById(R.id.write_review);
         more.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 //Intent myIntent = new Intent(view.getContext(), agones.class);
                 //startActivityForResult(myIntent, 0);
-
-
-                AlertDialog alertDialog = new AlertDialog.Builder(view.getContext()).create(); //Read Update
-                alertDialog.setTitle(R.string.write_review);
-                alertDialog.setMessage("this is my app");
-
-//                alertDialog.setButton("Continue..", new DialogInterface.OnClickListener() {
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        // here you can add functions
-//                        System.out.println("ahihi");
-//                    }
-//                });
-
-                alertDialog.show();  //<-- See This!
+                reviewDialog.show();  //<-- See This!
             }
+        });
 
+        Button closeReviewDialogBtn = (Button) reviewDialog.findViewById(R.id.cancel_review_dialog);
+        closeReviewDialogBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                reviewDialog.dismiss();
+            }
         });
 
     }

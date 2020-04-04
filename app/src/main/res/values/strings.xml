@@ -11,6 +11,7 @@
     <string name="review">Review</string>
 
     <string name="write_review">Write your review</string>
+    <string name="write_review_hint">Describe your experience...</string>
 
 
     <string name="top_trend">Top trending</string>

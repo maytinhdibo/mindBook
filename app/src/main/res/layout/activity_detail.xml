@@ -197,10 +197,11 @@
             android:background="@drawable/detail_button"
             android:elevation="6dp"
             android:padding="16dp"
+            android:backgroundTint="#D81B60"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_heart"
             android:text="Like"
-            android:tint="#fff"></ImageButton>
+            android:tint="@color/backgroundPrimary"></ImageButton>
 
     </LinearLayout>
 </LinearLayout>
