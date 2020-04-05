@@ -215,6 +215,7 @@
                     android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
                     android:paddingVertical="6pt"
+                    style="@style/container"
                     android:scrollbars="none" />
 
 
