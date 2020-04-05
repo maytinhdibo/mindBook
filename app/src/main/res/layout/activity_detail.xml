@@ -20,7 +20,7 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/view"
                 android:layout_width="match_parent"
-                android:layout_height="300dp">
+                android:layout_height="350dp">
 
                 <ImageView
                     android:id="@+id/blur_bg"
@@ -34,14 +34,85 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <ImageView
-                    android:id="@+id/cover"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                <View
+                    android:id="@+id/view3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#19000000"></View>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:background="@drawable/top_round"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.497"
-                    app:layout_constraintStart_toStartOf="parent" />
+                    tools:ignore="MissingConstraints"
+                    tools:layout_editor_absoluteX="19dp"></View>
+
+                <LinearLayout
+                    style="@style/container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="start"
+                    android:orientation="horizontal"
+                    app:layout_constraintTop_toBottomOf="@+id/blur_bg"
+                    tools:layout_editor_absoluteX="19dp">
+
+                    <ImageView
+                        android:id="@+id/cover"
+                        android:layout_width="143dp"
+                        android:layout_height="200dp"
+                        android:layout_gravity="bottom"
+                        android:foregroundGravity="bottom"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="parent" />
+
+                    <LinearLayout
+                        style="@style/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="bottom"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Phù thủy bé nhỏ"
+                            android:textColor="@color/textColor"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Râu Ling Pắc Sơn"
+                            android:textColor="@color/textColor"
+                            android:textSize="16sp" />
+
+                        <RatingBar
+                            android:id="@+id/reviewRating"
+                            style="?android:attr/ratingBarStyleSmall"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
+                            android:numStars="5"
+                            android:rating="4.5"
+                            android:theme="@style/RatingBar"
+                            android:transformPivotX="0dp"
+                            android:transformPivotY="0dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/textColor"
+                            android:text="4.0/5.0"
+                            android:textStyle="bold"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -109,33 +180,32 @@
                     android:layout_height="wrap_content"
                     android:text="@string/write_review" />
 
-                <LinearLayout
-                    style="@style/container"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+<!--                <LinearLayout-->
+<!--                    style="@style/container"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content">-->
+<!--                    <RatingBar-->
+<!--                        android:id="@+id/ratingBar"-->
+<!--                        style="?android:attr/ratingBarStyleIndicator"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:numStars="5"-->
+<!--                        android:rating="4.5"-->
+<!--                        android:theme="@style/RatingBar"-->
+<!--                        android:transformPivotX="0dp"-->
+<!--                        android:transformPivotY="0dp" />-->
 
-                    <RatingBar
-                        android:id="@+id/ratingBar"
-                        style="?android:attr/ratingBarStyleIndicator"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:numStars="5"
-                        android:rating="4.5"
-                        android:theme="@style/RatingBar"
-                        android:transformPivotX="0dp"
-                        android:transformPivotY="0dp" />
-
-                    <TextView
-                        android:id="@+id/star_rating"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="3dp"
-                        android:gravity="bottom|right"
-                        android:text="4.0/5.0"
-                        android:textColor="@color/textColor"
-                        android:textSize="18dp"
-                        android:textStyle="bold"></TextView>
-                </LinearLayout>
+<!--                    <TextView-->
+<!--                        android:id="@+id/star_rating"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:layout_marginLeft="3dp"-->
+<!--                        android:gravity="bottom|right"-->
+<!--                        android:text="4.0/5.0"-->
+<!--                        android:textColor="@color/textColor"-->
+<!--                        android:textSize="18dp"-->
+<!--                        android:textStyle="bold"></TextView>-->
+<!--                </LinearLayout>-->
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_review"

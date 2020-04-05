@@ -97,7 +97,7 @@ public class DetailActivity extends AppCompatActivity {
 
         Picasso.get()
                 .load("https://dspncdn.com/a1/media/692x/38/3a/21/383a215d646b32b00b3b44b58bd81fa1.jpg")
-                .transform(new BlurTransformation(getBaseContext(), 75, 2))
+                .transform(new BlurTransformation(getBaseContext(), 18, 2))
                 .into((ImageView) findViewById(R.id.blur_bg));
 
         Picasso.get()
