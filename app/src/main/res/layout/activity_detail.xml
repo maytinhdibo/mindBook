@@ -228,6 +228,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@drawable/bottom_nav"
+        style="@style/container"
         android:elevation="12dp"
         android:paddingTop="9dp"
         android:paddingBottom="9dp">
@@ -268,11 +269,11 @@
             android:background="@drawable/detail_button"
             android:elevation="6dp"
             android:padding="16dp"
-            android:backgroundTint="#D81B60"
+            android:backgroundTint="#EFF4FF"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_heart"
+            android:src="@drawable/ic_heart_fill"
             android:text="Like"
-            android:tint="@color/backgroundPrimary"></ImageButton>
+            android:tint="#FF5E96"></ImageButton>
 
     </LinearLayout>
 </LinearLayout>

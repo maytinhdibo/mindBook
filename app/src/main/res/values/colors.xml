@@ -5,6 +5,7 @@
     <color name="colorAccent">#FF0000</color>
     <color name="backgroundNav">#FFFFFF</color>
     <color name="backgroundPrimary">#f9fcff</color>
+    <color name="overlayBgPrimary">#197A87AC</color>
     <color name="textColor">#345</color>
     <color name="grayColor">#7F7F7F</color>
     <color name="lightColor">#f9fcff</color>
