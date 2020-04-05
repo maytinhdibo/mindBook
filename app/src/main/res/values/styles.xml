@@ -60,10 +60,14 @@
         <item name="android:paddingRight">9pt</item>
         <item name="android:layout_marginRight">2pt</item>
         <item name="android:layout_marginTop">4pt</item>
+        <item name="android:paddingTop">4pt</item>
+        <item name="android:paddingBottom">4pt</item>
         <item name="android:textColor">#555</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="android:minWidth">0dp</item>
     </style>
 
 </resources>
