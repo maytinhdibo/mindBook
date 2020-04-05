@@ -32,8 +32,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8pt"
-            android:layout_marginBottom="3pt"
+            android:layout_marginLeft="9dp"
             android:orientation="vertical">
 
             <TextView
