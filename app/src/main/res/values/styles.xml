@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/bottom_nav_item</item>
@@ -9,7 +9,9 @@
         <item name="colorAccent">@color/colorPrimary</item>
 
     </style>
+    <style name="AppTheme.MaterialCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
 
+    </style>
 
     <style name="DetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
