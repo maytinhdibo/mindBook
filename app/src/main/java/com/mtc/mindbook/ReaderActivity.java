@@ -1,19 +1,26 @@
 package com.mtc.mindbook;
 
-import android.content.Intent;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.SeekBar;
+import android.util.Log;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.io.IOException;
+import com.folioreader.Config;
+import com.folioreader.FolioReader;
+import com.folioreader.model.locators.ReadLocator;
+import com.folioreader.util.AppUtil;
+import com.folioreader.util.ReadLocatorListener;
 
-public class ReaderActivity extends AppCompatActivity {
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+public class ReaderActivity extends AppCompatActivity implements ReadLocatorListener, FolioReader.OnClosedListener {
+
+    private static final String LOG_TAG = ReaderActivity.class.getSimpleName();
+    private FolioReader folioReader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,23 +35,74 @@ public class ReaderActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.reader);
         textView.setText("Type open is: " + type + ", ID: "+id);
 
-//        Window window = getWindow();
-//
-//        Window w = getWindow();
-//        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-//
+        folioReader = FolioReader.get().setReadLocatorListener(this)
+                .setOnClosedListener(this);
 
-//
-//        Intent intent = getIntent();
-//        String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
-//
-//        // Capture the layout's TextView and set the string as its text
-//        TextView textView = findViewById(R.id.textView);
-//        textView.setText(message);
+        ReadLocator readLocator = getLastReadLocator();
+        Config config = AppUtil.getSavedConfig(getApplicationContext());
+        if (config == null) {
+            config = new Config();
+        }
 
-//        Player player = new Player((SeekBar) findViewById(R.id.seekBar));
-//        player.start();
+        config.setAllowedDirection(Config.AllowedDirection.VERTICAL_AND_HORIZONTAL);
+
+        folioReader.setReadLocator(readLocator);
+        folioReader.setConfig(config, true).openBook(R.raw.accessible_epub_3);
 
 
+
+    }
+
+    private ReadLocator getLastReadLocator() {
+        String jsonString = loadAssetTextAsString("LastReadLocators/last_read_locator_1.json");
+        return ReadLocator.fromJson(jsonString);
+    }
+
+    @Override
+    public void saveReadLocator(ReadLocator readLocator) {
+        Log.i(LOG_TAG, "-> saveReadLocator -> " + readLocator.toJson());
+    }
+
+    private String loadAssetTextAsString(String name) {
+        BufferedReader in = null;
+        try {
+            StringBuilder buf = new StringBuilder();
+            InputStream is = getAssets().open(name);
+            in = new BufferedReader(new InputStreamReader(is));
+
+            String str;
+            boolean isFirst = true;
+            while ((str = in.readLine()) != null) {
+                if (isFirst)
+                    isFirst = false;
+                else
+                    buf.append('\n');
+                buf.append(str);
+            }
+            return buf.toString();
+        } catch (IOException e) {
+            Log.e("ReaderActivity", "Error opening asset " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (in != null) {
+                try {
+                    in.close();
+                } catch (IOException e) {
+                    Log.e("ReaderActivity", "Error closing asset " + name);
+                }
+            }
+        }
+        return null;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        FolioReader.clear();
+    }
+
+    @Override
+    public void onFolioReaderClosed() {
+        Log.v(LOG_TAG, "-> onFolioReaderClosed");
     }
 }
