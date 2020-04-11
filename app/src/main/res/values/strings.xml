@@ -16,6 +16,8 @@
 
     <string name="top_trend">Top trending</string>
 
+    <string name="enter_search">Enter your keywords to search...</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_username">Username</string>

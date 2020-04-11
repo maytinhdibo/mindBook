@@ -1,10 +1,12 @@
 package com.mtc.mindbook;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -79,12 +81,14 @@ public class HomeFragment extends Fragment {
         sliderView.setSliderAdapter(adapterSlide);
         sliderView.startAutoCycle();
 
-//        ImageView imageView = rootView.findViewById(R.id.imageView);
-//        Picasso.get().load("https://i.imgur.com/DvpvklR.png").into(imageView);
 
-//        WebView myWebView = (WebView) rootView.findViewById(R.id.webview);
-//        myWebView.setWebViewClient(new WebViewClient());
-//        myWebView.loadUrl("https://google.com");
+        TextView search = rootView.findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent searchIntent = new Intent(view.getContext(), SearchActivity.class);
+                startActivityForResult(searchIntent, 0);
+            }
+        });
 
         return rootView;
     }
