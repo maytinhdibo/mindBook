@@ -1,9 +1,11 @@
 package com.mtc.mindbook;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -22,6 +24,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    @SuppressLint("WrongConstant")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -39,14 +42,22 @@ public class HomeFragment extends Fragment {
 
         final RecyclerViewAdapter adapter = new RecyclerViewAdapter(listItem);
 
-        RecyclerView listView = rootView.findViewById(R.id.listview_tasks);
-
+        // layout
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        listView.setLayoutManager(layoutManager);
+        // for you
+        RecyclerView listViewForYou = rootView.findViewById(R.id.listview_foryou);
+        listViewForYou.setLayoutManager(layoutManager);
+        listViewForYou.setAdapter(adapter);
 
-        listView.setAdapter(adapter);
+        // trending
+        LinearLayoutManager layoutManagerTreding = new LinearLayoutManager(getContext());
+        layoutManagerTreding.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        RecyclerView listViewTrending = rootView.findViewById(R.id.listview_trending);
+        listViewTrending.setLayoutManager(layoutManagerTreding);
+        listViewTrending.setAdapter(adapter);
 
         //
 
