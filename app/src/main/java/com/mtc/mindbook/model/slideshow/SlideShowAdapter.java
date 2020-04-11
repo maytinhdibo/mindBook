@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import com.mtc.mindbook.DetailActivity;
 import com.mtc.mindbook.R;
 import com.mtc.mindbook.model.EntryItem;
+import com.mtc.mindbook.utils.Utils;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -53,9 +54,9 @@ public class SlideShowAdapter extends
         return new SliderAdapterVH(inflate);
     }
 
-    public void onBindViewHolder(SliderAdapterVH viewHolder, final int position) {
+    public void onBindViewHolder(final SliderAdapterVH viewHolder, final int position) {
 
-        EntryItem EntryItem = mSliderItems.get(position);
+        final EntryItem EntryItem = mSliderItems.get(position);
 
 //        viewHolder.textViewDescription.setText(EntryItem.getDescription());
 //        viewHolder.textViewDescription.setTextSize(16);
@@ -81,7 +82,7 @@ public class SlideShowAdapter extends
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(context, "This is item in position " + position, Toast.LENGTH_SHORT).show();
+                Utils.openDetailPage(context, String.valueOf(EntryItem.getId()));
             }
         });
     }
