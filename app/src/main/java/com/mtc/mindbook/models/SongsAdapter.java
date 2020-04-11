@@ -1,4 +1,4 @@
-package com.mtc.mindbook.model;
+package com.mtc.mindbook.models;
 
 import android.content.Context;
 import android.view.LayoutInflater;

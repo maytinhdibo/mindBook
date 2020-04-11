@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,9 +12,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.model.EntryItem;
-import com.mtc.mindbook.model.RecyclerViewAdapter;
-import com.mtc.mindbook.model.slideshow.SlideShowAdapter;
+import com.mtc.mindbook.models.EntryItem;
+import com.mtc.mindbook.models.RecyclerViewAdapter;
+import com.mtc.mindbook.models.slideshow.SlideShowAdapter;
 import com.smarteist.autoimageslider.SliderView;
 
 

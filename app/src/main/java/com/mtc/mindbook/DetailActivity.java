@@ -16,8 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.model.review.RecyclerReviewAdapter;
-import com.mtc.mindbook.model.review.ReviewItem;
+import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
+import com.mtc.mindbook.models.review.ReviewItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

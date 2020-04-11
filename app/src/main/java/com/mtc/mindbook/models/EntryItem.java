@@ -1,4 +1,4 @@
-package com.mtc.mindbook.model;
+package com.mtc.mindbook.models;
 
 public class EntryItem {
     private int id;

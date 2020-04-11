@@ -1,28 +1,22 @@
-package com.mtc.mindbook.model.slideshow;
+package com.mtc.mindbook.models.slideshow;
 
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 
-import com.mtc.mindbook.DetailActivity;
 import com.mtc.mindbook.R;
-import com.mtc.mindbook.model.EntryItem;
+import com.mtc.mindbook.models.EntryItem;
 import com.mtc.mindbook.utils.Utils;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
 
 public class SlideShowAdapter extends
         SliderViewAdapter<SlideShowAdapter.SliderAdapterVH> {
