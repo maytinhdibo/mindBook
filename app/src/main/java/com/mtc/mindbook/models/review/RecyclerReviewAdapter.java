@@ -1,6 +1,5 @@
-package com.mtc.mindbook.model.review;
+package com.mtc.mindbook.models.review;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,18 +7,13 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.DetailActivity;
 import com.mtc.mindbook.R;
-import com.mtc.mindbook.model.EntryItem;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
 
 public class RecyclerReviewAdapter extends RecyclerView.Adapter<RecyclerReviewAdapter.RecyclerViewHolder>{
 

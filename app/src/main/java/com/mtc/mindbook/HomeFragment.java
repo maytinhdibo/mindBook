@@ -1,9 +1,13 @@
 package com.mtc.mindbook;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -11,9 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.model.EntryItem;
-import com.mtc.mindbook.model.RecyclerViewAdapter;
-import com.mtc.mindbook.model.slideshow.SlideShowAdapter;
+import com.mtc.mindbook.models.EntryItem;
+import com.mtc.mindbook.models.RecyclerViewAdapter;
+import com.mtc.mindbook.models.slideshow.SlideShowAdapter;
 import com.smarteist.autoimageslider.SliderView;
 
 
@@ -22,10 +26,13 @@ import java.util.Arrays;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+    @SuppressLint("WrongConstant")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+
         View rootView = inflater.inflate(R.layout.activity_home, container, false);
+
         EntryItem[] todoItems = {
                 new EntryItem(1, "https://a.wattpad.com/cover/155025710-288-k448920.jpg", "Tuyển tập Ngô Tất Tố"),
                 new EntryItem(2, "https://genbooks.net/wp-content/uploads/2019/07/mat-biec.jpg","Mắt biếc"),
@@ -39,14 +46,22 @@ public class HomeFragment extends Fragment {
 
         final RecyclerViewAdapter adapter = new RecyclerViewAdapter(listItem);
 
-        RecyclerView listView = rootView.findViewById(R.id.listview_tasks);
-
+        // layout
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
-        listView.setLayoutManager(layoutManager);
+        // for you
+        RecyclerView listViewForYou = rootView.findViewById(R.id.listview_foryou);
+        listViewForYou.setLayoutManager(layoutManager);
+        listViewForYou.setAdapter(adapter);
 
-        listView.setAdapter(adapter);
+        // trending
+        LinearLayoutManager layoutManagerTreding = new LinearLayoutManager(getContext());
+        layoutManagerTreding.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        RecyclerView listViewTrending = rootView.findViewById(R.id.listview_trending);
+        listViewTrending.setLayoutManager(layoutManagerTreding);
+        listViewTrending.setAdapter(adapter);
 
         //
 
@@ -69,12 +84,14 @@ public class HomeFragment extends Fragment {
         sliderView.setSliderAdapter(adapterSlide);
         sliderView.startAutoCycle();
 
-//        ImageView imageView = rootView.findViewById(R.id.imageView);
-//        Picasso.get().load("https://i.imgur.com/DvpvklR.png").into(imageView);
 
-//        WebView myWebView = (WebView) rootView.findViewById(R.id.webview);
-//        myWebView.setWebViewClient(new WebViewClient());
-//        myWebView.loadUrl("https://google.com");
+        ImageView search = rootView.findViewById(R.id.search);
+        search.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                Intent searchIntent = new Intent(view.getContext(), SearchActivity.class);
+                startActivityForResult(searchIntent, 0);
+            }
+        });
 
         return rootView;
     }

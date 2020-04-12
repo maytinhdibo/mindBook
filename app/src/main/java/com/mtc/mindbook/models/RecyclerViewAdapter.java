@@ -1,6 +1,5 @@
-package com.mtc.mindbook.model;
+package com.mtc.mindbook.models;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,13 +10,12 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
-import com.mtc.mindbook.DetailActivity;
+import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>{
 
@@ -42,10 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
             @Override
             public void onClick(View view) {
-
-                Intent intent = new Intent(view.getContext(), DetailActivity.class);
-                intent.putExtra(EXTRA_MESSAGE, data.get(position).getName());
-                view.getContext().startActivity(intent);
+                Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getId()));
             }
         }); ;
     }

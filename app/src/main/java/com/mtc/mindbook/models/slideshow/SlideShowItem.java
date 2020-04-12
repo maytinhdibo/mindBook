@@ -1,4 +1,4 @@
-package com.mtc.mindbook.model.slideshow;
+package com.mtc.mindbook.models.slideshow;
 
 public class SlideShowItem {
     private int id;

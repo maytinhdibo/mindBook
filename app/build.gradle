@@ -41,6 +41,13 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation "com.folioreader:folioreader:0.5.4"
+    implementation 'com.android.support:multidex:1.0.3' // ( for androidx)
+    configurations.matching { it.name == '_internal_aapt2_binary' }.all {
+        config -> config.resolutionStrategy.eachDependency {
+            details -> details.useVersion("3.3.2-5309881")
+        }
+    }
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

@@ -1,48 +1,31 @@
 package com.mtc.mindbook;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.AttributeSet;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.model.EntryItem;
-import com.mtc.mindbook.model.RecyclerViewAdapter;
-import com.mtc.mindbook.model.review.RecyclerReviewAdapter;
-import com.mtc.mindbook.model.review.ReviewItem;
+import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
+import com.mtc.mindbook.models.review.ReviewItem;
 import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
-
-import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE_TYPE = "none";
@@ -61,8 +44,8 @@ public class DetailActivity extends AppCompatActivity {
 
         View view = findViewById(android.R.id.content).getRootView();
 
-        final Button readButton = (Button) findViewById(R.id.read_btn);
-        Button listenButton = (Button) findViewById(R.id.listen_btn);
+        final LinearLayout readButton = (LinearLayout) findViewById(R.id.read_btn);
+        final  LinearLayout listenButton = (LinearLayout) findViewById(R.id.listen_btn);
 
         readButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,6 +59,7 @@ public class DetailActivity extends AppCompatActivity {
                 intent.putExtras(extras);
 
                 startActivity(intent);
+
             }
         });
 
@@ -107,7 +91,7 @@ public class DetailActivity extends AppCompatActivity {
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
         bottomBar.setLayoutParams(new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT
-                        , 185 + this.getNavigationBarHeight()));
+                        , 240 + this.getNavigationBarHeight()));
 
 //        getWindow().setStatusBarColor(Color.parseColor("#20ff1111"));
 //        getWindow().setNavigationBarColor(Color.parseColor("#20111111"));

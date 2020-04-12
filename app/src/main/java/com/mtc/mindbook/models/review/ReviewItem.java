@@ -1,4 +1,4 @@
-package com.mtc.mindbook.model.review;
+package com.mtc.mindbook.models.review;
 
 public class ReviewItem {
     private String comment;
