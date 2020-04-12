@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -84,7 +85,7 @@ public class HomeFragment extends Fragment {
         sliderView.startAutoCycle();
 
 
-        TextView search = rootView.findViewById(R.id.search);
+        ImageView search = rootView.findViewById(R.id.search);
         search.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Intent searchIntent = new Intent(view.getContext(), SearchActivity.class);
