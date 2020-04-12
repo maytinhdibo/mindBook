@@ -43,6 +43,10 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
+        EditText searchInput = findViewById(R.id.searchText);
+        searchInput.requestFocus();
+
+
         ImageButton voiceBtn = findViewById(R.id.voiceSearchBtn);
 
         voiceBtn.setOnClickListener(new View.OnClickListener() {
