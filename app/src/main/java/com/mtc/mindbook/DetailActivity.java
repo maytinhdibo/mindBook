@@ -1,5 +1,6 @@
 package com.mtc.mindbook;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -43,8 +44,8 @@ public class DetailActivity extends AppCompatActivity {
 
         View view = findViewById(android.R.id.content).getRootView();
 
-        final Button readButton = (Button) findViewById(R.id.read_btn);
-        Button listenButton = (Button) findViewById(R.id.listen_btn);
+        final LinearLayout readButton = (LinearLayout) findViewById(R.id.read_btn);
+        final  LinearLayout listenButton = (LinearLayout) findViewById(R.id.listen_btn);
 
         readButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +91,7 @@ public class DetailActivity extends AppCompatActivity {
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
         bottomBar.setLayoutParams(new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT
-                        , 185 + this.getNavigationBarHeight()));
+                        , 240 + this.getNavigationBarHeight()));
 
 //        getWindow().setStatusBarColor(Color.parseColor("#20ff1111"));
 //        getWindow().setNavigationBarColor(Color.parseColor("#20111111"));

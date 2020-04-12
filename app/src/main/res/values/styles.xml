@@ -45,10 +45,10 @@
     </style>
 
     <style name="container">
-        <item name="android:layout_marginTop">6dp</item>
-        <item name="android:layout_marginBottom">6dp</item>
-        <item name="android:layout_marginRight">8pt</item>
-        <item name="android:layout_marginLeft">8pt</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:paddingRight">8pt</item>
+        <item name="android:paddingLeft">8pt</item>
     </style>
 
     <style name="outline_btn">

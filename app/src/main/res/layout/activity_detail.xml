@@ -61,9 +61,9 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="4dp"
                         android:layout_gravity="bottom"
                         android:foregroundGravity="bottom"
+                        app:cardCornerRadius="4dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -71,9 +71,9 @@
 
                         <ImageView
                             android:id="@+id/cover"
-                            android:scaleType="centerCrop"
                             android:layout_width="141dp"
-                            android:layout_height="200dp" />
+                            android:layout_height="200dp"
+                            android:scaleType="centerCrop" />
                     </androidx.cardview.widget.CardView>
 
                     <LinearLayout
@@ -219,6 +219,7 @@
                     style="@style/container"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:clipToPadding="true"
                     android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
@@ -237,50 +238,84 @@
         android:layout_height="80dp"
         android:background="@drawable/bottom_nav"
         android:elevation="12dp"
-        android:paddingTop="9dp"
+        android:gravity="start"
+        android:orientation="horizontal"
+        android:paddingTop="13dp"
         android:paddingBottom="9dp">
 
-        <Button
-            android:id="@+id/read_btn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="12dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/detail_button"
-            android:elevation="6dp"
-            android:text="Read"
-            android:textColor="#fff"
-            android:textStyle="bold"></Button>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:background="@drawable/detail_group_button"
+            android:orientation="horizontal"
+            android:padding="8dp">
 
-        <Button
-            android:id="@+id/listen_btn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="6dp"
-            android:layout_weight="0.5"
-            android:background="@drawable/detail_button"
-            android:elevation="6dp"
-            android:text="Listen"
-            android:textColor="#fff"
-            android:textStyle="bold"></Button>
 
-        <ImageButton
+            <LinearLayout
+                android:id="@+id/read_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:background="@drawable/detail_button"
+                android:minHeight="0dp">
+
+                <ImageView
+                    android:layout_width="14sp"
+                    android:layout_height="14sp"
+                    android:layout_marginRight="8sp"
+                    android:src="@drawable/ic_read"
+                    android:tint="#fff" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Read"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/listen_btn"
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dp"
+                android:layout_weight="0.5"
+                android:background="@drawable/detail_button"
+                android:minHeight="0dp">
+
+                <ImageView
+                    android:layout_width="14sp"
+                    android:layout_height="14sp"
+                    android:layout_marginRight="6sp"
+                    android:src="@drawable/ic_listen"
+                    android:tint="#fff" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Listen"
+                    android:textAllCaps="false"
+                    android:textColor="#fff"
+                    android:textStyle="bold" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
             android:id="@+id/like_btn"
-            style="?android:attr/borderlessButtonStyle"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="60dp"
+            android:layout_height="55dp"
             android:layout_marginLeft="6dp"
-            android:layout_marginRight="12dp"
             android:background="@drawable/detail_button"
-            android:backgroundTint="#EFF4FF"
-            android:elevation="6dp"
-            android:padding="16dp"
+            android:backgroundTint="#333"
+            android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_heart_fill"
             android:text="Like"
-            android:tint="#FF5E96"></ImageButton>
+            android:tint="#FF5E96" />
 
     </LinearLayout>
 </LinearLayout>
