@@ -27,7 +27,7 @@
         <item name="colorControlActivated">#fdd835</item>
     </style>
 
-    <style name="UserRate">
+    <style name="UserRate" parent="@android:style/Widget.DeviceDefault.RatingBar.Indicator">
         <item name="colorControlNormal">#6B616161</item>
         <item name="colorControlActivated">#fdd835</item>
     </style>
