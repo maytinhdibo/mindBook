@@ -45,6 +45,7 @@ public class ProfileFragment extends Fragment {
         if (requestCode == 1){
             String reply = data.getStringExtra("accessToken");
             Toast.makeText(getActivity(), reply, Toast.LENGTH_SHORT).show();
+            message.setText(reply);
         }
     }
 
