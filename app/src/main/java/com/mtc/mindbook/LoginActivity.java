@@ -1,17 +1,16 @@
 package com.mtc.mindbook;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
+
+import androidx.activity.OnBackPressedCallback;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.mtc.mindbook.model.responseObj.LoginResponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
@@ -33,6 +32,16 @@ public class LoginActivity extends AppCompatActivity {
         fieldName = findViewById(R.id.name_field);
         fieldPassword = findViewById(R.id.password_field);
         userService =APIUtils.getUserService();
+        OnBackPressedCallback backWithoutLogin = new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                setResult(RESULT_CANCELED, intent);
+                finish();
+            }
+        };
+        this.getOnBackPressedDispatcher().addCallback(this, backWithoutLogin);
+
     }
 
     public void onLoginClicked(View view) {

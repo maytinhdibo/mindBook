@@ -2,7 +2,6 @@ package com.mtc.mindbook;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 
 
 public class ProfileFragment extends Fragment {
@@ -41,11 +39,12 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("profile", "onActivityResult: " + requestCode);
         if (requestCode == 1){
-            String reply = data.getStringExtra("accessToken");
-            Toast.makeText(getActivity(), reply, Toast.LENGTH_SHORT).show();
-            message.setText(reply);
+            if (resultCode != 0) {
+                String reply = data.getStringExtra("accessToken");
+                Toast.makeText(getActivity(), reply, Toast.LENGTH_SHORT).show();
+                message.setText(reply);
+            }
         }
     }
 
