@@ -23,7 +23,9 @@
         <activity android:name=".DetailActivity"></activity>
         <activity android:name=".ReaderActivity"></activity>
         <activity android:name=".SearchActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
+        <activity
+            android:name=".LoginActivity"
+            android:windowSoftInputMode="adjustResize"></activity>
     </application>
 
 </manifest>
