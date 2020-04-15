@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
 import com.mtc.mindbook.models.review.ReviewItem;
+import com.mtc.mindbook.models.search.SearchViewAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -26,6 +27,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
+
+import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
+import static com.mtc.mindbook.MainActivity.EXTRA_TAG;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE_TYPE = "none";
@@ -43,6 +47,20 @@ public class DetailActivity extends AppCompatActivity {
 
 
         View view = findViewById(android.R.id.content).getRootView();
+
+        //open search
+        ImageView likeBtn = (ImageView) findViewById(R.id.like_btn);
+        likeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), SearchActivity.class);
+                intent.putExtra("EXTRA_TAG", "viễn tưởng");
+                v.getContext().startActivity(intent);
+            }
+        });
+
+
+
 
         final LinearLayout readButton = (LinearLayout) findViewById(R.id.read_btn);
         final  LinearLayout listenButton = (LinearLayout) findViewById(R.id.listen_btn);

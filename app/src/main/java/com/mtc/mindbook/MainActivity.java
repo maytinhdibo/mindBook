@@ -12,6 +12,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_MESSAGE = "";
+    public static final String EXTRA_TAG = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

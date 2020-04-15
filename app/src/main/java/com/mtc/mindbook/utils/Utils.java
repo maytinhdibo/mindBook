@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.mtc.mindbook.DetailActivity;
 
 import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
+import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
 
 public class Utils {
     public static void openDetailPage(Context context, String id){

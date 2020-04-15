@@ -47,6 +47,13 @@ public class SearchActivity extends AppCompatActivity {
         searchInput.requestFocus();
 
 
+        Bundle tagValue = getIntent().getExtras();
+
+        if(tagValue != null){
+            searchInput.setText(tagValue.getString("EXTRA_TAG"));
+            searchInput.setSelection(searchInput.getText().length());
+        }
+
         ImageButton voiceBtn = findViewById(R.id.voiceSearchBtn);
 
         voiceBtn.setOnClickListener(new View.OnClickListener() {
