@@ -17,9 +17,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mtc.mindbook.models.EntryItem;
+import com.mtc.mindbook.models.RecyclerViewAdapter;
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
 import com.mtc.mindbook.models.review.ReviewItem;
 import com.mtc.mindbook.models.search.SearchViewAdapter;
+import com.mtc.mindbook.models.tag.TagAdapter;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -59,6 +62,20 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+
+        String[] tagItems = {
+                "Viễn tưởng", "Hài hước", "Kinh dị", "Tình cảm", "Tâm Lý", "Nghệ Thuật"  };
+
+        final List<String> listItem =  new ArrayList<>(Arrays.asList(tagItems));
+
+        final TagAdapter tagAdapter = new TagAdapter(listItem);
+
+        LinearLayoutManager tagLayoutManager = new LinearLayoutManager(getBaseContext());
+        tagLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        RecyclerView listViewTag = findViewById(R.id.tag_view);
+        listViewTag.setLayoutManager(tagLayoutManager);
+        listViewTag.setAdapter(tagAdapter);
 
 
 

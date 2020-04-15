@@ -130,27 +130,33 @@
                 android:background="@color/backgroundPrimary"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/view4"
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/tag_view"
                     style="@style/container"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
-                    <Button
-                        android:id="@+id/button"
-                        style="@style/outline_btn"
-                        android:layout_width="wrap_content"
-                        android:background="@drawable/outline_button"
-                        android:text="Viễn tưởng" />
+<!--                <LinearLayout-->
+<!--                    android:id="@+id/view4"-->
+<!--                    style="@style/container"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="horizontal">-->
 
-                    <Button
-                        android:id="@+id/outlinedButton"
-                        style="@style/outline_btn"
-                        android:layout_width="wrap_content"
-                        android:background="@drawable/outline_button"
-                        android:text="Kinh dị" />
-                </LinearLayout>
+<!--                    <Button-->
+<!--                        android:id="@+id/button"-->
+<!--                        style="@style/outline_btn"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:background="@drawable/outline_button"-->
+<!--                        android:text="Viễn tưởng" />-->
+
+<!--                    <Button-->
+<!--                        android:id="@+id/outlinedButton"-->
+<!--                        style="@style/outline_btn"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:background="@drawable/outline_button"-->
+<!--                        android:text="Kinh dị" />-->
+<!--                </LinearLayout>-->
 
                 <TextView
                     style="@style/section_title"
