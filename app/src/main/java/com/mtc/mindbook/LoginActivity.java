@@ -78,6 +78,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<LoginResponseObj> call, Throwable t) {
                 Toast.makeText(LoginActivity.this, "Hãy kiểm tra kết nối mạng của bạn", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
