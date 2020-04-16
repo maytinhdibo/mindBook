@@ -44,6 +44,7 @@ public class LibFragment extends Fragment{
         SectionPageAdapter adapter = new SectionPageAdapter(getChildFragmentManager());
         adapter.addFragment(new ShareFragment(), "Share");
         adapter.addFragment(new NearFragment(), "Near");
+        viewPager.setAdapter(adapter);
     }
 
 }
