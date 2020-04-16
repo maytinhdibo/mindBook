@@ -16,6 +16,9 @@
 
     <string name="top_trend">Top trending</string>
 
+    <string name="community">Community</string>
+    <string name="nearby">Nearby</string>
+
     <string name="enter_search">Enter your keywords to search...</string>
 
     <!-- TODO: Remove or change this placeholder text -->

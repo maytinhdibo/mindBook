@@ -26,9 +26,6 @@ public class SectionPageAdapter extends FragmentPagerAdapter {
 
     public SectionPageAdapter(FragmentManager fm) {
         super(fm);
-        addFragment(new ShareFragment(), "Share");
-        addFragment(new ShareFragment(), "Near");
-
     }
 
     @Override

@@ -8,8 +8,8 @@
         <item name="colorPrimaryDark">@color/backgroundPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:statusBarColor">@color/backgroundPrimary</item>
-
     </style>
+
     <style name="AppTheme.MaterialCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowLightStatusBar">true</item>
         <item name="colorPrimary">@color/bottom_nav_item</item>
@@ -20,6 +20,12 @@
     <style name="DetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="TabTextAppearance" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#fff</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="RatingBar"
