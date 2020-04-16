@@ -22,5 +22,9 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
+    <string name="hint_firstname">First name</string>
+    <string name="hint_lastname">Last name</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_repassword">Confirm password</string>
 
 </resources>
