@@ -6,6 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 
+import com.mtc.mindbook.explore.ShareFragment;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,8 +23,12 @@ public class SectionPageAdapter extends FragmentPagerAdapter {
         mFragmentTitleList.add(title);
     }
 
+
     public SectionPageAdapter(FragmentManager fm) {
         super(fm);
+        addFragment(new ShareFragment(), "Share");
+        addFragment(new ShareFragment(), "Near");
+
     }
 
     @Override
