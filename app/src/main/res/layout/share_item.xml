@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/review_item"
+    android:elevation="36dp"
+    android:layout_marginBottom="12dp"
+    android:paddingTop="6dp"
+    android:paddingLeft="6dp"
+    android:paddingBottom="6dp"
+    android:orientation="horizontal">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="100dp"
+        android:layout_height="140dp"
+        android:layout_marginRight="6dp"
+        app:cardElevation="3dp">
+
+        <ImageView
+            android:id="@+id/avt_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:foregroundGravity="bottom"
+            android:scaleType="centerCrop" />
+    </androidx.cardview.widget.CardView>
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="0dp"
+        style="@style/container"
+        android:orientation="horizontal">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:singleLine="true"
+                android:text="Những Điều Lý Thú"
+                android:textColor="@color/textColor"
+                android:textSize="8pt"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="2dp"
+                android:singleLine="true"
+                android:text="Ngô Cao Thắng"
+                android:textColor="@color/textColorOpacity"
+                android:textSize="7pt"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:paddingTop="3pt"
+        android:paddingBottom="0pt"
+        android:paddingRight="8pt"
+        android:layout_marginLeft="8pt"
+        android:background="@drawable/share_border_top"
+        >
+        <TextView
+            android:id="@+id/user_name"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2dp"
+            android:singleLine="true"
+            android:text="Tran Cuong"
+            android:textColor="#345"
+            android:textSize="7pt"
+            android:textStyle="bold" />
+        <RatingBar
+            android:id="@+id/reviewRating"
+            style="?android:attr/ratingBarStyleSmall"
+            android:layout_width="wrap_content"
+            android:isIndicator="true"
+            android:layout_height="wrap_content"
+            android:numStars="5"
+            android:rating="4.5"
+            android:theme="@style/RatingBar"
+            android:transformPivotX="0dp"
+            android:transformPivotY="0dp" />
+    </LinearLayout>
+
+    <TextView
+        style="@style/container"
+        android:id="@+id/comment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="6dp"
+        android:paddingTop="0dp"
+        android:text="It is the best book very very long long text"
+        android:textColor="#345"
+        android:textSize="16sp" />
+</LinearLayout>
+
+    </LinearLayout>
