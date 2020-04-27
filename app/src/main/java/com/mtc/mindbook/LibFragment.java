@@ -1,9 +1,6 @@
 package com.mtc.mindbook;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,7 +22,7 @@ public class LibFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_lib, container, false);
+        View rootView = inflater.inflate(R.layout.activity_explore, container, false);
         update(rootView);
 
         AppBarLayout appbar = rootView.findViewById(R.id.appbar);
