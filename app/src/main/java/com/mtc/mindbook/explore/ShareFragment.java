@@ -29,7 +29,7 @@ public class ShareFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_share, container, false);
 
         ShareItem[] shareItems = {
-                new ShareItem("Ôi hay quá","https://images3.penguinrandomhouse.com/cover/9780525619772","Bin Gết", (float) 4.5),
+                new ShareItem("Bạn hãy học cách mài giũa cảm nhận về thời lượng, sự vận động, các sự kiện diễn ra trong một khoảng thời gian nào đó. Ví dụ , thời lượng 30s là dài hay là ngắn?","https://images3.penguinrandomhouse.com/cover/9780525619772","Bin Gết", (float) 4.5),
                 new ShareItem("Quá xá đỉnh ghê.","https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg","Cao Thắng", (float) 2.5),
                 new ShareItem("Truyện hay nhưng cờ Việt Nam chỉ có một sao nên vote 1 sao vậy.","https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/books/1364320844l/17695302.jpg","Đan Trường", (float) 1.0),
                 new ShareItem("Quá xá đỉnh","https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102","Cao Thắng", (float) 2.5),

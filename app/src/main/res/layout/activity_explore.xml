@@ -38,7 +38,7 @@
                 android:layout_gravity="center_horizontal"
                 android:id="@+id/tabs"
                 android:layout_width="wrap_content"
-                android:layout_height="44dp"
+                android:layout_height="40dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginBottom="6dp"
                 android:background="@drawable/tab_layout_background"
