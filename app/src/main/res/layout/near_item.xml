@@ -12,8 +12,8 @@
     android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
-        android:layout_width="100dp"
-        android:layout_height="141.5dp"
+        android:layout_width="70dp"
+        android:layout_height="100.5dp"
         android:layout_marginRight="-6dp"
         app:cardElevation="3dp">
 
@@ -66,6 +66,18 @@
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
+            <RatingBar
+                android:id="@+id/reviewRating"
+                style="?android:attr/ratingBarStyleSmall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="4.5"
+                android:theme="@style/RatingBar"
+                android:transformPivotX="0dp"
+                android:transformPivotY="0dp" />
+
         </LinearLayout>
 
     </LinearLayout>
@@ -92,31 +104,16 @@
             android:textColor="#345"
             android:textSize="15sp"
             android:textStyle="bold" />
-        <RatingBar
-            android:id="@+id/reviewRating"
-            style="?android:attr/ratingBarStyleSmall"
+        <TextView
             android:layout_width="wrap_content"
-            android:isIndicator="true"
             android:layout_height="wrap_content"
-            android:numStars="5"
-            android:rating="4.5"
-            android:theme="@style/RatingBar"
-            android:transformPivotX="0dp"
-            android:transformPivotY="0dp" />
+            android:paddingBottom="2dp"
+            android:singleLine="true"
+            android:text="1 mét"
+            android:textColor="#345"
+            android:textSize="15sp" />
     </LinearLayout>
 
-    <TextView
-        style="@style/container"
-        android:id="@+id/comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="6dp"
-        android:paddingTop="0dp"
-        android:paddingRight="6pt"
-        android:text="It is the best book very very long long text"
-        android:textColor="#345"
-        android:maxLines="3"
-        android:textSize="14sp" />
 </LinearLayout>
 
     </LinearLayout>

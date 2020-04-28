@@ -19,9 +19,9 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.RecyclerViewHolder>{
 
-    private List<EntryItem> data = new ArrayList<>();
+    private List<BookItem> data = new ArrayList<>();
 
-    public RecyclerViewAdapter(List<EntryItem> data) {
+    public RecyclerViewAdapter(List<BookItem> data) {
         this.data = data;
     }
 

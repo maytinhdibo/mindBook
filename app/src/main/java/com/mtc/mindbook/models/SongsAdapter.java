@@ -13,16 +13,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
-public class SongsAdapter extends ArrayAdapter<EntryItem> {
+public class SongsAdapter extends ArrayAdapter<BookItem> {
 
-    public SongsAdapter(Context context, List<EntryItem> users) {
+    public SongsAdapter(Context context, List<BookItem> users) {
         super(context, 0, users);
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // Get the data item for this position
-        EntryItem item = getItem(position);
+        BookItem item = getItem(position);
         // Check if an existing view is being reused, otherwise inflate the view
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.book_item, parent, false);

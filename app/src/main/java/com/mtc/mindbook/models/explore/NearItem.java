@@ -2,19 +2,19 @@ package com.mtc.mindbook.models.explore;
 
 import com.mtc.mindbook.models.BookItem;
 
-public class ShareItem {
+public class NearItem {
     private String comment;
     private String name;
     private float rating;
     private BookItem book;
 
-    public ShareItem(String comment, String name, float rating) {
+    public NearItem(String comment, String name, float rating) {
         this.comment = comment;
         this.name = name;
         this.book=new BookItem(1,"","");
     }
 
-    public ShareItem(String comment, String name, BookItem book) {
+    public NearItem(String comment, String name, BookItem book) {
         this.comment = comment;
         this.name = name;
         this.rating = rating;

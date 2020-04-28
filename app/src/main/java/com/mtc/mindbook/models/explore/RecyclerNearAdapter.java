@@ -16,18 +16,18 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdapter.RecyclerViewHolder>{
+public class RecyclerNearAdapter extends RecyclerView.Adapter<RecyclerNearAdapter.RecyclerViewHolder>{
 
-    private List<ShareItem> data = new ArrayList<>();
+    private List<NearItem> data = new ArrayList<>();
 
-    public RecyclerShareAdapter(List<ShareItem> data) {
+    public RecyclerNearAdapter(List<NearItem> data) {
         this.data = data;
     }
 
     @Override
     public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.share_item, parent, false);
+        View view = inflater.inflate(R.layout.near_item, parent, false);
         return new RecyclerViewHolder(view);
     }
 
@@ -45,7 +45,7 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdap
 //                view.getContext().startActivity(intent);
 //            }
 //        }); ;
-        holder.comment.setText(data.get(position).getComment());
+//        holder.comment.setText(data.get(position).getComment());
         holder.userName.setText(data.get(position).getName());
         holder.ratingBar.setRating(data.get(position).getBook().getRating());
         holder.bookAuthorName.setText(data.get(position).getBook().getAuthorName());
@@ -61,7 +61,7 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdap
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView userName;
-        TextView comment;
+//        TextView comment;
         TextView bookName;
         TextView bookAuthorName;
         ImageView avt;
@@ -71,8 +71,8 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdap
             userName = (TextView) itemView.findViewById(R.id.user_name);
             avt = (ImageView) itemView.findViewById(R.id.avt_img);
             ratingBar = (RatingBar) itemView.findViewById(R.id.reviewRating);
-            comment = (TextView) itemView.findViewById(R.id.comment);
-            comment.setEllipsize(TextUtils.TruncateAt.END);
+//            comment = (TextView) itemView.findViewById(R.id.comment);
+//            comment.setEllipsize(TextUtils.TruncateAt.END);
             bookName = (TextView) itemView.findViewById(R.id.book_name);
             bookAuthorName = (TextView) itemView.findViewById(R.id.book_author_name);
         }

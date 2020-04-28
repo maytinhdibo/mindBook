@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
 import com.mtc.mindbook.R;
-import com.mtc.mindbook.models.EntryItem;
+import com.mtc.mindbook.models.BookItem;
 import com.mtc.mindbook.utils.Utils;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
@@ -22,13 +22,13 @@ public class SlideShowAdapter extends
         SliderViewAdapter<SlideShowAdapter.SliderAdapterVH> {
 
     private Context context;
-    private List<EntryItem> mSliderItems = new ArrayList<>();
+    private List<BookItem> mSliderItems = new ArrayList<>();
 
     public SlideShowAdapter(Context context) {
         this.context = context;
     }
 
-    public void renewItems(List<EntryItem> sliderItems) {
+    public void renewItems(List<BookItem> sliderItems) {
         this.mSliderItems = sliderItems;
         notifyDataSetChanged();
     }
@@ -38,8 +38,8 @@ public class SlideShowAdapter extends
         notifyDataSetChanged();
     }
 
-    public void addItem(EntryItem EntryItem) {
-        this.mSliderItems.add(EntryItem);
+    public void addItem(BookItem BookItem) {
+        this.mSliderItems.add(BookItem);
         notifyDataSetChanged();
     }
 
@@ -50,7 +50,7 @@ public class SlideShowAdapter extends
 
     public void onBindViewHolder(final SliderAdapterVH viewHolder, final int position) {
 
-        final EntryItem EntryItem = mSliderItems.get(position);
+        final BookItem BookItem = mSliderItems.get(position);
 
 //        viewHolder.textViewDescription.setText(EntryItem.getDescription());
 //        viewHolder.textViewDescription.setTextSize(16);
@@ -60,8 +60,8 @@ public class SlideShowAdapter extends
 //                .fitCenter()
 //                .into(viewHolder.imageViewBackground);
 
-        viewHolder.songName.setText(EntryItem.getName());
-        Picasso.get().load(EntryItem.getCover()).into(viewHolder.songImage);;
+        viewHolder.songName.setText(BookItem.getName());
+        Picasso.get().load(BookItem.getCover()).into(viewHolder.songImage);;
 //        viewHolder.itemCon.setOnClickListener(new View.OnClickListener() {
 //
 //            @Override
@@ -76,7 +76,7 @@ public class SlideShowAdapter extends
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.openDetailPage(context, String.valueOf(EntryItem.getId()));
+                Utils.openDetailPage(context, String.valueOf(BookItem.getId()));
             }
         });
     }
