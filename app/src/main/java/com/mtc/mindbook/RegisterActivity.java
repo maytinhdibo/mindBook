@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-import com.mtc.mindbook.model.responseObj.LoginResponseObj;
+import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 

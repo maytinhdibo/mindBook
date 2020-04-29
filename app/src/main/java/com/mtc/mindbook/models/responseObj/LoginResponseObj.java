@@ -1,4 +1,4 @@
-package com.mtc.mindbook.model.responseObj;
+package com.mtc.mindbook.models.responseObj;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -2,6 +2,7 @@ package com.mtc.mindbook;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -49,9 +51,17 @@ public class DetailActivity extends AppCompatActivity {
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), SearchActivity.class);
-                intent.putExtra("EXTRA_TAG", "viễn tưởng");
-                v.getContext().startActivity(intent);
+                SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
+                Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
+                if (isLoggedIn) {
+                    Intent intent = new Intent(v.getContext(), SearchActivity.class);
+                    intent.putExtra("EXTRA_TAG", "viễn tưởng");
+                    v.getContext().startActivity(intent);
+                } else {
+                    Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                    startActivityForResult(intent, 1);
+                    Toast.makeText(v.getContext(), "Hãy đăng nhập để sử dụng chức năng này", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

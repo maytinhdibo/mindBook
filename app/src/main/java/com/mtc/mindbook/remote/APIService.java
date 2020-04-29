@@ -1,6 +1,6 @@
 package com.mtc.mindbook.remote;
 
-import com.mtc.mindbook.model.responseObj.LoginResponseObj;
+import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
