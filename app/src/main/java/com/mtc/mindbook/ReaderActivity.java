@@ -1,18 +1,19 @@
 package com.mtc.mindbook;
 
-import android.os.Build;
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
-import android.widget.TextView;
+import android.util.Base64;
+import android.view.MotionEvent;
+import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
-import org.sufficientlysecure.htmltextview.HtmlTextView;
+import com.google.android.material.appbar.MaterialToolbar;
 
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.util.List;
 
 import nl.siegmann.epublib.domain.Book;
@@ -22,6 +23,7 @@ import nl.siegmann.epublib.epub.EpubReader;
 
 public class ReaderActivity extends AppCompatActivity {
 
+    @SuppressLint({"ClickableViewAccessibility", "SetJavaScriptEnabled"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,27 +33,37 @@ public class ReaderActivity extends AppCompatActivity {
         String type = extras.getString("EXTRA_MESSAGE_TYPE");
         String id = extras.getString("EXTRA_MESSAGE_ID");
 
-        // Capture the layout's TextView and set the string as its text
-//        TextView textView = findViewById(R.id.reader);
-        HtmlTextView textView = (HtmlTextView) findViewById(R.id.html_text);
+//        MaterialToolbar topBar = (MaterialToolbar) findViewById(R.id.epub_top_bar);
 
-//        textView.setText("Type open is: " + type + ", ID: " + id);
+        // Use webview
+        WebView epubContent = (WebView) findViewById(R.id.epub_content);
+        epubContent.setBackgroundColor(Color.TRANSPARENT);
+
         Toast.makeText(ReaderActivity.this, "Loaded", Toast.LENGTH_SHORT).show();
         try {
             EpubReader epubReader = new EpubReader();
-            Book book = epubReader.readEpub(getAssets().open("epublibviewer-help.epub"));
+            Book book = epubReader.readEpub(getAssets().open("pg730.epub"));
             List<String> titles = book.getMetadata().getTitles();
-            textView.setText("book title:" + (titles.isEmpty() ? "book has no title" : titles.get(0)));
             Spine spine = book.getSpine();
             StringBuilder htmlText = new StringBuilder();
-            for (int i = 0; i < spine.size(); i++) {
-                Resource resource = spine.getResource(i);
+//            for (int i = 0; i < spine.size(); i++) {
+                Resource resource = spine.getResource(2);
                 htmlText.append(new String(resource.getData()));
-//                textView.append(Html.fromHtml(new String(resource.getData()), Html.FROM_HTML_MODE_COMPACT));
 
-            }
+//            }
 
-            textView.setHtml(htmlText.toString(), new HtmlResImageGetter(textView.getContext()));
+
+            // Use webview
+            String encodedHtml = Base64.encodeToString(htmlText.toString().getBytes(),
+                    Base64.NO_PADDING);
+            epubContent.loadData(encodedHtml, "text/html", "base64");
+            WebSettings webSettings = epubContent.getSettings();
+            webSettings.setUseWideViewPort(true);
+            webSettings.setLoadWithOverviewMode(true);
+            webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
+            webSettings.setDefaultTextEncodingName("utf-8");
+            webSettings.setJavaScriptEnabled(true);
+
         } catch (Exception e) {
             e.printStackTrace();
             finish();
