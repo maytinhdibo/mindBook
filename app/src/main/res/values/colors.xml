@@ -6,7 +6,9 @@
     <color name="backgroundNav">#F2FFFFFF</color>
     <color name="backgroundPrimary">#f9fcff</color>
     <color name="overlayBgPrimary">#197A87AC</color>
+    <color name="lightOverlayBgPrimary">#CBFFFFFF</color>
     <color name="textColor">#345</color>
+    <color name="textColorOpacity">#BF334455</color>
     <color name="grayColor">#7F7F7F</color>
     <color name="grayColorLight">#C5C5C5</color>
     <color name="lightColor">#f9fcff</color>

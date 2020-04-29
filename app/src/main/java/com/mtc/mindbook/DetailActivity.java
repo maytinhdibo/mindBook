@@ -1,6 +1,5 @@
 package com.mtc.mindbook;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -17,11 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.models.EntryItem;
-import com.mtc.mindbook.models.RecyclerViewAdapter;
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
 import com.mtc.mindbook.models.review.ReviewItem;
-import com.mtc.mindbook.models.search.SearchViewAdapter;
 import com.mtc.mindbook.models.tag.TagAdapter;
 import com.squareup.picasso.Picasso;
 
@@ -30,9 +26,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
-
-import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
-import static com.mtc.mindbook.MainActivity.EXTRA_TAG;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE_TYPE = "none";
