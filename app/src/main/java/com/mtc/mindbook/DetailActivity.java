@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -18,9 +19,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mtc.mindbook.models.responseObj.DetailReponseObj;
+import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
 import com.mtc.mindbook.models.review.ReviewItem;
 import com.mtc.mindbook.models.tag.TagAdapter;
+import com.mtc.mindbook.remote.APIService;
+import com.mtc.mindbook.remote.APIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -28,6 +33,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE_TYPE = "none";
@@ -137,6 +145,23 @@ public class DetailActivity extends AppCompatActivity {
 
         View decor = getWindow().getDecorView();
         decor.setSystemUiVisibility(0);
+
+
+        APIService detailService = null;
+        detailService = APIUtils.getUserService();
+
+        Call<DetailReponseObj> callDetail = detailService.detailBook("1");
+        callDetail.enqueue(new Callback<DetailReponseObj>() {
+            @Override
+            public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
+                Log.d("None",  "abc");
+            }
+
+            @Override
+            public void onFailure(Call<DetailReponseObj> call, Throwable t) {
+
+            }
+        });
 
 
         ReviewItem[] reviewItems = {
