@@ -26,11 +26,13 @@ import com.mtc.mindbook.models.review.ReviewItem;
 import com.mtc.mindbook.models.tag.TagAdapter;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
+import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
