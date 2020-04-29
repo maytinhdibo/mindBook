@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f2eecb"
+    android:orientation="vertical">
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="400dp"
-        android:layout_height="712dp"
-        android:fillViewport="true"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+<!--        <com.google.android.material.appbar.AppBarLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <org.sufficientlysecure.htmltextview.HtmlTextView
-                android:id="@+id/html_text"
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/epub_top_bar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:textAppearance="@android:style/TextAppearance.Small" />
-        </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
+                android:layout_height="?attr/actionBarSize"
+                app:title="@string/loading_epub_title"
+                />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<!--        </com.google.android.material.appbar.AppBarLayout>-->
+
+
+    <WebView
+        android:id="@+id/epub_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

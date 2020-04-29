@@ -29,5 +29,12 @@
     <string name="hint_lastname">Last name</string>
     <string name="hint_email">Email</string>
     <string name="hint_repassword">Confirm password</string>
+    <string name="loading_epub_title">Loading...</string>
+    <string name="favorite">Favorite</string>
+    <string name="content_description_favorite">Favorite</string>
+    <string name="epub_search">Search</string>
+    <string name="description_epub_search">Search</string>
+    <string name="more">More</string>
+    <string name="content_description_more">More</string>
 
 </resources>

@@ -48,8 +48,6 @@ dependencies {
         exclude group: 'xmlpull'
     }
     implementation 'org.slf4j:slf4j-android:1.7.25'
-    implementation 'org.sufficientlysecure:html-textview:3.9'
-
     // End EpubLib
     configurations.matching { it.name == '_internal_aapt2_binary' }.all {
         config ->
