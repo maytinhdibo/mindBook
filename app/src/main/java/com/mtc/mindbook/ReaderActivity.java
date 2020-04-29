@@ -1,26 +1,26 @@
 package com.mtc.mindbook;
 
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.text.Html;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.folioreader.Config;
-import com.folioreader.FolioReader;
-import com.folioreader.model.locators.ReadLocator;
-import com.folioreader.util.AppUtil;
-import com.folioreader.util.ReadLocatorListener;
+import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 
-import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.List;
 
-public class ReaderActivity extends AppCompatActivity implements ReadLocatorListener, FolioReader.OnClosedListener {
+import nl.siegmann.epublib.domain.Book;
+import nl.siegmann.epublib.domain.Resource;
+import nl.siegmann.epublib.domain.Spine;
+import nl.siegmann.epublib.epub.EpubReader;
 
-    private static final String LOG_TAG = ReaderActivity.class.getSimpleName();
-    private FolioReader folioReader;
+public class ReaderActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,77 +32,31 @@ public class ReaderActivity extends AppCompatActivity implements ReadLocatorList
         String id = extras.getString("EXTRA_MESSAGE_ID");
 
         // Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.reader);
-        textView.setText("Type open is: " + type + ", ID: "+id);
+//        TextView textView = findViewById(R.id.reader);
+        HtmlTextView textView = (HtmlTextView) findViewById(R.id.html_text);
 
-        folioReader = FolioReader.get().setReadLocatorListener(this)
-                .setOnClosedListener(this);
-
-        ReadLocator readLocator = getLastReadLocator();
-        Config config = AppUtil.getSavedConfig(getApplicationContext());
-        if (config == null) {
-            config = new Config();
-        }
-
-        config.setAllowedDirection(Config.AllowedDirection.VERTICAL_AND_HORIZONTAL);
-
-        folioReader.setReadLocator(readLocator);
-        folioReader.setConfig(config, true).openBook(R.raw.accessible_epub_3);
-
-
-
-    }
-
-    private ReadLocator getLastReadLocator() {
-        String jsonString = loadAssetTextAsString("LastReadLocators/last_read_locator_1.json");
-        return ReadLocator.fromJson(jsonString);
-    }
-
-    @Override
-    public void saveReadLocator(ReadLocator readLocator) {
-        Log.i(LOG_TAG, "-> saveReadLocator -> " + readLocator.toJson());
-    }
-
-    private String loadAssetTextAsString(String name) {
-        BufferedReader in = null;
+//        textView.setText("Type open is: " + type + ", ID: " + id);
+        Toast.makeText(ReaderActivity.this, "Loaded", Toast.LENGTH_SHORT).show();
         try {
-            StringBuilder buf = new StringBuilder();
-            InputStream is = getAssets().open(name);
-            in = new BufferedReader(new InputStreamReader(is));
+            EpubReader epubReader = new EpubReader();
+            Book book = epubReader.readEpub(getAssets().open("epublibviewer-help.epub"));
+            List<String> titles = book.getMetadata().getTitles();
+            textView.setText("book title:" + (titles.isEmpty() ? "book has no title" : titles.get(0)));
+            Spine spine = book.getSpine();
+            StringBuilder htmlText = new StringBuilder();
+            for (int i = 0; i < spine.size(); i++) {
+                Resource resource = spine.getResource(i);
+                htmlText.append(new String(resource.getData()));
+//                textView.append(Html.fromHtml(new String(resource.getData()), Html.FROM_HTML_MODE_COMPACT));
 
-            String str;
-            boolean isFirst = true;
-            while ((str = in.readLine()) != null) {
-                if (isFirst)
-                    isFirst = false;
-                else
-                    buf.append('\n');
-                buf.append(str);
             }
-            return buf.toString();
-        } catch (IOException e) {
-            Log.e("ReaderActivity", "Error opening asset " + e.getMessage());
+
+            textView.setHtml(htmlText.toString(), new HtmlResImageGetter(textView.getContext()));
+        } catch (Exception e) {
             e.printStackTrace();
-        } finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    Log.e("ReaderActivity", "Error closing asset " + name);
-                }
-            }
+            finish();
         }
-        return null;
+
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        FolioReader.clear();
-    }
-
-    @Override
-    public void onFolioReaderClosed() {
-        Log.v(LOG_TAG, "-> onFolioReaderClosed");
-    }
 }

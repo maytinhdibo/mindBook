@@ -4,31 +4,18 @@ import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.folioreader.Config;
-import com.folioreader.FolioReader;
-import com.folioreader.model.locators.ReadLocator;
-import com.folioreader.util.AppUtil;
-import com.folioreader.util.ReadLocatorListener;
-import com.mtc.mindbook.models.EntryItem;
-import com.mtc.mindbook.models.RecyclerViewAdapter;
 import com.mtc.mindbook.models.search.SearchItem;
 import com.mtc.mindbook.models.search.SearchViewAdapter;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
