@@ -37,7 +37,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.songName.setText(data.get(position).getName());
         Picasso.get().load(data.get(position).getCover()).into(holder.songImage);
         holder.itemCon.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View view) {
                 Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getId()));

@@ -5,12 +5,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
+import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -51,6 +53,12 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdap
         holder.bookAuthorName.setText(data.get(position).getBook().getAuthorName());
         holder.bookName.setText(data.get(position).getBook().getName());
         Picasso.get().load(data.get(position).getBook().getCover()).into(holder.avt);
+        holder.shareItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getBook().getId()));
+            }
+        }); ;
     }
 
     @Override
@@ -66,6 +74,7 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdap
         TextView bookAuthorName;
         ImageView avt;
         RatingBar ratingBar;
+        LinearLayout shareItem;
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             userName = (TextView) itemView.findViewById(R.id.user_name);
@@ -75,6 +84,7 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdap
             comment.setEllipsize(TextUtils.TruncateAt.END);
             bookName = (TextView) itemView.findViewById(R.id.book_name);
             bookAuthorName = (TextView) itemView.findViewById(R.id.book_author_name);
+            shareItem = (LinearLayout) itemView.findViewById(R.id.share_item);
         }
     }
 }
