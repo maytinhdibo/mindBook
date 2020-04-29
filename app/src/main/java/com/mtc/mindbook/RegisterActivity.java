@@ -1,6 +1,7 @@
 package com.mtc.mindbook;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -104,6 +105,11 @@ public class RegisterActivity extends AppCompatActivity {
                     Log.d("auth_from_register", "accessToken: " + accessToken);
                     Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                     intent.putExtra("accessToken", accessToken);
+                    SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = sharedPrefs.edit();
+                    editor.putBoolean("isLoggedIn", true);
+                    editor.putString("accessToken", accessToken);
+                    editor.commit();
                     setResult(RESULT_OK, intent);
                     finish();
                 } else {
