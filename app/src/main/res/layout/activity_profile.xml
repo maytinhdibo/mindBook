@@ -1,16 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/profile_main_frame">
+    android:id="@+id/profile_main_frame"
+    android:theme="@style/AppTheme.MaterialCustom">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="1dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                                <!-- Media -->
+                                <ImageView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="194dp"
+                                    android:contentDescription="background"
+                                    android:scaleType="centerCrop"
+                                    app:srcCompat="@drawable/profile" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="vertical"
+                                    android:padding="16dp">
+
+                                        <!-- Title, secondary and supporting text -->
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Your name here"
+                                            android:textAppearance="?attr/textAppearanceHeadline6" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="8dp"
+                                            android:text="youremail@example.com"
+                                            android:textAppearance="?attr/textAppearanceBody2"
+                                            android:textColor="?android:attr/textColorSecondary" />
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="16dp"
+                                            android:text="09447595930535"
+                                            android:textAppearance="?attr/textAppearanceBody2"
+                                            android:textColor="?android:attr/textColorSecondary" />
+
+                                </LinearLayout>
+
+                                <!-- Buttons -->
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="8dp"
+                                    android:orientation="horizontal">
+
+                                        <com.google.android.material.button.MaterialButton
+                                            android:id="@+id/btn_logout"
+                                            style="?attr/borderlessButtonStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginEnd="8dp"
+                                            android:text="Đăng nhập"
+                                            android:onClick="onlogoutClicked" />
+
+                                        <com.google.android.material.button.MaterialButton
+                                            style="?attr/borderlessButtonStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Sửa thông tin" />
+                                </LinearLayout>
+
+                        </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
                 <Button
+                    android:visibility="invisible"
                     android:id="@+id/button_go_to_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -18,17 +98,8 @@
                     android:layout_alignParentTop="true"
                     android:text="Đăng nhập"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toBottomOf="@+id/card" />
 
-                <TextView
-                    android:id="@+id/profile_message"
-                    android:layout_width="match_parent"
-                    android:layout_height="80dp"
-                    android:text="ghhhhj"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/button_go_to_login" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
