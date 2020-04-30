@@ -21,6 +21,12 @@
 
     <string name="enter_search">Enter your keywords to search...</string>
 
+    <!--    Location-->
+    <string name="req_location_des">Please provide location permission for mindBook to use this tab.</string>
+    <string name="req_location">Open location setting</string>
+
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_username">Username</string>
