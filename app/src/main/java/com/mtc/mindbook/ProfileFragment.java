@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,13 +24,7 @@ public class ProfileFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.activity_profile, container, false);
         goToLoginBtn = rootView.findViewById(R.id.button_go_to_login);
         logoutBtn = rootView.findViewById(R.id.btn_logout);
-        sharedPrefs = getActivity().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
-        if (sharedPrefs.getBoolean("isLoggedIn", false)) {
-            logoutBtn.setText("Đăng xuất");
-            Log.d("token", sharedPrefs.getString("accessToken", ""));
-        } else {
-            logoutBtn.setText("Đăng nhập");
-        }
+
         if (savedInstanceState != null) {
             boolean isLogin = savedInstanceState.getBoolean("isLogin");
             if (isLogin) {
@@ -62,10 +55,22 @@ public class ProfileFragment extends Fragment {
         return rootView;
 
     }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        sharedPrefs = getActivity().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+        Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
+        if (isLoggedIn) {
+            logoutBtn.setText("Đăng xuất");
+        } else {
+            logoutBtn.setText("Đăng nhập");
+        }
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.d("dd", "onActivityResult: ");
         if (requestCode == 1){
             if (resultCode != 0) {
                 goToLoginBtn.setVisibility(View.INVISIBLE);
@@ -77,7 +82,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        Log.d("dd", "onCreateView:");
         if (goToLoginBtn.getVisibility() == View.INVISIBLE) {
             outState.putBoolean("isLogin", true);
         }
