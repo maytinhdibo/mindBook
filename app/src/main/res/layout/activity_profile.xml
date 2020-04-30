@@ -39,26 +39,32 @@
 
                                         <!-- Title, secondary and supporting text -->
                                         <TextView
+                                            android:id="@+id/textview_profile_user_full_name"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="Your name here"
-                                            android:textAppearance="?attr/textAppearanceHeadline6" />
+                                            android:textAppearance="?attr/textAppearanceHeadline6"
+                                            android:visibility="gone" />
 
                                         <TextView
+                                            android:id="@+id/textview_profile_email"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="8dp"
                                             android:text="youremail@example.com"
                                             android:textAppearance="?attr/textAppearanceBody2"
-                                            android:textColor="?android:attr/textColorSecondary" />
+                                            android:textColor="?android:attr/textColorSecondary"
+                                            android:visibility="gone" />
 
                                         <TextView
+                                            android:id="@+id/textview_profile_username"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginTop="16dp"
                                             android:text="09447595930535"
                                             android:textAppearance="?attr/textAppearanceBody2"
-                                            android:textColor="?android:attr/textColorSecondary" />
+                                            android:textColor="?android:attr/textColorSecondary"
+                                            android:visibility="gone" />
 
                                 </LinearLayout>
 

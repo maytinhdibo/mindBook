@@ -1,5 +1,6 @@
 package com.mtc.mindbook;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
+import com.mtc.mindbook.models.responseObj.user.getUser;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 
@@ -30,7 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     public TextInputLayout fieldNameLayout = null;
     public TextInputLayout fieldPasswordLayout = null;
     APIService userService = null;
-
+    Context context = this;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putBoolean("isLoggedIn", true);
                     editor.putString("accessToken", accessToken);
                     editor.commit();
+                    getUser.fetchUser(context);
                     setResult(RESULT_OK, intent);
                     finish();
                 } else {
