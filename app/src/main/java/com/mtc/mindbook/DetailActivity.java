@@ -5,7 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -15,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +44,68 @@ public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE_TYPE = "none";
     public static final String EXTRA_MESSAGE_ID = "none";
 
+
+    @Override
+    protected void onStart() {
+        APIService detailService = null;
+        detailService = APIUtils.getUserService();
+
+        Call<DetailReponseObj> callDetail = detailService.detailBook("2");
+        callDetail.enqueue(new Callback<DetailReponseObj>() {
+            @Override
+            public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
+                Detail detail = response.body().getData().get(0);
+                //Render data
+                //Render tag
+                final List<String> listItem = detail.getCategories();
+                final TagAdapter tagAdapter = new TagAdapter(listItem);
+                LinearLayoutManager tagLayoutManager = new LinearLayoutManager(getBaseContext());
+                tagLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                RecyclerView listViewTag = findViewById(R.id.tag_view);
+                listViewTag.setLayoutManager(tagLayoutManager);
+                listViewTag.setAdapter(tagAdapter);
+                //Render title
+                TextView title = findViewById(R.id.detail_title);
+                title.setText(detail.getBookTitle());
+                //Render author
+                TextView author = findViewById(R.id.detail_author);
+                author.setText(detail.getAuthor());
+                //Render overlay
+                View overlay = (View) findViewById(R.id.book_overlay);
+                float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84 , getResources().getDisplayMetrics());
+                ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) overlay.getLayoutParams();
+                title.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        int au = title.getLineCount();
+                        params.height = (int) (height + (int) (au*TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28 , getResources().getDisplayMetrics())));
+                        overlay.setLayoutParams(params);
+                    }
+                });
+                //Render desc
+                TextView desc = findViewById(R.id.detail_desc);
+                desc.setText(detail.getBookDescription());
+                //Render cover
+                Picasso.get()
+                        .load(detail.getBookCover())
+                        .transform(new BlurTransformation(getBaseContext(), 18, 2))
+                        .into((ImageView) findViewById(R.id.blur_bg));
+
+                Picasso.get()
+                        .load(detail.getBookCover())
+                        .into((ImageView) findViewById(R.id.cover));
+            }
+
+            @Override
+            public void onFailure(Call<DetailReponseObj> call, Throwable t) {
+                Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        super.onStart();
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,17 +124,19 @@ public class DetailActivity extends AppCompatActivity {
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
-                Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
-                if (isLoggedIn) {
-                    Intent intent = new Intent(v.getContext(), SearchActivity.class);
-                    intent.putExtra("EXTRA_TAG", "viễn tưởng");
-                    v.getContext().startActivity(intent);
-                } else {
-                    Intent intent = new Intent(v.getContext(), LoginActivity.class);
-                    startActivityForResult(intent, 1);
-                    Toast.makeText(v.getContext(), "Hãy đăng nhập để sử dụng chức năng này", Toast.LENGTH_SHORT).show();
-                }
+                TextView title = findViewById(R.id.detail_title);
+
+//                SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
+//                Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
+//                if (isLoggedIn) {
+//                    Intent intent = new Intent(v.getContext(), SearchActivity.class);
+//                    intent.putExtra("EXTRA_TAG", "viễn tưởng");
+//                    v.getContext().startActivity(intent);
+//                } else {
+//                    Intent intent = new Intent(v.getContext(), LoginActivity.class);
+//                    startActivityForResult(intent, 1);
+//                    Toast.makeText(v.getContext(), "Hãy đăng nhập để sử dụng chức năng này", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
@@ -120,52 +188,6 @@ public class DetailActivity extends AppCompatActivity {
         View decor = getWindow().getDecorView();
         decor.setSystemUiVisibility(0);
 
-
-        APIService detailService = null;
-        detailService = APIUtils.getUserService();
-
-        Call<DetailReponseObj> callDetail = detailService.detailBook("1");
-        callDetail.enqueue(new Callback<DetailReponseObj>() {
-            @Override
-            public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
-                Detail detail = response.body().getData().get(0);
-                //Render data
-                //Render tag
-                final List<String> listItem = detail.getCategories();
-                final TagAdapter tagAdapter = new TagAdapter(listItem);
-                LinearLayoutManager tagLayoutManager = new LinearLayoutManager(getBaseContext());
-                tagLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-                RecyclerView listViewTag = findViewById(R.id.tag_view);
-                listViewTag.setLayoutManager(tagLayoutManager);
-                listViewTag.setAdapter(tagAdapter);
-                //Render title
-                TextView title = findViewById(R.id.detail_title);
-                title.setText(detail.getBookTitle());
-                //Render author
-                TextView author = findViewById(R.id.detail_author);
-                author.setText(detail.getAuthor());
-                //Render desc
-                TextView desc = findViewById(R.id.detail_desc);
-                desc.setText(detail.getBookDescription());
-                //Render cover
-                Picasso.get()
-                        .load(detail.getBookCover())
-                        .transform(new BlurTransformation(getBaseContext(), 18, 2))
-                        .into((ImageView) findViewById(R.id.blur_bg));
-
-                Picasso.get()
-                        .load(detail.getBookCover())
-                        .into((ImageView) findViewById(R.id.cover));
-
-            }
-
-            @Override
-            public void onFailure(Call<DetailReponseObj> call, Throwable t) {
-                Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
         ReviewItem[] reviewItems = {
                 new ReviewItem("Ôi hay quá", "https://icdn.dantri.com.vn/thumb_w/640/2019/04/16/33-1555425777506.jpg", "Bin Gết", (float) 4.5),
                 new ReviewItem("Quá xá đỉnh ghê.", "https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102", "Cao Thắng", (float) 2.5),
@@ -205,7 +227,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 //Intent myIntent = new Intent(view.getContext(), agones.class);
                 //startActivityForResult(myIntent, 0);
-                reviewDialog.show();  //<-- See This!
+                reviewDialog.show();
             }
         });
 

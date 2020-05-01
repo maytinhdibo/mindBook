@@ -42,12 +42,13 @@
 
 
                 <View
+                    android:id="@+id/book_overlay"
                     android:layout_width="match_parent"
-                    android:layout_height="120dp"
+                    android:layout_height="60dp"
                     android:background="@drawable/top_round"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="MissingConstraints"
-                    tools:layout_editor_absoluteX="19dp"></View>
+                   ></View>
 
                 <LinearLayout
                     style="@style/container"
@@ -89,7 +90,7 @@
                             android:layout_height="wrap_content"
                             android:text="Phù thủy bé nhỏ"
                             android:textColor="@color/textColor"
-                            android:textSize="24sp"
+                            android:textSize="24dp"
                             android:textStyle="bold" />
 
                         <TextView

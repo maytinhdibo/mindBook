@@ -142,6 +142,7 @@ public class SearchActivity extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     searchInput.setText(result.get(0));
                     searchInput.setSelection(searchInput.getText().length());
+                    search();
                 }
                 break;
             }

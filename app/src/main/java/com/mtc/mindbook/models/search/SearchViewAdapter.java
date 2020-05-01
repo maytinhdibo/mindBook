@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
+import com.mtc.mindbook.models.responseObj.Search;
 import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -19,9 +20,9 @@ import java.util.List;
 
 public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.RecyclerViewHolder>{
 
-    private List<SearchItem> data = new ArrayList<>();
+    private List<Search> data = new ArrayList<>();
 
-    public SearchViewAdapter(List<SearchItem> data) {
+    public SearchViewAdapter(List<Search> data) {
         this.data = data;
     }
 
@@ -34,14 +35,14 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
-        holder.bookName.setText(data.get(position).getName());
+        holder.bookName.setText(data.get(position).getBookTitle());
         holder.authorName.setText(data.get(position).getAuthor());
-        holder.rating.setText(String.valueOf(data.get(position).getRating()));
-        Picasso.get().load(data.get(position).getCover()).into(holder.bookImage);
+//        holder.rating.setText(String.valueOf(data.get(position).getRating()));
+        Picasso.get().load(data.get(position).getBookCover()).into(holder.bookImage);
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getId()));
+                Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getBookId()));
             }
         }); ;
     }
