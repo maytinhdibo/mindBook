@@ -2,6 +2,8 @@ package com.mtc.mindbook.remote;
 
 import com.mtc.mindbook.models.responseObj.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
+import com.mtc.mindbook.models.responseObj.Search;
+import com.mtc.mindbook.models.responseObj.SearchReponseObj;
 import com.mtc.mindbook.models.responseObj.user.UserResponseObj;
 
 import retrofit2.Call;
@@ -24,6 +26,9 @@ public interface APIService {
                                     @Field("lastname") String lastname,
                                     @Field("email") String email,
                                     @Field("password") String password);
+
+    @POST("search/")
+    Call<SearchReponseObj> search(@Query("text") String searchQuery);
 
     @GET("books/details")
     Call<DetailReponseObj> detailBook(@Query("book_id") String bookId);

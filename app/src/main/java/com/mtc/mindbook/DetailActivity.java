@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,19 +19,17 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.models.responseObj.DetailReponseObj;
-import com.mtc.mindbook.models.responseObj.LoginResponseObj;
+import com.mtc.mindbook.models.responseObj.Detail;
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
 import com.mtc.mindbook.models.review.ReviewItem;
 import com.mtc.mindbook.models.tag.TagAdapter;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
-import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
 import retrofit2.Call;
@@ -76,24 +73,8 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-        String[] tagItems = {
-                "Viễn tưởng", "Hài hước", "Kinh dị", "Tình cảm", "Tâm Lý", "Nghệ Thuật"  };
-
-        final List<String> listItem =  new ArrayList<>(Arrays.asList(tagItems));
-
-        final TagAdapter tagAdapter = new TagAdapter(listItem);
-
-        LinearLayoutManager tagLayoutManager = new LinearLayoutManager(getBaseContext());
-        tagLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-
-        RecyclerView listViewTag = findViewById(R.id.tag_view);
-        listViewTag.setLayoutManager(tagLayoutManager);
-        listViewTag.setAdapter(tagAdapter);
-
-
-
         final LinearLayout readButton = (LinearLayout) findViewById(R.id.read_btn);
-        final  LinearLayout listenButton = (LinearLayout) findViewById(R.id.listen_btn);
+        final LinearLayout listenButton = (LinearLayout) findViewById(R.id.listen_btn);
 
         readButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,15 +108,6 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-        Picasso.get()
-                .load("https://dspncdn.com/a1/media/692x/38/3a/21/383a215d646b32b00b3b44b58bd81fa1.jpg")
-                .transform(new BlurTransformation(getBaseContext(), 18, 2))
-                .into((ImageView) findViewById(R.id.blur_bg));
-
-        Picasso.get()
-                .load("https://dspncdn.com/a1/media/692x/38/3a/21/383a215d646b32b00b3b44b58bd81fa1.jpg")
-                .into((ImageView) findViewById(R.id.cover));
-
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
         bottomBar.setLayoutParams(new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT
@@ -156,26 +128,54 @@ public class DetailActivity extends AppCompatActivity {
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
-                Log.d("None",  "abc");
+                Detail detail = response.body().getData().get(0);
+                //Render data
+                //Render tag
+                final List<String> listItem = detail.getCategories();
+                final TagAdapter tagAdapter = new TagAdapter(listItem);
+                LinearLayoutManager tagLayoutManager = new LinearLayoutManager(getBaseContext());
+                tagLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                RecyclerView listViewTag = findViewById(R.id.tag_view);
+                listViewTag.setLayoutManager(tagLayoutManager);
+                listViewTag.setAdapter(tagAdapter);
+                //Render title
+                TextView title = findViewById(R.id.detail_title);
+                title.setText(detail.getBookTitle());
+                //Render author
+                TextView author = findViewById(R.id.detail_author);
+                author.setText(detail.getAuthor());
+                //Render desc
+                TextView desc = findViewById(R.id.detail_desc);
+                desc.setText(detail.getBookDescription());
+                //Render cover
+                Picasso.get()
+                        .load(detail.getBookCover())
+                        .transform(new BlurTransformation(getBaseContext(), 18, 2))
+                        .into((ImageView) findViewById(R.id.blur_bg));
+
+                Picasso.get()
+                        .load(detail.getBookCover())
+                        .into((ImageView) findViewById(R.id.cover));
+
             }
 
             @Override
             public void onFailure(Call<DetailReponseObj> call, Throwable t) {
-
+                Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
             }
         });
 
 
         ReviewItem[] reviewItems = {
-                new ReviewItem("Ôi hay quá","https://icdn.dantri.com.vn/thumb_w/640/2019/04/16/33-1555425777506.jpg","Bin Gết", (float) 4.5),
-                new ReviewItem("Quá xá đỉnh ghê.","https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102","Cao Thắng", (float) 2.5),
-                new ReviewItem("Truyện hay nhưng cờ Việt Nam chỉ có một sao nên vote 1 sao vậy.","https://media.tinmoi.vn/2016/11/21/Cac-ca-si-noi-tieng-Viet-Nam-thap-nien-90-1.jpg","Đan Trường", (float) 1.0),
-                new ReviewItem("Quá xá đỉnh","https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102","Cao Thắng", (float) 2.5),
-                new ReviewItem("Quá xá đỉnh","https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102","Cao Thắng", (float) 2.5),
+                new ReviewItem("Ôi hay quá", "https://icdn.dantri.com.vn/thumb_w/640/2019/04/16/33-1555425777506.jpg", "Bin Gết", (float) 4.5),
+                new ReviewItem("Quá xá đỉnh ghê.", "https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102", "Cao Thắng", (float) 2.5),
+                new ReviewItem("Truyện hay nhưng cờ Việt Nam chỉ có một sao nên vote 1 sao vậy.", "https://media.tinmoi.vn/2016/11/21/Cac-ca-si-noi-tieng-Viet-Nam-thap-nien-90-1.jpg", "Đan Trường", (float) 1.0),
+                new ReviewItem("Quá xá đỉnh", "https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102", "Cao Thắng", (float) 2.5),
+                new ReviewItem("Quá xá đỉnh", "https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102", "Cao Thắng", (float) 2.5),
         };
 
         // Construct the data source
-        final List<ReviewItem> listReview =  new ArrayList<>(Arrays.asList(reviewItems));
+        final List<ReviewItem> listReview = new ArrayList<>(Arrays.asList(reviewItems));
         final RecyclerReviewAdapter adapter = new RecyclerReviewAdapter(listReview);
 
         RecyclerView listView = view.findViewById(R.id.list_review);
@@ -195,7 +195,7 @@ public class DetailActivity extends AppCompatActivity {
         reviewDialog.setTitle(R.string.write_review);
         reviewDialog.setContentView(R.layout.review_dialog);
 
-        int width = (int)(getResources().getDisplayMetrics().widthPixels*0.90);
+        int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.90);
 
         reviewDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
         //write review

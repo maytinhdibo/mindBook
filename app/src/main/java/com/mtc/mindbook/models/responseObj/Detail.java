@@ -3,22 +3,18 @@ package com.mtc.mindbook.models.responseObj;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Detail {
     @SerializedName("book_id")
     @Expose
     private Integer bookId;
-    @SerializedName("book_title_vi")
+    @SerializedName("book_title")
     @Expose
-    private String bookTitleVi;
-    @SerializedName("book_title_en")
+    private String bookTitle;
+    @SerializedName("book_description")
     @Expose
-    private Object bookTitleEn;
-    @SerializedName("book_description_vi")
-    @Expose
-    private String bookDescriptionVi;
-    @SerializedName("book_description_en")
-    @Expose
-    private Object bookDescriptionEn;
+    private String bookDescription;
     @SerializedName("book_cover")
     @Expose
     private String bookCover;
@@ -27,7 +23,10 @@ public class Detail {
     private String bookEpub;
     @SerializedName("author")
     @Expose
-    private Author author;
+    private String author;
+    @SerializedName("categories")
+    @Expose
+    private List<String> categories = null;
 
     public Integer getBookId() {
         return bookId;
@@ -37,36 +36,20 @@ public class Detail {
         this.bookId = bookId;
     }
 
-    public String getBookTitleVi() {
-        return bookTitleVi;
+    public String getBookTitle() {
+        return bookTitle;
     }
 
-    public void setBookTitleVi(String bookTitleVi) {
-        this.bookTitleVi = bookTitleVi;
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
-    public Object getBookTitleEn() {
-        return bookTitleEn;
+    public String getBookDescription() {
+        return bookDescription;
     }
 
-    public void setBookTitleEn(Object bookTitleEn) {
-        this.bookTitleEn = bookTitleEn;
-    }
-
-    public String getBookDescriptionVi() {
-        return bookDescriptionVi;
-    }
-
-    public void setBookDescriptionVi(String bookDescriptionVi) {
-        this.bookDescriptionVi = bookDescriptionVi;
-    }
-
-    public Object getBookDescriptionEn() {
-        return bookDescriptionEn;
-    }
-
-    public void setBookDescriptionEn(Object bookDescriptionEn) {
-        this.bookDescriptionEn = bookDescriptionEn;
+    public void setBookDescription(String bookDescription) {
+        this.bookDescription = bookDescription;
     }
 
     public String getBookCover() {
@@ -85,13 +68,22 @@ public class Detail {
         this.bookEpub = bookEpub;
     }
 
-    public Author getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(Author author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
+
+    public List<String> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<String> categories) {
+        this.categories = categories;
+    }
+
 
 }
 
