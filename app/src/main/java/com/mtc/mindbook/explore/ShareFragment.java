@@ -82,7 +82,6 @@ public class ShareFragment extends Fragment {
 
                         Log.d("Load", "onScrolled: ");
                         adapter.setLoading(false);
-
 //                        isLoading = true;
                     }
                 }

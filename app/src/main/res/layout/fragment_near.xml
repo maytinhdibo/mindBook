@@ -7,6 +7,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     style="@style/container"
+    android:paddingBottom="@dimen/bottom_nav"
     >
 
     <LinearLayout
@@ -40,16 +41,10 @@
             android:text="@string/req_location"/>
     </LinearLayout>
 
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/near_list"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             />
-
-</androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

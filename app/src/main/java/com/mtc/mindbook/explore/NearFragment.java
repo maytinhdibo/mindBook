@@ -66,7 +66,8 @@ public class NearFragment extends Fragment implements LocationListener {
                 new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
                         , new BookItem(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
                 new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
-                        , new BookItem(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5))
+                        , new BookItem(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
+                null
         };
 
 
@@ -94,6 +95,33 @@ public class NearFragment extends Fragment implements LocationListener {
                                         }
         );
 
+        nearListView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            boolean isLoading = false;
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.d("Position1", String.valueOf(layoutManager.findLastCompletelyVisibleItemPosition()));
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (!isLoading) {
+                    Log.d("Position", String.valueOf(layoutManager.findLastCompletelyVisibleItemPosition()));
+                    if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == listShare.size() - 1) {
+
+                        Log.d("Load", "onScrolled: ");
+//                        adapter.setLoading(false);
+//                        isLoading = true;
+                    }
+                }
+            }
+
+        });
+
 
         checkLocation(rootView, true);
 
@@ -120,7 +148,7 @@ public class NearFragment extends Fragment implements LocationListener {
             locationAlert.setVisibility(View.GONE);
             nearListView.setVisibility(View.VISIBLE);
             Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-            Log.d("Location", location.getLatitude()+":"+location.getLongitude());
+            Log.d("Location", location.getLatitude() + ":" + location.getLongitude());
 
         }
     }
@@ -141,7 +169,7 @@ public class NearFragment extends Fragment implements LocationListener {
     public void onLocationChanged(Location location) {
         double latT = location.getLatitude();
         double longT = location.getLongitude();
-        Log.d("Location", "onLocationChanged: "+latT+";"+ longT);
+        Log.d("Location", "onLocationChanged: " + latT + ";" + longT);
     }
 
     @Override
