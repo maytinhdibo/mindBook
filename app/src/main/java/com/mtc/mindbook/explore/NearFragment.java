@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,8 @@ public class NearFragment extends Fragment implements LocationListener {
     private LocationManager locationManager;
     private LinearLayout locationAlert;
     private RecyclerView nearListView;
+    private Location location;
+
 
     @Nullable
     @Override
@@ -117,6 +120,7 @@ public class NearFragment extends Fragment implements LocationListener {
             locationAlert.setVisibility(View.GONE);
             nearListView.setVisibility(View.VISIBLE);
             Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+            Log.d("Location", location.getLatitude()+":"+location.getLongitude());
 
         }
     }
@@ -137,7 +141,7 @@ public class NearFragment extends Fragment implements LocationListener {
     public void onLocationChanged(Location location) {
         double latT = location.getLatitude();
         double longT = location.getLongitude();
-
+        Log.d("Location", "onLocationChanged: "+latT+";"+ longT);
     }
 
     @Override

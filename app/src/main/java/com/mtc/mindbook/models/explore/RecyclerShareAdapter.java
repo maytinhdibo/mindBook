@@ -6,9 +6,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
@@ -18,52 +20,77 @@ import com.squareup.picasso.Picasso;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdapter.RecyclerViewHolder>{
-
+public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    public ProgressBar progressBar = null;
     private List<ShareItem> data = new ArrayList<>();
 
     public RecyclerShareAdapter(List<ShareItem> data) {
         this.data = data;
     }
 
-    @Override
-    public RecyclerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.share_item, parent, false);
-        return new RecyclerViewHolder(view);
+    public void setLoading(boolean value) {
+        if (progressBar != null) {
+            if (value) {
+                progressBar.setVisibility(View.VISIBLE);
+            } else {
+                progressBar.setVisibility(View.GONE);
+            }
+        }
     }
 
     @Override
-    public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
-//        holder.songName.setText(data.get(position).getName());
-//        Picasso.get().load(data.get(position).getCover()).into(holder.songImage);
-//        holder.itemCon.setOnClickListener(new View.OnClickListener() {
-//
-//            @Override
-//            public void onClick(View view) {
-//
-//                Intent intent = new Intent(view.getContext(), DetailActivity.class);
-//                intent.putExtra(EXTRA_MESSAGE, data.get(position).getName());
-//                view.getContext().startActivity(intent);
-//            }
-//        }); ;
-        holder.comment.setText(data.get(position).getComment());
-        holder.userName.setText(data.get(position).getName());
-        holder.ratingBar.setRating(data.get(position).getBook().getRating());
-        holder.bookAuthorName.setText(data.get(position).getBook().getAuthorName());
-        holder.bookName.setText(data.get(position).getBook().getName());
-        Picasso.get().load(data.get(position).getBook().getCover()).into(holder.avt);
-        holder.shareItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getBook().getId()));
-            }
-        }); ;
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+
+        if (viewType == 1) {
+            View view = inflater.inflate(R.layout.share_item, parent, false);
+            return new RecyclerViewHolder(view);
+        } else {
+            View view = inflater.inflate(R.layout.item_loading, parent, false);
+            return new LoadingViewHolder(view);
+        }
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return data.get(position) == null ? 0 : 1;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
+        if (viewHolder instanceof RecyclerViewHolder) {
+            RecyclerViewHolder holder = (RecyclerViewHolder) viewHolder;
+            holder.comment.setText(data.get(position).getComment());
+            holder.userName.setText(data.get(position).getName());
+            holder.ratingBar.setRating(data.get(position).getBook().getRating());
+            holder.bookAuthorName.setText(data.get(position).getBook().getAuthorName());
+            holder.bookName.setText(data.get(position).getBook().getName());
+            Picasso.get().load(data.get(position).getBook().getCover()).into(holder.avt);
+            holder.shareItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getBook().getId()));
+                }
+            });
+        } else {
+            LoadingViewHolder holder = (LoadingViewHolder) viewHolder;
+            progressBar = holder.progressBar;
+        }
     }
 
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public class LoadingViewHolder extends RecyclerView.ViewHolder {
+        public ProgressBar progressBar;
+
+        public LoadingViewHolder(@NonNull View itemView) {
+            super(itemView);
+            progressBar = (ProgressBar) itemView.findViewById(R.id.progressBar);
+            ;
+        }
     }
 
 
@@ -75,6 +102,7 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdap
         ImageView avt;
         RatingBar ratingBar;
         LinearLayout shareItem;
+
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             userName = (TextView) itemView.findViewById(R.id.user_name);
@@ -88,3 +116,4 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerShareAdap
         }
     }
 }
+

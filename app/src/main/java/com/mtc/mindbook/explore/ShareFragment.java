@@ -40,7 +40,11 @@ public class ShareFragment extends Fragment {
                         , new BookItem(111, "https://pictures.abebooks.com/MICHELLANTEIGNE/4187602196.jpg", "Khi Loài Thú Xa Nhau", "Lê Uyên", (float) 2.5)),
                 new ShareItem("Ai trong chúng ta chẳng có một người để nhớ, để thương, để vấn vương?", "Bin Gết"
                         , new BookItem(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 4.5)),
-
+                new ShareItem("Cũng như con ong biến trăm hoa thành một mật, Nguyễn Nhật Ánh lặng lẽ đi tìm mật ngọt từ tuổi thơ của mỗi người, để kết tinh thành những trang sách làm lay động trái tim của biết bao thế hệ.", "Bin Gết"
+                        , new BookItem(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 4.5)),
+                new ShareItem("Ôi con ong biến trăm hoa thành một mật, Nguyễn Nhật Ánh lặng lẽ đi tìm mật ngọt từ tuổi thơ của mỗi người, để kết tinh thành những trang sách làm lay động trái tim của biết bao thế hệ.", "Bin Gết"
+                        , new BookItem(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 4.5)),
+                null
         };
 
         // Construct the data source
@@ -54,6 +58,38 @@ public class ShareFragment extends Fragment {
         listView.setLayoutManager(layoutManager);
 
         listView.setAdapter(adapter);
+
+
+//        rootView.
+
+        listView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            boolean isLoading = false;
+
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+                Log.d("Position1", String.valueOf(layoutManager.findLastCompletelyVisibleItemPosition()));
+
+            }
+
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
+                if (!isLoading) {
+                    Log.d("Position", String.valueOf(layoutManager.findLastCompletelyVisibleItemPosition()));
+                    if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == listReview.size() - 1) {
+
+                        Log.d("Load", "onScrolled: ");
+                        adapter.setLoading(false);
+
+//                        isLoading = true;
+                    }
+                }
+            }
+
+        });
+
 
         return rootView;
     }
