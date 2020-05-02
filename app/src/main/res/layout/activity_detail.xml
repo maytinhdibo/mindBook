@@ -34,12 +34,6 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
-                <View
-                    android:id="@+id/view3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#19000000"></View>
-
 
                 <View
                     android:id="@+id/book_overlay"
@@ -65,6 +59,8 @@
                         android:layout_gravity="bottom"
                         android:foregroundGravity="bottom"
                         app:cardCornerRadius="4dp"
+                        app:cardElevation="0dp"
+                        android:layout_marginBottom="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -88,6 +84,8 @@
                             android:id="@+id/detail_title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+
+                            android:elevation="15dp"
                             android:text="Phù thủy bé nhỏ"
                             android:textColor="@color/textColor"
                             android:textSize="24dp"
@@ -123,6 +121,12 @@
                             android:textStyle="bold" />
 
                     </LinearLayout>
+
+                    <View
+                        android:id="@+id/view3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#40000000"></View>
                 </LinearLayout>
 
             </androidx.constraintlayout.widget.ConstraintLayout>
