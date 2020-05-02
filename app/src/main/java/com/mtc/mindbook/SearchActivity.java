@@ -75,17 +75,6 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        SearchItem[] todoItems = {
-                new SearchItem(1, "https://a.wattpad.com/cover/155025710-288-k448920.jpg", "Tuyển tập Ngô Tất Tố", "Ngô Tất Tố", 4),
-                new SearchItem(2, "https://genbooks.net/wp-content/uploads/2019/07/mat-biec.jpg", "Mắt biếc", "Hà Lan", 4.3),
-                new SearchItem(2, "https://genbooks.net/wp-content/uploads/2019/07/mat-biec.jpg", "Những con phố dài", "Nguyên Thảo", 4.3),
-                new SearchItem(2, "https://genbooks.net/wp-content/uploads/2019/07/mat-biec.jpg", "Mảnh đời bất tận", "Hà Lan", 1.3),
-                new SearchItem(2, "https://genbooks.net/wp-content/uploads/2019/07/mat-biec.jpg", "Mắt biếc", "Hà Lan", 4.3),
-        };
-
-        final List<SearchItem> listItem = new ArrayList<>(Arrays.asList(todoItems));
-
-
         // layout
         LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
 
@@ -115,11 +104,10 @@ public class SearchActivity extends AppCompatActivity {
         searchService = APIUtils.getUserService();
         Call<SearchReponseObj> callDetail = searchService.search(searchInput.getText().toString());
         callDetail.enqueue(new Callback<SearchReponseObj>() {
-
             @Override
             public void onResponse(Call<SearchReponseObj> call, Response<SearchReponseObj> response) {
-                List<Search> searchs = response.body().getData();
-                final SearchViewAdapter adapter = new SearchViewAdapter(searchs);
+                List<Search> searches = response.body().getData();
+                final SearchViewAdapter adapter = new SearchViewAdapter(searches);
                 searchResult.setAdapter(adapter);
             }
 

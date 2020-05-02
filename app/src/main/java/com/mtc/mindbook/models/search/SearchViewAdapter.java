@@ -37,7 +37,7 @@ public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.Re
     public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
         holder.bookName.setText(data.get(position).getBookTitle());
         holder.authorName.setText(data.get(position).getAuthor());
-//        holder.rating.setText(String.valueOf(data.get(position).getRating()));
+        holder.rating.setText(String.valueOf(data.get(position).getRating()));
         Picasso.get().load(data.get(position).getBookCover()).into(holder.bookImage);
         holder.item.setOnClickListener(new View.OnClickListener() {
             @Override

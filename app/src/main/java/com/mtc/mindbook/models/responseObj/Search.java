@@ -15,12 +15,14 @@ public class Search {
     @SerializedName("book_cover")
     @Expose
     private String bookCover;
+    @SerializedName("rating")
+    @Expose
+    private float rating;
     @SerializedName("author")
     @Expose
     private String author;
     @SerializedName("categories")
     @Expose
-
     private List<String> categories = null;
 
     public Integer getBookId() {
@@ -45,6 +47,14 @@ public class Search {
 
     public void setBookCover(String bookCover) {
         this.bookCover = bookCover;
+    }
+
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
     }
 
     public String getAuthor() {

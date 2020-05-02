@@ -27,7 +27,7 @@ public interface APIService {
                                     @Field("email") String email,
                                     @Field("password") String password);
 
-    @POST("search/")
+    @GET("search/")
     Call<SearchReponseObj> search(@Query("text") String searchQuery);
 
     @GET("books/details")
