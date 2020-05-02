@@ -14,6 +14,7 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,8 +60,8 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
                 Detail detail = response.body().getData().get(0);
-                //Render data
-                //Render tag
+                // Render data
+                // Render tag
                 final List<String> listItem = detail.getCategories();
                 final TagAdapter tagAdapter = new TagAdapter(listItem);
                 LinearLayoutManager tagLayoutManager = new LinearLayoutManager(getBaseContext());
@@ -68,13 +69,19 @@ public class DetailActivity extends AppCompatActivity {
                 RecyclerView listViewTag = findViewById(R.id.tag_view);
                 listViewTag.setLayoutManager(tagLayoutManager);
                 listViewTag.setAdapter(tagAdapter);
-                //Render title
+                // Render title
                 TextView title = findViewById(R.id.detail_title);
                 title.setText(detail.getBookTitle());
-                //Render author
+                // Render author
                 TextView author = findViewById(R.id.detail_author);
                 author.setText(detail.getAuthor());
-                //Render overlay
+                // Render rating
+                TextView rating = findViewById(R.id.detail_rating);
+                RatingBar ratingBar = findViewById(R.id.detail_rating_bar);
+                rating.setText(String.valueOf(detail.getRating())+"/5.0");
+                ratingBar.setRating(detail.getRating());
+
+                // Render overlay
                 View overlay = (View) findViewById(R.id.book_overlay);
                 float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84, getResources().getDisplayMetrics());
                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) overlay.getLayoutParams();

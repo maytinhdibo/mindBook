@@ -24,6 +24,9 @@ public class Detail {
     @SerializedName("author")
     @Expose
     private String author;
+    @SerializedName("rating")
+    @Expose
+    private float rating;
     @SerializedName("categories")
     @Expose
     private List<String> categories = null;
@@ -76,6 +79,14 @@ public class Detail {
         this.author = author;
     }
 
+    public float getRating() {
+        return rating;
+    }
+
+    public void setRating(float rating) {
+        this.rating = rating;
+    }
+
     public List<String> getCategories() {
         return categories;
     }
@@ -83,8 +94,6 @@ public class Detail {
     public void setCategories(List<String> categories) {
         this.categories = categories;
     }
-
-
 }
 
 

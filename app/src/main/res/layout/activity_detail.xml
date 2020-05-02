@@ -106,7 +106,7 @@
                             android:textSize="16sp" />
 
                         <RatingBar
-                            android:id="@+id/reviewRating"
+                            android:id="@+id/detail_rating_bar"
                             style="?android:attr/ratingBarStyleSmall"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -119,6 +119,7 @@
                             android:transformPivotY="0dp" />
 
                         <TextView
+                            android:id="@+id/detail_rating"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="4.0/5.0"
