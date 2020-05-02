@@ -28,6 +28,10 @@
     <!--    Network-->
     <string name="err_network">Can not connect to server</string>
 
+    <!--    Search-->
+    <string name="not_found">Can not find any result with your keywords.</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="hint_username">Username</string>

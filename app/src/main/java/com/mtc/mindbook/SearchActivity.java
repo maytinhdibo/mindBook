@@ -106,7 +106,16 @@ public class SearchActivity extends AppCompatActivity {
         callDetail.enqueue(new Callback<SearchReponseObj>() {
             @Override
             public void onResponse(Call<SearchReponseObj> call, Response<SearchReponseObj> response) {
+                if(response.body()== null) {
+                    onFailure(call, null);
+                    return;
+                }
                 List<Search> searches = response.body().getData();
+                if(searches.size()==0){
+                    findViewById(R.id.null_result).setVisibility(View.VISIBLE);
+                }else{
+                    findViewById(R.id.null_result).setVisibility(View.GONE);
+                }
                 final SearchViewAdapter adapter = new SearchViewAdapter(searches);
                 searchResult.setAdapter(adapter);
             }
