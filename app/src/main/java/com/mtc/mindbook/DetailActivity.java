@@ -50,7 +50,11 @@ public class DetailActivity extends AppCompatActivity {
         APIService detailService = null;
         detailService = APIUtils.getUserService();
 
-        Call<DetailReponseObj> callDetail = detailService.detailBook("2");
+        Bundle tagValue = getIntent().getExtras();
+
+        String id = tagValue.getString("EXTRA_BOOK_ID") != null ? tagValue.getString("EXTRA_BOOK_ID") : "1";
+
+        Call<DetailReponseObj> callDetail = detailService.detailBook(id);
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
@@ -72,13 +76,13 @@ public class DetailActivity extends AppCompatActivity {
                 author.setText(detail.getAuthor());
                 //Render overlay
                 View overlay = (View) findViewById(R.id.book_overlay);
-                float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84 , getResources().getDisplayMetrics());
+                float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84, getResources().getDisplayMetrics());
                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) overlay.getLayoutParams();
                 title.post(new Runnable() {
                     @Override
                     public void run() {
                         int au = title.getLineCount();
-                        params.height = (int) (height + (int) (au*TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28 , getResources().getDisplayMetrics())));
+                        params.height = (int) (height + (int) (au * TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 28, getResources().getDisplayMetrics())));
                         overlay.setLayoutParams(params);
                     }
                 });
@@ -126,17 +130,17 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 TextView title = findViewById(R.id.detail_title);
 
-//                SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
-//                Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
-//                if (isLoggedIn) {
-//                    Intent intent = new Intent(v.getContext(), SearchActivity.class);
-//                    intent.putExtra("EXTRA_TAG", "viễn tưởng");
-//                    v.getContext().startActivity(intent);
-//                } else {
-//                    Intent intent = new Intent(v.getContext(), LoginActivity.class);
-//                    startActivityForResult(intent, 1);
-//                    Toast.makeText(v.getContext(), "Hãy đăng nhập để sử dụng chức năng này", Toast.LENGTH_SHORT).show();
-//                }
+                SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
+                Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
+                if (isLoggedIn) {
+                    Intent intent = new Intent(v.getContext(), SearchActivity.class);
+                    intent.putExtra("EXTRA_TAG", "viễn tưởng");
+                    v.getContext().startActivity(intent);
+                } else {
+                    Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                    startActivityForResult(intent, 1);
+                    Toast.makeText(v.getContext(), "Hãy đăng nhập để sử dụng chức năng này", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 

@@ -17,7 +17,7 @@ import static com.mtc.mindbook.MainActivity.EXTRA_MESSAGE;
 public class Utils {
     public static void openDetailPage(Context context, String id){
         Intent intent = new Intent(context, DetailActivity.class);
-        intent.putExtra(EXTRA_MESSAGE, id);
+        intent.putExtra("EXTRA_BOOK_ID", id);
         context.startActivity(intent);
     }
     public static void openSearchPage(Context context, String tag){
