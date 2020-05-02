@@ -3,7 +3,6 @@ package com.mtc.mindbook.explore;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -25,14 +24,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
-import com.mtc.mindbook.SearchActivity;
 import com.mtc.mindbook.models.BookItem;
 import com.mtc.mindbook.models.explore.NearItem;
 import com.mtc.mindbook.models.explore.RecyclerNearAdapter;
-import com.mtc.mindbook.models.explore.RecyclerShareAdapter;
-import com.mtc.mindbook.models.explore.ShareItem;
-import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
-import com.mtc.mindbook.models.review.ReviewItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;

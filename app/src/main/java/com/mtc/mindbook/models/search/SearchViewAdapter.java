@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
-import com.mtc.mindbook.models.responseObj.Search;
+import com.mtc.mindbook.models.responseObj.SearchItem;
 import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -20,9 +20,9 @@ import java.util.List;
 
 public class SearchViewAdapter extends RecyclerView.Adapter<SearchViewAdapter.RecyclerViewHolder>{
 
-    private List<Search> data = new ArrayList<>();
+    private List<SearchItem> data = new ArrayList<>();
 
-    public SearchViewAdapter(List<Search> data) {
+    public SearchViewAdapter(List<SearchItem> data) {
         this.data = data;
     }
 

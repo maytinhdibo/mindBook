@@ -14,17 +14,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.models.responseObj.Detail;
-import com.mtc.mindbook.models.responseObj.DetailReponseObj;
-import com.mtc.mindbook.models.responseObj.Search;
-import com.mtc.mindbook.models.responseObj.SearchReponseObj;
-import com.mtc.mindbook.models.search.SearchItem;
+import com.mtc.mindbook.models.responseObj.SearchItem;
+import com.mtc.mindbook.models.responseObj.SearchResponseObj;
 import com.mtc.mindbook.models.search.SearchViewAdapter;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -102,26 +98,26 @@ public class SearchActivity extends AppCompatActivity {
     public void search() {
         APIService searchService = null;
         searchService = APIUtils.getUserService();
-        Call<SearchReponseObj> callDetail = searchService.search(searchInput.getText().toString());
-        callDetail.enqueue(new Callback<SearchReponseObj>() {
+        Call<SearchResponseObj> callDetail = searchService.search(searchInput.getText().toString());
+        callDetail.enqueue(new Callback<SearchResponseObj>() {
             @Override
-            public void onResponse(Call<SearchReponseObj> call, Response<SearchReponseObj> response) {
+            public void onResponse(Call<SearchResponseObj> call, Response<SearchResponseObj> response) {
                 if(response.body()== null) {
                     onFailure(call, null);
                     return;
                 }
-                List<Search> searches = response.body().getData();
-                if(searches.size()==0){
+                List<SearchItem> searchItems = response.body().getData();
+                if(searchItems.size()==0){
                     findViewById(R.id.null_result).setVisibility(View.VISIBLE);
                 }else{
                     findViewById(R.id.null_result).setVisibility(View.GONE);
                 }
-                final SearchViewAdapter adapter = new SearchViewAdapter(searches);
+                final SearchViewAdapter adapter = new SearchViewAdapter(searchItems);
                 searchResult.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<SearchReponseObj> call, Throwable t) {
+            public void onFailure(Call<SearchResponseObj> call, Throwable t) {
                 Toast.makeText(SearchActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
             }
         });

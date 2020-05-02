@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Search {
+public class SearchItem {
     @SerializedName("book_id")
     @Expose
     private Integer bookId;

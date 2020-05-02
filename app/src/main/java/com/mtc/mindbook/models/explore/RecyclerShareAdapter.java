@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
+import com.mtc.mindbook.models.responseObj.ShareItem;
 import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -60,16 +61,16 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerView.View
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         if (viewHolder instanceof RecyclerViewHolder) {
             RecyclerViewHolder holder = (RecyclerViewHolder) viewHolder;
-            holder.comment.setText(data.get(position).getComment());
-            holder.userName.setText(data.get(position).getName());
-            holder.ratingBar.setRating(data.get(position).getBook().getRating());
-            holder.bookAuthorName.setText(data.get(position).getBook().getAuthorName());
-            holder.bookName.setText(data.get(position).getBook().getName());
-            Picasso.get().load(data.get(position).getBook().getCover()).into(holder.avt);
+            holder.comment.setText(data.get(position).getRatingComment());
+            holder.userName.setText(data.get(position).getUserName());
+            holder.ratingBar.setRating(data.get(position).getRatingNum());
+            holder.bookAuthorName.setText(data.get(position).getUserName());
+            holder.bookName.setText(data.get(position).getBookTitle());
+            Picasso.get().load(data.get(position).getBookCover()).into(holder.avt);
             holder.shareItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getBook().getId()));
+                    Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getBookId()));
                 }
             });
         } else {

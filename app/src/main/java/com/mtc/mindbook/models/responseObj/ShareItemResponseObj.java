@@ -5,17 +5,17 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class SearchReponseObj {
+public class ShareItemResponseObj {
 
     @SerializedName("data")
     @Expose
-    private List<Search> data = null;
+    private List<ShareItem> data = null;
 
-    public List<Search> getData() {
+    public List<ShareItem> getData() {
         return data;
     }
 
-    public void setData(List<Search> data) {
+    public void setData(List<ShareItem> data) {
         this.data = data;
     }
 }
