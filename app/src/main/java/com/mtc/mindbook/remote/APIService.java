@@ -30,7 +30,7 @@ public interface APIService {
     @GET("search/")
     Call<SearchResponseObj> search(@Query("text") String searchQuery);
 
-    @GET("ratings/new?limit=6")
+    @GET("ratings/new?limit=5")
     Call<ShareItemResponseObj> getShares(@Query("page") int page);
 
     @GET("books/details")
