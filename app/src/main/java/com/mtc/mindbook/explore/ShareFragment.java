@@ -64,12 +64,10 @@ public class ShareFragment extends Fragment {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (!isLoading) {
+                if (!loadEnd) {
                     if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == listReview.size() - 1) {
-                        if (!loadEnd) {
-                            page++;
-                            loadNewPage();
-                        }
+                        page++;
+                        loadNewPage();
                         return;
                     }
                 }
