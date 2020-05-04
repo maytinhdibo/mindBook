@@ -6,6 +6,9 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class ShareItem {
+    @SerializedName("author_name")
+    @Expose
+    private String authorName;
     @SerializedName("book_id")
     @Expose
     private Integer bookId;
@@ -21,15 +24,26 @@ public class ShareItem {
     @SerializedName("user_name")
     @Expose
     private String userName;
+    @SerializedName("full_name")
+    @Expose
+    private String fullName;
     @SerializedName("rating_num")
     @Expose
-    private Integer ratingNum;
+    private float ratingNum;
     @SerializedName("rating_comment")
     @Expose
     private String ratingComment;
     @SerializedName("created_date")
     @Expose
     private String createdDate;
+
+    public String getAuthorName() {
+        return authorName;
+    }
+
+    public void setAuthorName(String authorName) {
+        this.authorName = authorName;
+    }
 
     public Integer getBookId() {
         return bookId;
@@ -71,11 +85,19 @@ public class ShareItem {
         this.userName = userName;
     }
 
-    public Integer getRatingNum() {
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
+    public float getRatingNum() {
         return ratingNum;
     }
 
-    public void setRatingNum(Integer ratingNum) {
+    public void setRatingNum(float ratingNum) {
         this.ratingNum = ratingNum;
     }
 

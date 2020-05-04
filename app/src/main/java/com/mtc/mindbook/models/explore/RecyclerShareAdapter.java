@@ -62,9 +62,9 @@ public class RecyclerShareAdapter extends RecyclerView.Adapter<RecyclerView.View
         if (viewHolder instanceof RecyclerViewHolder) {
             RecyclerViewHolder holder = (RecyclerViewHolder) viewHolder;
             holder.comment.setText(data.get(position).getRatingComment());
-            holder.userName.setText(data.get(position).getUserName());
+            holder.userName.setText(data.get(position).getFullName());
             holder.ratingBar.setRating(data.get(position).getRatingNum());
-            holder.bookAuthorName.setText(data.get(position).getUserName());
+            holder.bookAuthorName.setText(data.get(position).getAuthorName());
             holder.bookName.setText(data.get(position).getBookTitle());
             Picasso.get().load(data.get(position).getBookCover()).into(holder.avt);
             holder.shareItem.setOnClickListener(new View.OnClickListener() {
