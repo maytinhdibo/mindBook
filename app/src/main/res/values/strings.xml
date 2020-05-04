@@ -47,5 +47,9 @@
     <string name="description_epub_search">Search</string>
     <string name="more">More</string>
     <string name="content_description_more">More</string>
+    <string name="previous_chapter">Previous Chapter</string>
+    <string name="next_chapter">Next Chapter</string>
+    <string name="love">Love</string>
+    <string name="custom_reader">Custom Reader</string>
 
 </resources>

@@ -163,7 +163,9 @@ public class DetailActivity extends AppCompatActivity {
 
                 Bundle extras = new Bundle();
                 extras.putString("EXTRA_MESSAGE_TYPE", "read");
-                extras.putString("EXTRA_MESSAGE_ID", "22");
+                Bundle tagValue = getIntent().getExtras();
+                String id = tagValue.getString("EXTRA_BOOK_ID") != null ? tagValue.getString("EXTRA_BOOK_ID") : "1";
+                extras.putString("EXTRA_MESSAGE_ID", id);
                 intent.putExtras(extras);
 
                 startActivity(intent);
@@ -176,10 +178,11 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // TODO Auto-generated method stub
                 Intent intent = new Intent(getApplicationContext(), ReaderActivity.class);
-
                 Bundle extras = new Bundle();
                 extras.putString("EXTRA_MESSAGE_TYPE", "listen");
-                extras.putString("EXTRA_MESSAGE_ID", "3");
+                Bundle tagValue = getIntent().getExtras();
+                String id = tagValue.getString("EXTRA_BOOK_ID") != null ? tagValue.getString("EXTRA_BOOK_ID") : "1";
+                extras.putString("EXTRA_MESSAGE_ID", id);
                 intent.putExtras(extras);
 
                 startActivity(intent);

@@ -1,28 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f2eecb"
-    android:orientation="vertical">
+    android:background="#EAE4E4"
+    >
 
-<!--        <com.google.android.material.appbar.AppBarLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/epub_top_bar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:title="@string/loading_epub_title"
-                />
-
-<!--        </com.google.android.material.appbar.AppBarLayout>-->
-
-
-    <WebView
-        android:id="@+id/epub_content"
+    <!--        <com.google.android.material.appbar.AppBarLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content">-->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/epub_top_bar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/backgroundPrimary"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:navigationIcon="@drawable/ic_arrow_back"
+            app:title="@string/loading_epub_title"
+            />
+
+
+        <!--        </com.google.android.material.appbar.AppBarLayout>-->
+
+        <WebView
+            android:id="@+id/epub_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </LinearLayout>
+    <!--    <androidx.appcompat.widget.Toolbar-->
+    <!--        android:id="@+id/epub_bottom_bar"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="?attr/actionBarSize"-->
+    <!--        android:layout_gravity="bottom"-->
+    <!--        android:background="@color/backgroundPrimary"-->
+    <!--        android:theme="@style/ThemeOverlay.AppCompat.Light" />-->
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/epub_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/epub_bottom_nav"
+        android:background="@color/backgroundPrimary"
+        app:elevation="19dp"
+        app:itemIconTint="@color/bottom_nav_item"
+        app:itemTextColor="@color/bottom_nav_item"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintCircleRadius="3dp"
+        app:menu="@menu/epub_bottom_bar"
+        app:labelVisibilityMode="unlabeled" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
