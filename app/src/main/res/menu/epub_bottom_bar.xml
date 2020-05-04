@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/prev_chap"
+        android:title="@string/previous_chapter"
+        android:icon="@drawable/ic_chevron_left"/>
+    <item
+        android:id="@+id/next_chap"
+        android:title="@string/next_chapter"
+        android:icon="@drawable/ic_chevron_right" />
+    <item
+        android:id="@+id/epub_love"
+        android:title="@string/love"
+        android:icon="@drawable/ic_heart"/>
+
+    <item
+        android:id="@+id/epub_custom"
+        android:title="@string/custom_reader"
+        android:icon="@drawable/ic_text_format"/>
+</menu>

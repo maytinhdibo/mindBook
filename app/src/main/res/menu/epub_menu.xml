@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:title="Add bookmark"
+        android:id="@+id/add_bookmark"/>
+
+    <item
+        android:title="Help"
+        android:id="@+id/epub_help"/>
+
+    <item
+        android:title="Feedback"
+        android:id="@+id/epub_feedback"/>
+    <item
+        android:title="Search"
+        android:id="@+id/epub_search"
+        android:icon="@drawable/ic_search_24dp"
+        app:showAsAction="always"/>
+
+    <item
+        android:title="Chapters"
+        android:id="@+id/epub_chapter"
+        android:icon="@drawable/ic_toc_black"
+        app:showAsAction="always"/>
+
+
+</menu>
