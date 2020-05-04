@@ -29,7 +29,7 @@ public class ShareItem {
     private String fullName;
     @SerializedName("rating_num")
     @Expose
-    private float ratingNum;
+    private int ratingNum;
     @SerializedName("rating_comment")
     @Expose
     private String ratingComment;
@@ -93,11 +93,11 @@ public class ShareItem {
         this.fullName = fullName;
     }
 
-    public float getRatingNum() {
+    public int getRatingNum() {
         return ratingNum;
     }
 
-    public void setRatingNum(float ratingNum) {
+    public void setRatingNum(int ratingNum) {
         this.ratingNum = ratingNum;
     }
 
