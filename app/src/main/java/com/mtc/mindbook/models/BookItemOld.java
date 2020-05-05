@@ -1,20 +1,20 @@
 package com.mtc.mindbook.models;
 
-public class BookItem {
+public class BookItemOld {
     private int id;
     private String cover;
     private String name;
     private String authorName;
     private float rating;
 
-    public BookItem(int id, String cover, String name) {
+    public BookItemOld(int id, String cover, String name) {
         this.id = id;
         this.cover = cover;
         this.name = name;
         this.rating = 0;
     }
 
-    public BookItem(int id, String cover, String name, String authorName, float rating) {
+    public BookItemOld(int id, String cover, String name, String authorName, float rating) {
         this.id = id;
         this.cover = cover;
         this.name = name;

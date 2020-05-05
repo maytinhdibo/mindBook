@@ -10,6 +10,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
+import com.mtc.mindbook.models.responseObj.BookItem;
 import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
@@ -34,12 +35,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(RecyclerViewHolder holder, final int position) {
-        holder.songName.setText(data.get(position).getName());
-        Picasso.get().load(data.get(position).getCover()).into(holder.songImage);
+        holder.songName.setText(data.get(position).getBookTitle());
+        Picasso.get().load(data.get(position).getBookCover()).into(holder.songImage);
         holder.itemCon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getId()));
+                Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getBookId()));
             }
         }); ;
     }

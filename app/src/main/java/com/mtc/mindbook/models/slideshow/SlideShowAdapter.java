@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.cardview.widget.CardView;
 
 import com.mtc.mindbook.R;
-import com.mtc.mindbook.models.BookItem;
+import com.mtc.mindbook.models.BookItemOld;
 import com.mtc.mindbook.utils.Utils;
 import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.squareup.picasso.Picasso;
@@ -22,13 +22,13 @@ public class SlideShowAdapter extends
         SliderViewAdapter<SlideShowAdapter.SliderAdapterVH> {
 
     private Context context;
-    private List<BookItem> mSliderItems = new ArrayList<>();
+    private List<BookItemOld> mSliderItems = new ArrayList<>();
 
     public SlideShowAdapter(Context context) {
         this.context = context;
     }
 
-    public void renewItems(List<BookItem> sliderItems) {
+    public void renewItems(List<BookItemOld> sliderItems) {
         this.mSliderItems = sliderItems;
         notifyDataSetChanged();
     }
@@ -38,7 +38,7 @@ public class SlideShowAdapter extends
         notifyDataSetChanged();
     }
 
-    public void addItem(BookItem BookItem) {
+    public void addItem(BookItemOld BookItem) {
         this.mSliderItems.add(BookItem);
         notifyDataSetChanged();
     }
@@ -50,7 +50,7 @@ public class SlideShowAdapter extends
 
     public void onBindViewHolder(final SliderAdapterVH viewHolder, final int position) {
 
-        final BookItem BookItem = mSliderItems.get(position);
+        final BookItemOld BookItem = mSliderItems.get(position);
 
 //        viewHolder.textViewDescription.setText(EntryItem.getDescription());
 //        viewHolder.textViewDescription.setTextSize(16);

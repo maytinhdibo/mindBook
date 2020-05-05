@@ -1,5 +1,6 @@
 package com.mtc.mindbook.remote;
 
+import com.mtc.mindbook.models.responseObj.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.models.responseObj.SearchResponseObj;
@@ -26,6 +27,9 @@ public interface APIService {
                                     @Field("lastname") String lastname,
                                     @Field("email") String email,
                                     @Field("password") String password);
+
+    @GET("books/trending?limit=5&page=1")
+    Call<BookTrendResponseObj> trending();
 
     @GET("search/")
     Call<SearchResponseObj> search(@Query("text") String searchQuery);
