@@ -1,5 +1,6 @@
 package com.mtc.mindbook.remote;
 
+import com.mtc.mindbook.models.responseObj.BookRateResponseObj;
 import com.mtc.mindbook.models.responseObj.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
@@ -39,6 +40,12 @@ public interface APIService {
 
     @GET("books/details")
     Call<DetailReponseObj> detailBook(@Query("book_id") String bookId);
+
+    @POST("/user/rate")
+    Call<BookRateResponseObj> rateBook(@Header("Authorization") String token,
+                                       @Query("book_id") String bookId,
+                                       @Query("rating_num") int RateNum,
+                                       @Query("rating_comment") String RateComment);
 
     @GET("user/profile")
     Call<UserResponseObj> fetchUserInfo(@Header("Authorization") String token);

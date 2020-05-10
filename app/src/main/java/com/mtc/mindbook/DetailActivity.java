@@ -1,6 +1,7 @@
 package com.mtc.mindbook;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -12,6 +13,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RatingBar;
@@ -23,8 +25,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mtc.mindbook.models.responseObj.BookRateResponseObj;
 import com.mtc.mindbook.models.responseObj.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.Detail;
+import com.mtc.mindbook.models.responseObj.user.UserResponseObj;
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
 import com.mtc.mindbook.models.review.ReviewItem;
 import com.mtc.mindbook.models.tag.TagAdapter;
@@ -44,16 +48,20 @@ import retrofit2.Response;
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE_TYPE = "none";
     public static final String EXTRA_MESSAGE_ID = "none";
-
+    private APIService detailService = null;
+    SharedPreferences sharedPrefs = null;
+    String id;
 
     @Override
     protected void onStart() {
-        APIService detailService = null;
+
+        sharedPrefs = getBaseContext().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+
         detailService = APIUtils.getUserService();
 
         Bundle tagValue = getIntent().getExtras();
 
-        String id = tagValue.getString("EXTRA_BOOK_ID") != null ? tagValue.getString("EXTRA_BOOK_ID") : "1";
+        id = tagValue.getString("EXTRA_BOOK_ID") != null ? tagValue.getString("EXTRA_BOOK_ID") : "1";
 
         Call<DetailReponseObj> callDetail = detailService.detailBook(id);
         callDetail.enqueue(new Callback<DetailReponseObj>() {
@@ -78,7 +86,7 @@ public class DetailActivity extends AppCompatActivity {
                 // Render rating
                 TextView rating = findViewById(R.id.detail_rating);
                 RatingBar ratingBar = findViewById(R.id.detail_rating_bar);
-                rating.setText(String.valueOf(detail.getRating())+"/5.0");
+                rating.setText(String.valueOf(detail.getRating()) + "/5.0");
                 ratingBar.setRating(detail.getRating());
 
                 // Render overlay
@@ -250,6 +258,39 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 reviewDialog.dismiss();
+            }
+        });
+
+        EditText commentText = (EditText) reviewDialog.findViewById(R.id.comment);
+        RatingBar ratingBar = (RatingBar) reviewDialog.findViewById(R.id.rate);
+
+        Button reviewPostDialogBtn = (Button) reviewDialog.findViewById(R.id.review_post);
+        reviewPostDialogBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String accessToken = sharedPrefs.getString("accessToken", "");
+                String comment = commentText.getText().toString();
+                int rate = (int) ratingBar.getRating();
+                Call<BookRateResponseObj> callPostRate = detailService.rateBook("Bearer " + accessToken, id, rate, comment);
+                callPostRate.enqueue(new Callback<BookRateResponseObj>() {
+                    @Override
+                    public void onResponse(Call<BookRateResponseObj> call, Response<BookRateResponseObj> response) {
+                        if (response.body() != null) {
+                            //success
+                        } else {
+                        }
+                        reviewDialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<BookRateResponseObj> call, Throwable t) {
+                        Toast.makeText(getBaseContext(), R.string.err_action, Toast.LENGTH_SHORT).show();
+                        reviewDialog.dismiss();
+                    }
+                });
+
+
             }
         });
 
