@@ -1,5 +1,6 @@
 package com.mtc.mindbook.models;
 
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             super(itemView);
             songImage = (ImageView) itemView.findViewById(R.id.songImageView);
             songName = (TextView) itemView.findViewById(R.id.title);
+            songName.setEllipsize(TextUtils.TruncateAt.END);
             itemCon = (CardView) itemView.findViewById(R.id.songCard);
         }
     }

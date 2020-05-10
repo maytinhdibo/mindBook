@@ -26,7 +26,8 @@
         android:layout_height="wrap_content"
         android:paddingTop="2pt"
         android:paddingBottom="2pt"
-        android:singleLine="true"
+        android:lines="2"
+        android:maxLines="2"
         android:text="Đi chợ"
         android:textSize="7pt"
         android:textStyle="bold" />
