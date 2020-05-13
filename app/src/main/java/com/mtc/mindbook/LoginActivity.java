@@ -101,12 +101,12 @@ public class LoginActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPrefs.edit();
                     editor.putBoolean("isLoggedIn", true);
                     editor.putString("accessToken", accessToken);
-                    editor.commit();
+                    editor.apply();
                     getUser.fetchUser(context);
                     setResult(RESULT_OK, intent);
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khâu sai", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
                 }
             }
 

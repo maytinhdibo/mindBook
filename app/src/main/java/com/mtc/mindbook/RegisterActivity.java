@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity {
                     SharedPreferences.Editor editor = sharedPrefs.edit();
                     editor.putBoolean("isLoggedIn", true);
                     editor.putString("accessToken", accessToken);
-                    editor.commit();
+                    editor.apply();
                     getUser.fetchUser(context);
                     setResult(RESULT_OK, intent);
                     finish();

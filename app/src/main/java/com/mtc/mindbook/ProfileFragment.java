@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,6 +73,7 @@ public class ProfileFragment extends Fragment {
         sharedPrefs = getActivity().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
         Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
         if (isLoggedIn) {
+            Log.d("ấ", sharedPrefs.getString("userFullName", ""));
             logoutBtn.setText("Đăng xuất");
             userFullNameTextView.setText(sharedPrefs.getString("userFullName", ""));
             userEmailTextView.setText(sharedPrefs.getString("userEmail", ""));

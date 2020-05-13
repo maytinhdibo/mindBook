@@ -25,7 +25,7 @@ public class getUser {
                 editor.putString("userEmail", response.body().getData().getEmail());
                 editor.putString("userFullName", response.body().getData().getFirstName() + " " + response.body().getData().getLastName());
                 editor.putString("userName", response.body().getData().getUserName());
-                editor.commit();
+                editor.apply();
             }
 
             @Override

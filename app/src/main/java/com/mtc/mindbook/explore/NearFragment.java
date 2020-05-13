@@ -142,7 +142,9 @@ public class NearFragment extends Fragment implements LocationListener {
             locationAlert.setVisibility(View.GONE);
             nearListView.setVisibility(View.VISIBLE);
             Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-            Log.d("Location", location.getLatitude() + ":" + location.getLongitude());
+            if (location != null) {
+                Log.d("Location", location.getLatitude() + ":" + location.getLongitude());
+            }
 
         }
     }
@@ -161,9 +163,11 @@ public class NearFragment extends Fragment implements LocationListener {
 
     @Override
     public void onLocationChanged(Location location) {
-        double latT = location.getLatitude();
-        double longT = location.getLongitude();
-        Log.d("Location", "onLocationChanged: " + latT + ";" + longT);
+        if (location != null) {
+            double latT = location.getLatitude();
+            double longT = location.getLongitude();
+            Log.d("Location", "onLocationChanged: " + latT + ";" + longT);
+        }
     }
 
     @Override

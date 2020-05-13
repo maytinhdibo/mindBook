@@ -88,7 +88,7 @@
                                             style="?attr/borderlessButtonStyle"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="Sửa thông tin" />
+                                            android:text="Tủ sách của tôi" />
                                 </LinearLayout>
 
                         </LinearLayout>
