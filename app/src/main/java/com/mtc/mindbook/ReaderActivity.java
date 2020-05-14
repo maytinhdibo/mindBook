@@ -26,6 +26,7 @@ import com.mtc.mindbook.models.responseObj.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 ;
+import java.io.IOException;
 import java.util.List;
 
 import nl.siegmann.epublib.domain.Book;
@@ -38,7 +39,9 @@ import retrofit2.Response;
 
 public class ReaderActivity extends AppCompatActivity {
 
-
+    private int currentChapter = 0;
+    private Book book;
+    private WebView epubContent;
 
     @Override
     protected void onStart() {
@@ -95,7 +98,7 @@ public class ReaderActivity extends AppCompatActivity {
 
 
         // Use webview
-        WebView epubContent = (WebView) findViewById(R.id.epub_content);
+        epubContent = (WebView) findViewById(R.id.epub_content);
         epubContent.setBackgroundColor(Color.TRANSPARENT);
         epubContent.setOnTouchListener(new OnTouchListener() {
             private static final int MAX_CLICK_DURATION = 200;
@@ -147,21 +150,13 @@ public class ReaderActivity extends AppCompatActivity {
 
         try {
             EpubReader epubReader = new EpubReader();
-            Book book = epubReader.readEpub(getAssets().open("pg730.epub"));
-            List<String> titles = book.getMetadata().getTitles();
+            book = epubReader.readEpub(getAssets().open("pg730.epub"));
+//            List<String> titles = book.getMetadata().getTitles();
             Spine spine = book.getSpine();
             StringBuilder htmlText = new StringBuilder();
-//            for (int i = 0; i < spine.size(); i++) {
-                Resource resource = spine.getResource(2);
-                htmlText.append(new String(resource.getData()));
-
-//            }
-
-
-            // Use webview
-            String encodedHtml = Base64.encodeToString(htmlText.toString().getBytes(),
-                    Base64.NO_PADDING);
-            epubContent.loadData(encodedHtml, "text/html", "base64");
+            Resource resource = spine.getResource(currentChapter);
+            htmlText.append(new String(resource.getData()));
+            loadChapter();
             WebSettings webSettings = epubContent.getSettings();
             webSettings.setUseWideViewPort(true);
             webSettings.setLoadWithOverviewMode(true);
@@ -186,7 +181,7 @@ public class ReaderActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
-         if (id == R.id.epub_search) {
+        if (id == R.id.epub_search) {
             Toast.makeText(getApplicationContext(), "You click search", Toast.LENGTH_SHORT).show();
         } else if (id == R.id.add_bookmark) {
             Toast.makeText(getApplicationContext(), "You click add bookmark", Toast.LENGTH_SHORT).show();
@@ -198,32 +193,56 @@ public class ReaderActivity extends AppCompatActivity {
         return true;
     }
 
+    private void loadChapter() throws IOException {
+        Spine spine = book.getSpine();
+        StringBuilder htmlText = new StringBuilder();
+        Resource resource = spine.getResource(currentChapter);
+        htmlText.append(new String(resource.getData()));
+        String encodedHtml = Base64.encodeToString(htmlText.toString().getBytes(),
+                Base64.NO_PADDING);
+        epubContent.loadData(encodedHtml, "text/html", "base64");
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     BottomNavigationView bottomBar = findViewById(R.id.epub_bottom_bar);
                     int itemIndex = 0;
-                    switch (item.getItemId()) {
-                        case R.id.prev_chap:
-                            itemIndex = 0;
-                            Toast.makeText(getApplicationContext(), "Prev Chapter", Toast.LENGTH_SHORT).show();
-                            break;
-                        case R.id.next_chap:
-                            itemIndex = 1;
-                            Toast.makeText(getApplicationContext(), "Next Chapter", Toast.LENGTH_SHORT).show();
-                            break;
-                        case R.id.epub_love:
-                            itemIndex = 2;
-                            Toast.makeText(getApplicationContext(), "Love Epub", Toast.LENGTH_SHORT).show();
-                            break;
-                        case R.id.epub_custom:
-                            itemIndex = 3;
-                            Toast.makeText(getApplicationContext(), "Custom Reader", Toast.LENGTH_SHORT).show();
-                            break;
+                    try {
+                        switch (item.getItemId()) {
+                            case R.id.prev_chap:
+                                itemIndex = 0;
+                                if (currentChapter <= 0) {
+                                    Toast.makeText(getApplicationContext(), "This is the first chapter", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    currentChapter = Math.max(0, --currentChapter);
+                                    loadChapter();
+                                }
+                                break;
+                            case R.id.next_chap:
+                                itemIndex = 1;
+                                if (currentChapter >= book.getSpine().size() - 1) {
+                                    Toast.makeText(getApplicationContext(), "This is the last chapter", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    currentChapter = Math.min(book.getSpine().size() - 1, ++currentChapter);
+                                    loadChapter();
+                                }
+                                break;
+                            case R.id.epub_love:
+                                itemIndex = 2;
+                                Toast.makeText(getApplicationContext(), "Love Epub", Toast.LENGTH_SHORT).show();
+                                break;
+                            case R.id.epub_custom:
+                                itemIndex = 3;
+                                Toast.makeText(getApplicationContext(), "Custom Reader", Toast.LENGTH_SHORT).show();
+                                break;
+                        }
+                        bottomBar.getMenu().getItem(itemIndex).setCheckable(false);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        finish();
                     }
-                    bottomBar.getMenu().getItem(itemIndex).setCheckable(false);
-
                     return true;
                 }
             };
