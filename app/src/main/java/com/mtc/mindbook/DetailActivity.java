@@ -26,6 +26,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mtc.mindbook.models.responseObj.rating.BookRateResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.detail.Detail;
+import com.mtc.mindbook.models.responseObj.rating.RatingComment;
+import com.mtc.mindbook.models.responseObj.rating.RatingCommentsResponseObj;
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
 import com.mtc.mindbook.models.review.ReviewItem;
 import com.mtc.mindbook.models.tag.TagAdapter;
@@ -45,7 +47,7 @@ import retrofit2.Response;
 public class DetailActivity extends AppCompatActivity {
     public static final String EXTRA_MESSAGE_TYPE = "none";
     public static final String EXTRA_MESSAGE_ID = "none";
-    private APIService detailService = null;
+    private APIService apiServices = APIUtils.getUserService();
     SharedPreferences sharedPrefs = null;
     String id;
 
@@ -54,13 +56,11 @@ public class DetailActivity extends AppCompatActivity {
 
         sharedPrefs = getBaseContext().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
 
-        detailService = APIUtils.getUserService();
-
         Bundle tagValue = getIntent().getExtras();
 
         id = tagValue.getString("EXTRA_BOOK_ID") != null ? tagValue.getString("EXTRA_BOOK_ID") : "1";
 
-        Call<DetailReponseObj> callDetail = detailService.detailBook(id);
+        Call<DetailReponseObj> callDetail = apiServices.detailBook(id);
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
@@ -118,6 +118,31 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
+        Call<RatingCommentsResponseObj> callRatingComment = apiServices.getRatingComment(id, 0);
+        callRatingComment.enqueue(new Callback<RatingCommentsResponseObj>() {
+            @Override
+            public void onResponse(Call<RatingCommentsResponseObj> call, Response<RatingCommentsResponseObj> response) {
+                List<RatingComment> ratingCommentList = response.body().getData();
+
+                final RecyclerReviewAdapter adapter = new RecyclerReviewAdapter(ratingCommentList);
+
+                RecyclerView listView = findViewById(R.id.list_review);
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+                listView.setLayoutManager(layoutManager);
+
+                listView.setAdapter(adapter);
+            }
+
+            @Override
+            public void onFailure(Call<RatingCommentsResponseObj> call, Throwable t) {
+                Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
         super.onStart();
 
     }
@@ -126,8 +151,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        Window window = getWindow();
 
         Window w = getWindow();
         w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
@@ -181,7 +204,6 @@ public class DetailActivity extends AppCompatActivity {
         listenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO Auto-generated method stub
                 Intent intent = new Intent(getApplicationContext(), ReaderActivity.class);
                 Bundle extras = new Bundle();
                 extras.putString("EXTRA_MESSAGE_TYPE", "listen");
@@ -200,33 +222,8 @@ public class DetailActivity extends AppCompatActivity {
                 (LinearLayout.LayoutParams.MATCH_PARENT
                         , 240 + this.getNavigationBarHeight()));
 
-//        getWindow().setStatusBarColor(Color.parseColor("#20ff1111"));
-//        getWindow().setNavigationBarColor(Color.parseColor("#20111111"));
-
-
         View decor = getWindow().getDecorView();
         decor.setSystemUiVisibility(0);
-
-        ReviewItem[] reviewItems = {
-                new ReviewItem("Ôi hay quá", "https://icdn.dantri.com.vn/thumb_w/640/2019/04/16/33-1555425777506.jpg", "Bin Gết", (float) 4.5),
-                new ReviewItem("Quá xá đỉnh ghê.", "https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102", "Cao Thắng", (float) 2.5),
-                new ReviewItem("Truyện hay nhưng cờ Việt Nam chỉ có một sao nên vote 1 sao vậy.", "https://media.tinmoi.vn/2016/11/21/Cac-ca-si-noi-tieng-Viet-Nam-thap-nien-90-1.jpg", "Đan Trường", (float) 1.0),
-                new ReviewItem("Quá xá đỉnh", "https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102", "Cao Thắng", (float) 2.5),
-                new ReviewItem("Quá xá đỉnh", "https://st.galaxypub.vn/staticFile/Subject/2014/10/07/2942145/ongcaothang5-30215_7211551.jpg?w=102", "Cao Thắng", (float) 2.5),
-        };
-
-        // Construct the data source
-        final List<ReviewItem> listReview = new ArrayList<>(Arrays.asList(reviewItems));
-        final RecyclerReviewAdapter adapter = new RecyclerReviewAdapter(listReview);
-
-        RecyclerView listView = view.findViewById(R.id.list_review);
-
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-        listView.setLayoutManager(layoutManager);
-
-        listView.setAdapter(adapter);
 
 
         final AppCompatActivity self = this;
@@ -268,7 +265,7 @@ public class DetailActivity extends AppCompatActivity {
                 String accessToken = sharedPrefs.getString("accessToken", "");
                 String comment = commentText.getText().toString();
                 int rate = (int) ratingBar.getRating();
-                Call<BookRateResponseObj> callPostRate = detailService.rateBook("Bearer " + accessToken, id, rate, comment);
+                Call<BookRateResponseObj> callPostRate = apiServices.rateBook("Bearer " + accessToken, id, rate, comment);
                 callPostRate.enqueue(new Callback<BookRateResponseObj>() {
                     @Override
                     public void onResponse(Call<BookRateResponseObj> call, Response<BookRateResponseObj> response) {

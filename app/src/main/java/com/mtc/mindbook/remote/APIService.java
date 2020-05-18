@@ -4,6 +4,7 @@ import com.mtc.mindbook.models.responseObj.rating.BookRateResponseObj;
 import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
+import com.mtc.mindbook.models.responseObj.rating.RatingCommentsResponseObj;
 import com.mtc.mindbook.models.responseObj.search.SearchResponseObj;
 import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
 import com.mtc.mindbook.models.responseObj.banner.BannerResponseObj;
@@ -41,6 +42,10 @@ public interface APIService {
 
     @GET("ratings/new?limit=5")
     Call<ShareItemResponseObj> getShares(@Query("page") int page);
+
+    @GET("books/ratings?limit=5")
+    Call<RatingCommentsResponseObj> getRatingComment(@Query("book_id") String bookId,
+                                              @Query("page") int page);
 
     @GET("books/details")
     Call<DetailReponseObj> detailBook(@Query("book_id") String bookId);
