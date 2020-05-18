@@ -47,8 +47,7 @@
                     android:layout_height="60dp"
                     android:background="@drawable/top_round"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    tools:ignore="MissingConstraints"
-                   ></View>
+                    tools:ignore="MissingConstraints"></View>
 
                 <LinearLayout
                     style="@style/container"
@@ -63,10 +62,10 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="bottom"
+                        android:layout_marginBottom="0dp"
                         android:foregroundGravity="bottom"
                         app:cardCornerRadius="4dp"
                         app:cardElevation="0dp"
-                        android:layout_marginBottom="0dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.0"
@@ -111,9 +110,9 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="3dp"
+                            android:isIndicator="true"
                             android:numStars="5"
                             android:rating="4.5"
-                            android:isIndicator="true"
                             android:theme="@style/RatingBar"
                             android:transformPivotX="0dp"
                             android:transformPivotY="0dp" />
@@ -147,27 +146,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"></androidx.recyclerview.widget.RecyclerView>
 
-<!--                <LinearLayout-->
-<!--                    android:id="@+id/view4"-->
-<!--                    style="@style/container"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:orientation="horizontal">-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/button"-->
-<!--                        style="@style/outline_btn"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:background="@drawable/outline_button"-->
-<!--                        android:text="Viễn tưởng" />-->
-
-<!--                    <Button-->
-<!--                        android:id="@+id/outlinedButton"-->
-<!--                        style="@style/outline_btn"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:background="@drawable/outline_button"-->
-<!--                        android:text="Kinh dị" />-->
-<!--                </LinearLayout>-->
 
                 <TextView
                     style="@style/section_title"
@@ -204,33 +182,6 @@
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
-                <!--                <LinearLayout-->
-                <!--                    style="@style/container"-->
-                <!--                    android:layout_width="wrap_content"-->
-                <!--                    android:layout_height="wrap_content">-->
-                <!--                    <RatingBar-->
-                <!--                        android:id="@+id/ratingBar"-->
-                <!--                        style="?android:attr/ratingBarStyleIndicator"-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="wrap_content"-->
-                <!--                        android:numStars="5"-->
-                <!--                        android:rating="4.5"-->
-                <!--                        android:theme="@style/RatingBar"-->
-                <!--                        android:transformPivotX="0dp"-->
-                <!--                        android:transformPivotY="0dp" />-->
-
-                <!--                    <TextView-->
-                <!--                        android:id="@+id/star_rating"-->
-                <!--                        android:layout_width="wrap_content"-->
-                <!--                        android:layout_height="match_parent"-->
-                <!--                        android:layout_marginLeft="3dp"-->
-                <!--                        android:gravity="bottom|right"-->
-                <!--                        android:text="4.0/5.0"-->
-                <!--                        android:textColor="@color/textColor"-->
-                <!--                        android:textSize="18dp"-->
-                <!--                        android:textStyle="bold"></TextView>-->
-                <!--                </LinearLayout>-->
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/list_review"
                     style="@style/container"
@@ -240,9 +191,22 @@
                     android:clipToPadding="true"
                     android:nestedScrollingEnabled="false"
                     android:orientation="horizontal"
-                    android:paddingVertical="6pt"
+                    android:paddingTop="6pt"
+                    android:paddingBottom="3pt"
                     android:scrollbars="none" />
 
+                <Button
+                    android:background="@drawable/detail_button"
+                    android:layout_gravity="center"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6pt"
+                    android:paddingHorizontal="9pt"
+                    android:paddingVertical="0pt"
+                    android:textAllCaps="false"
+                    android:scaleX="0.85"
+                    android:scaleY="0.85"
+                    android:text="@string/loadMoreReview" />
 
             </LinearLayout>
         </LinearLayout>

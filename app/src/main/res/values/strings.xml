@@ -33,6 +33,7 @@
 
     <!--    Common-->
     <string name="err_action">Can do this action.</string>
+    <string name="loadMoreReview">Load more review...</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->
