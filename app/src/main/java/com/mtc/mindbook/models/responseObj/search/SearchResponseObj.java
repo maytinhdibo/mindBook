@@ -1,7 +1,8 @@
-package com.mtc.mindbook.models.responseObj;
+package com.mtc.mindbook.models.responseObj.search;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import com.mtc.mindbook.models.responseObj.search.SearchItem;
 
 import java.util.List;
 

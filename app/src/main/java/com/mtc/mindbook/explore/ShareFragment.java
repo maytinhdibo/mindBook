@@ -15,9 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
 import com.mtc.mindbook.models.explore.RecyclerShareAdapter;
-import com.mtc.mindbook.models.responseObj.SearchResponseObj;
-import com.mtc.mindbook.models.responseObj.ShareItem;
-import com.mtc.mindbook.models.responseObj.ShareItemResponseObj;
+import com.mtc.mindbook.models.responseObj.explore.share.ShareItem;
+import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 

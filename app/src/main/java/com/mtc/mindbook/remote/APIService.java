@@ -1,11 +1,11 @@
 package com.mtc.mindbook.remote;
 
-import com.mtc.mindbook.models.responseObj.BookRateResponseObj;
-import com.mtc.mindbook.models.responseObj.BookTrendResponseObj;
-import com.mtc.mindbook.models.responseObj.DetailReponseObj;
+import com.mtc.mindbook.models.responseObj.rating.BookRateResponseObj;
+import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseObj;
+import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
-import com.mtc.mindbook.models.responseObj.SearchResponseObj;
-import com.mtc.mindbook.models.responseObj.ShareItemResponseObj;
+import com.mtc.mindbook.models.responseObj.search.SearchResponseObj;
+import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
 import com.mtc.mindbook.models.responseObj.banner.BannerResponseObj;
 import com.mtc.mindbook.models.responseObj.user.UserResponseObj;
 

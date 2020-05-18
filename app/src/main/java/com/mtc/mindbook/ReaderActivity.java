@@ -21,13 +21,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.mtc.mindbook.models.responseObj.Detail;
-import com.mtc.mindbook.models.responseObj.DetailReponseObj;
+import com.mtc.mindbook.models.responseObj.detail.Detail;
+import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 ;
 import java.io.IOException;
-import java.util.List;
 
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;

@@ -14,8 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.models.responseObj.SearchItem;
-import com.mtc.mindbook.models.responseObj.SearchResponseObj;
+import com.mtc.mindbook.models.responseObj.search.SearchItem;
+import com.mtc.mindbook.models.responseObj.search.SearchResponseObj;
 import com.mtc.mindbook.models.search.SearchViewAdapter;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;

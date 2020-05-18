@@ -1,21 +1,21 @@
-package com.mtc.mindbook.models.responseObj;
+package com.mtc.mindbook.models.responseObj.explore.share;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BookTrendResponseObj {
+public class ShareItemResponseObj {
 
     @SerializedName("data")
     @Expose
-    private List<BookItem> data = null;
+    private List<ShareItem> data = null;
 
-    public List<BookItem> getData() {
+    public List<ShareItem> getData() {
         return data;
     }
 
-    public void setData(List<BookItem> data) {
+    public void setData(List<ShareItem> data) {
         this.data = data;
     }
 }

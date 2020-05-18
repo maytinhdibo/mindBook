@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
-import com.mtc.mindbook.models.responseObj.SearchItem;
+import com.mtc.mindbook.models.responseObj.search.SearchItem;
 import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
