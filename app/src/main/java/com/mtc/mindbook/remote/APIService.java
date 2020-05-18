@@ -6,6 +6,7 @@ import com.mtc.mindbook.models.responseObj.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.models.responseObj.SearchResponseObj;
 import com.mtc.mindbook.models.responseObj.ShareItemResponseObj;
+import com.mtc.mindbook.models.responseObj.banner.BannerResponseObj;
 import com.mtc.mindbook.models.responseObj.user.UserResponseObj;
 
 import retrofit2.Call;
@@ -34,6 +35,9 @@ public interface APIService {
 
     @GET("search/")
     Call<SearchResponseObj> search(@Query("text") String searchQuery);
+
+    @GET("banner/all?limit=5&page=1")
+    Call<BannerResponseObj> getBanners();
 
     @GET("ratings/new?limit=5")
     Call<ShareItemResponseObj> getShares(@Query("page") int page);

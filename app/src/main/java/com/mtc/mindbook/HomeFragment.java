@@ -19,6 +19,8 @@ import com.mtc.mindbook.models.BookItemOld;
 import com.mtc.mindbook.models.RecyclerViewAdapter;
 import com.mtc.mindbook.models.responseObj.BookItem;
 import com.mtc.mindbook.models.responseObj.BookTrendResponseObj;
+import com.mtc.mindbook.models.responseObj.banner.Banner;
+import com.mtc.mindbook.models.responseObj.banner.BannerResponseObj;
 import com.mtc.mindbook.models.slideshow.SlideShowAdapter;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
@@ -34,6 +36,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     RecyclerView listViewTrending;
+    APIService api = APIUtils.getUserService();
 
     @SuppressLint("WrongConstant")
     @Nullable
@@ -51,7 +54,7 @@ public class HomeFragment extends Fragment {
 //        };
 
         // Construct the data source
-        final List<BookItem> listItem =  new ArrayList<>();
+        final List<BookItem> listItem = new ArrayList<>();
 
         final RecyclerViewAdapter adapter = new RecyclerViewAdapter(listItem);
 
@@ -73,26 +76,35 @@ public class HomeFragment extends Fragment {
         listViewTrending.setLayoutManager(layoutManagerTreding);
 
         loadTrending();
-        //
 
-        BookItemOld[] slideItems = {
-                new BookItemOld(1, "https://eklowtyfe71xx12dxgsa9d4-wpengine.netdna-ssl.com/wp-content/uploads/2018/12/Banner-Tientrongtui-SL1200x628.jpg", "Tuyển tập Ngô Tất Tố"),
-                new BookItemOld(2, "https://scontent-hkt1-1.xx.fbcdn.net/v/t1.0-9/76732164_1607562526035146_3366323713665400832_o.jpg?_nc_cat=104&_nc_sid=e007fa&_nc_ohc=GEUrPcFk_ksAX-fRl_G&_nc_ht=scontent-hkt1-1.xx&oh=9e346a19379518d808869b9981ec194f&oe=5EA5B86B","Mắt biếc"),
-                new BookItemOld(3, "https://scontent-hkt1-1.xx.fbcdn.net/v/t1.0-9/82850989_1695535977237800_6967474334742872064_o.jpg?_nc_cat=101&_nc_sid=e007fa&_nc_ohc=CDkQP3DBXeUAX8qMFRH&_nc_ht=scontent-hkt1-1.xx&oh=6488a832f3e151e98200e335bb70f50c&oe=5EA6BF31","Nhà giả kim"),
-                new BookItemOld(4, "https://scontent-hkt1-1.xx.fbcdn.net/v/t1.0-9/83228919_1695536287237769_850621373939187712_o.jpg?_nc_cat=108&_nc_sid=e007fa&_nc_ohc=Ti39rsk3ftIAX8mvV5m&_nc_ht=scontent-hkt1-1.xx&oh=98d81822b1a6139e4287b944da733655&oe=5EA82404","Southern Italian buffalo milk cheese"),
-        };
 
         // Construct the data source
-        final List<BookItemOld> listSlide =  new ArrayList<>(Arrays.asList(slideItems));
 
         SliderView sliderView = rootView.findViewById(R.id.imageSlider);
 
         SlideShowAdapter adapterSlide = new SlideShowAdapter(getContext());
 
-        adapterSlide.renewItems(listSlide);
 
         sliderView.setSliderAdapter(adapterSlide);
         sliderView.startAutoCycle();
+
+        Call<BannerResponseObj> callBanner = api.getBanners();
+        callBanner.enqueue(new Callback<BannerResponseObj>() {
+            @Override
+            public void onResponse(Call<BannerResponseObj> call, Response<BannerResponseObj> response) {
+                if (response.body() == null) {
+                    onFailure(call, null);
+                    return;
+                }
+                List<Banner> listSlide = new ArrayList<>();
+                listSlide = response.body().getData();
+                adapterSlide.renewItems(listSlide);
+            }
+            @Override
+            public void onFailure(Call<BannerResponseObj> call, Throwable t) {
+
+            }
+        });
 
 
         ImageView search = rootView.findViewById(R.id.search);
@@ -107,9 +119,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadTrending() {
-        APIService trendService = null;
-        trendService = APIUtils.getUserService();
-        Call<BookTrendResponseObj> callDetail = trendService.trending();
+        Call<BookTrendResponseObj> callDetail = api.trending();
         callDetail.enqueue(new Callback<BookTrendResponseObj>() {
             @Override
             public void onResponse(Call<BookTrendResponseObj> call, Response<BookTrendResponseObj> response) {
