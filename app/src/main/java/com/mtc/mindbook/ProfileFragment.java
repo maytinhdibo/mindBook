@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment;
 public class ProfileFragment extends Fragment {
     Button goToLoginBtn = null;
     Button logoutBtn = null;
+    Button goToBookShelf = null;
     TextView userFullNameTextView = null;
     TextView userEmailTextView = null;
     TextView userNameTextView = null;
@@ -29,6 +30,7 @@ public class ProfileFragment extends Fragment {
         final View rootView = inflater.inflate(R.layout.activity_profile, container, false);
         goToLoginBtn = rootView.findViewById(R.id.button_go_to_login);
         logoutBtn = rootView.findViewById(R.id.btn_logout);
+        goToBookShelf = rootView.findViewById(R.id.btn_bookshelf);
         userFullNameTextView = rootView.findViewById(R.id.textview_profile_user_full_name);
         userEmailTextView = rootView.findViewById(R.id.textview_profile_email);
         userNameTextView = rootView.findViewById(R.id.textview_profile_username);
@@ -61,6 +63,13 @@ public class ProfileFragment extends Fragment {
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), LoginActivity.class);
                 startActivityForResult(intent,1);
+            }
+        });
+        goToBookShelf.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), BookShelfActivity.class);
+                startActivity(intent);
             }
         });
         return rootView;
@@ -110,6 +119,8 @@ public class ProfileFragment extends Fragment {
             outState.putBoolean("isLogin", true);
         }
     }
+
+
 }
 //                FragmentTransaction transaction = getFragmentManager().beginTransaction();
 //                transaction.add(R.id.profile_main_frame, new LoginFragment());

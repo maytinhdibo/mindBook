@@ -81,10 +81,10 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:layout_marginEnd="8dp"
-                                            android:text="Đăng nhập"
-                                            android:onClick="onlogoutClicked" />
+                                            android:text="Đăng nhập" />
 
                                         <com.google.android.material.button.MaterialButton
+                                            android:id="@+id/btn_bookshelf"
                                             style="?attr/borderlessButtonStyle"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"

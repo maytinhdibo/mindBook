@@ -102,9 +102,9 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putBoolean("isLoggedIn", true);
                     editor.putString("accessToken", accessToken);
                     editor.apply();
-                    getUser.fetchUser(context);
-                    setResult(RESULT_OK, intent);
-                    finish();
+                    getUser fetchUser = new getUser(context);
+//                    setResult(RESULT_OK, intent);
+//                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
                 }
