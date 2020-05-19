@@ -23,20 +23,18 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.models.responseObj.rating.BookRateResponseObj;
+import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.detail.Detail;
 import com.mtc.mindbook.models.responseObj.rating.RatingComment;
 import com.mtc.mindbook.models.responseObj.rating.RatingCommentsResponseObj;
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
-import com.mtc.mindbook.models.review.ReviewItem;
 import com.mtc.mindbook.models.tag.TagAdapter;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import jp.wasabeef.picasso.transformations.BlurTransformation;
@@ -92,7 +90,7 @@ public class DetailActivity extends AppCompatActivity {
                 // Render rating
                 TextView rating = findViewById(R.id.detail_rating);
                 RatingBar ratingBar = findViewById(R.id.detail_rating_bar);
-                rating.setText(String.valueOf(detail.getRating()) + "/5.0");
+                rating.setText(String.format("%.01f", detail.getRating()) + "/5.0");
                 ratingBar.setRating(detail.getRating());
 
                 // Render overlay
@@ -293,10 +291,10 @@ public class DetailActivity extends AppCompatActivity {
                 String accessToken = sharedPrefs.getString("accessToken", "");
                 String comment = commentText.getText().toString();
                 int rate = (int) ratingBar.getRating();
-                Call<BookRateResponseObj> callPostRate = apiServices.rateBook("Bearer " + accessToken, id, rate, comment);
-                callPostRate.enqueue(new Callback<BookRateResponseObj>() {
+                Call<DefaultResponseObj> callPostRate = apiServices.rateBook("Bearer " + accessToken, id, rate, comment);
+                callPostRate.enqueue(new Callback<DefaultResponseObj>() {
                     @Override
-                    public void onResponse(Call<BookRateResponseObj> call, Response<BookRateResponseObj> response) {
+                    public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
                         if (response.body() != null) {
                             //success
                         } else {
@@ -305,7 +303,7 @@ public class DetailActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onFailure(Call<BookRateResponseObj> call, Throwable t) {
+                    public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
                         Toast.makeText(getBaseContext(), R.string.err_action, Toast.LENGTH_SHORT).show();
                         reviewDialog.dismiss();
                     }

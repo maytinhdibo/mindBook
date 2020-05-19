@@ -1,6 +1,6 @@
 package com.mtc.mindbook.remote;
 
-import com.mtc.mindbook.models.responseObj.rating.BookRateResponseObj;
+import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
@@ -43,6 +43,7 @@ public interface APIService {
     @GET("ratings/new?limit=5")
     Call<ShareItemResponseObj> getShares(@Query("page") int page);
 
+
     @GET("books/ratings")
     Call<RatingCommentsResponseObj> getRatingComment(@Query("book_id") String bookId,
                                                      @Query("limit") int limit,
@@ -52,10 +53,14 @@ public interface APIService {
     Call<DetailReponseObj> detailBook(@Query("book_id") String bookId);
 
     @POST("/user/rate")
-    Call<BookRateResponseObj> rateBook(@Header("Authorization") String token,
-                                       @Query("book_id") String bookId,
-                                       @Query("rating_num") int RateNum,
-                                       @Query("rating_comment") String RateComment);
+    Call<DefaultResponseObj> rateBook(@Header("Authorization") String token,
+                                      @Query("book_id") String bookId,
+                                      @Query("rating_num") int RateNum,
+                                      @Query("rating_comment") String RateComment);
+
+    @POST("/user/position/update")
+    Call<DefaultResponseObj> updateLocation(@Query("latitude") double latitude,
+                                            @Query("longitude") double longitude);
 
     @GET("user/profile")
     Call<UserResponseObj> fetchUserInfo(@Header("Authorization") String token);

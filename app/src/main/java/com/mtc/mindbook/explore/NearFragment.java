@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,10 +28,19 @@ import com.mtc.mindbook.R;
 import com.mtc.mindbook.models.BookItemOld;
 import com.mtc.mindbook.models.explore.NearItem;
 import com.mtc.mindbook.models.explore.RecyclerNearAdapter;
+import com.mtc.mindbook.models.explore.RecyclerShareAdapter;
+import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
+import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
+import com.mtc.mindbook.remote.APIService;
+import com.mtc.mindbook.remote.APIUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class NearFragment extends Fragment implements LocationListener {
     private LocationManager locationManager;
@@ -38,6 +48,7 @@ public class NearFragment extends Fragment implements LocationListener {
     private RecyclerView nearListView;
     private Location location;
 
+    APIService apiServices = APIUtils.getUserService();
 
     @Nullable
     @Override
@@ -144,6 +155,21 @@ public class NearFragment extends Fragment implements LocationListener {
             Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
             if (location != null) {
                 Log.d("Location", location.getLatitude() + ":" + location.getLongitude());
+                Call<DefaultResponseObj> callDetail = apiServices.updateLocation(location.getLatitude(), location.getLongitude());
+                callDetail.enqueue(new Callback<DefaultResponseObj>() {
+                    @Override
+                    public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                        if (response.body() == null || !response.body().getMesssage().equals("success")) {
+                            onFailure(call, null);
+                            return;
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                        Toast.makeText(getContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
 
         }
