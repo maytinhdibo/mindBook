@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.models.RecyclerViewAdapter;
+import com.mtc.mindbook.models.foryou.RecyclerForYouViewAdapter;
 import com.mtc.mindbook.models.responseObj.BookItem;
 import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.banner.Banner;
 import com.mtc.mindbook.models.responseObj.banner.BannerResponseObj;
+import com.mtc.mindbook.models.responseObj.search.SearchResponseObj;
 import com.mtc.mindbook.models.slideshow.SlideShowAdapter;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
@@ -34,6 +36,7 @@ import retrofit2.Response;
 
 public class HomeFragment extends Fragment {
     RecyclerView listViewTrending;
+    RecyclerView listViewForYou;
     APIService api = APIUtils.getUserService();
 
     @SuppressLint("WrongConstant")
@@ -42,14 +45,6 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.activity_home, container, false);
-
-//        BookItem[] todoItems = {
-//                new BookItem(1, "https://a.wattpad.com/cover/155025710-288-k448920.jpg", "Tuyển tập Ngô Tất Tố"),
-//                new BookItem(2, "https://genbooks.net/wp-content/uploads/2019/07/mat-biec.jpg","Mắt biếc"),
-//                new BookItem(3, "https://cdn0.fahasa.com/media/flashmagazine/images/page_images/nha_gia_kim_tai_ban_2017/2019_11_04_14_41_25_1.jpg","Nhà giả kim"),
-//                new BookItem(4, "https://photo-zmp3.zadn.vn/cover/1/6/7/6/16764a3fec6a43514405817854577bd3.jpg","Southern Italian buffalo milk cheese"),
-//                new BookItem(5, "https://photo-zmp3.zadn.vn/cover/1/6/7/6/16764a3fec6a43514405817854577bd3.jpg","Firm, cow's milk cheese"),
-//        };
 
         // Construct the data source
         final List<BookItem> listItem = new ArrayList<>();
@@ -61,18 +56,19 @@ public class HomeFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
 
         // for you
-        RecyclerView listViewForYou = rootView.findViewById(R.id.listview_foryou);
+        listViewForYou = rootView.findViewById(R.id.listview_foryou);
         listViewForYou.setLayoutManager(layoutManager);
         listViewForYou.setAdapter(adapter);
 
         // trending
-        LinearLayoutManager layoutManagerTreding = new LinearLayoutManager(getContext());
-        layoutManagerTreding.setOrientation(LinearLayoutManager.HORIZONTAL);
+        LinearLayoutManager layoutManagerTrending = new LinearLayoutManager(getContext());
+        layoutManagerTrending.setOrientation(LinearLayoutManager.HORIZONTAL);
 
 
         listViewTrending = rootView.findViewById(R.id.listview_trending);
-        listViewTrending.setLayoutManager(layoutManagerTreding);
+        listViewTrending.setLayoutManager(layoutManagerTrending);
 
+        loadForYou();
         loadTrending();
 
 
@@ -131,6 +127,27 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<BookTrendResponseObj> call, Throwable t) {
+                Toast.makeText(getContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void loadForYou() {
+        Call<SearchResponseObj> callDetail = api.search("hi");
+        callDetail.enqueue(new Callback<SearchResponseObj>() {
+            @Override
+            public void onResponse(Call<SearchResponseObj> call, Response<SearchResponseObj> response) {
+                if (response.body() == null) {
+                    onFailure(call, null);
+                    return;
+                }
+                RecyclerForYouViewAdapter forYouAdapter = new RecyclerForYouViewAdapter(response.body().getData());
+                listViewForYou.setAdapter(forYouAdapter);
+
+            }
+
+            @Override
+            public void onFailure(Call<SearchResponseObj> call, Throwable t) {
                 Toast.makeText(getContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
             }
         });
