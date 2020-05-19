@@ -15,10 +15,9 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.mtc.mindbook.models.BookItemOld;
 import com.mtc.mindbook.models.RecyclerViewAdapter;
 import com.mtc.mindbook.models.responseObj.BookItem;
-import com.mtc.mindbook.models.responseObj.BookTrendResponseObj;
+import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.banner.Banner;
 import com.mtc.mindbook.models.responseObj.banner.BannerResponseObj;
 import com.mtc.mindbook.models.slideshow.SlideShowAdapter;
@@ -27,7 +26,6 @@ import com.mtc.mindbook.remote.APIUtils;
 import com.smarteist.autoimageslider.SliderView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import retrofit2.Call;
