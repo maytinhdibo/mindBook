@@ -35,7 +35,9 @@
     <string name="err_action">Can do this action.</string>
     <string name="loadMoreReview">Load more review...</string>
     <string name="loading">Loading</string>
-    <string name="logInRequest">Please login before use this action</string>
+    <string name="logInRequest">Please login before use this actio.</string>
+    <string name="openLogin">Open login page</string>
+
 
 
     <!-- TODO: Remove or change this placeholder text -->

@@ -59,7 +59,8 @@ public interface APIService {
                                       @Query("rating_comment") String RateComment);
 
     @POST("/user/position/update")
-    Call<DefaultResponseObj> updateLocation(@Query("latitude") double latitude,
+    Call<DefaultResponseObj> updateLocation(@Header("Authorization") String token,
+                                            @Query("latitude") double latitude,
                                             @Query("longitude") double longitude);
 
     @GET("user/profile")
