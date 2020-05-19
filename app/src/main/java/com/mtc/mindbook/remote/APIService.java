@@ -43,9 +43,10 @@ public interface APIService {
     @GET("ratings/new?limit=5")
     Call<ShareItemResponseObj> getShares(@Query("page") int page);
 
-    @GET("books/ratings?limit=5")
+    @GET("books/ratings")
     Call<RatingCommentsResponseObj> getRatingComment(@Query("book_id") String bookId,
-                                              @Query("page") int page);
+                                                     @Query("limit") int limit,
+                                                     @Query("page") int page);
 
     @GET("books/details")
     Call<DetailReponseObj> detailBook(@Query("book_id") String bookId);

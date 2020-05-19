@@ -45,14 +45,23 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
-    public static final String EXTRA_MESSAGE_TYPE = "none";
-    public static final String EXTRA_MESSAGE_ID = "none";
+
+    List<RatingComment> ratingCommentList = new ArrayList<>();
+
     private APIService apiServices = APIUtils.getUserService();
+
+    int pageComment = 1;
+
+    Button loadMoreBtn = null;
+
     SharedPreferences sharedPrefs = null;
+    boolean isLoggedIn = false;
     String id;
 
     @Override
     protected void onStart() {
+        sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
+        isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
 
         sharedPrefs = getBaseContext().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
 
@@ -118,22 +127,45 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        Call<RatingCommentsResponseObj> callRatingComment = apiServices.getRatingComment(id, 0);
+        int limit = 2;
+
+        loadMoreBtn = (Button) findViewById(R.id.load_comment);
+        loadComment(limit, pageComment);
+
+        loadMoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadComment(limit, ++pageComment);
+            }
+        });
+
+        super.onStart();
+
+    }
+
+    private void loadComment(int limit, int page) {
+        final RecyclerReviewAdapter adapter = new RecyclerReviewAdapter(ratingCommentList);
+        loadMoreBtn.setText(getString(R.string.loading));
+        RecyclerView listView = findViewById(R.id.list_review);
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+
+        listView.setLayoutManager(layoutManager);
+
+        listView.setAdapter(adapter);
+
+        Call<RatingCommentsResponseObj> callRatingComment = apiServices.getRatingComment(id, limit, page);
         callRatingComment.enqueue(new Callback<RatingCommentsResponseObj>() {
             @Override
             public void onResponse(Call<RatingCommentsResponseObj> call, Response<RatingCommentsResponseObj> response) {
-                List<RatingComment> ratingCommentList = response.body().getData();
-
-                final RecyclerReviewAdapter adapter = new RecyclerReviewAdapter(ratingCommentList);
-
-                RecyclerView listView = findViewById(R.id.list_review);
-
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
-                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-
-                listView.setLayoutManager(layoutManager);
-
-                listView.setAdapter(adapter);
+                ratingCommentList.addAll(response.body().getData());
+                adapter.notifyDataSetChanged();
+                if (response.body().getData().size() < limit) {
+                    loadMoreBtn.setVisibility(View.GONE);
+                }else{
+                    loadMoreBtn.setText(getString(R.string.loadMoreReview));
+                }
             }
 
             @Override
@@ -141,10 +173,6 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        super.onStart();
-
     }
 
     @Override
@@ -163,10 +191,6 @@ public class DetailActivity extends AppCompatActivity {
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TextView title = findViewById(R.id.detail_title);
-
-                SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
-                Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
                 if (isLoggedIn) {
                     Intent intent = new Intent(v.getContext(), SearchActivity.class);
                     intent.putExtra("EXTRA_TAG", "viễn tưởng");
@@ -174,7 +198,7 @@ public class DetailActivity extends AppCompatActivity {
                 } else {
                     Intent intent = new Intent(v.getContext(), LoginActivity.class);
                     startActivityForResult(intent, 1);
-                    Toast.makeText(v.getContext(), "Hãy đăng nhập để sử dụng chức năng này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), R.string.logInRequest, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -241,8 +265,12 @@ public class DetailActivity extends AppCompatActivity {
         TextView more = (TextView) findViewById(R.id.write_review);
         more.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                //Intent myIntent = new Intent(view.getContext(), agones.class);
-                //startActivityForResult(myIntent, 0);
+                if (!isLoggedIn) {
+                    Intent intent = new Intent(view.getContext(), LoginActivity.class);
+                    startActivityForResult(intent, 1);
+                    Toast.makeText(view.getContext(), R.string.logInRequest, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 reviewDialog.show();
             }
         });
@@ -274,7 +302,6 @@ public class DetailActivity extends AppCompatActivity {
                         } else {
                         }
                         reviewDialog.dismiss();
-
                     }
 
                     @Override
