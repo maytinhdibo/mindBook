@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,8 @@ import retrofit2.Response;
 public class HomeFragment extends Fragment {
     RecyclerView listViewTrending;
     RecyclerView listViewForYou;
+    RecyclerView randomListView;
+
     APIService api = APIUtils.getUserService();
 
     @SuppressLint("WrongConstant")
@@ -58,7 +61,13 @@ public class HomeFragment extends Fragment {
         // for you
         listViewForYou = rootView.findViewById(R.id.listview_foryou);
         listViewForYou.setLayoutManager(layoutManager);
-        listViewForYou.setAdapter(adapter);
+
+        //category
+        LinearLayoutManager layoutManagerCategory = new LinearLayoutManager(getContext());
+        layoutManagerCategory.setOrientation(LinearLayoutManager.HORIZONTAL);
+
+        randomListView = rootView.findViewById(R.id.listview_category);
+        randomListView.setLayoutManager(layoutManagerCategory);
 
         // trending
         LinearLayoutManager layoutManagerTrending = new LinearLayoutManager(getContext());
@@ -68,7 +77,9 @@ public class HomeFragment extends Fragment {
         listViewTrending = rootView.findViewById(R.id.listview_trending);
         listViewTrending.setLayoutManager(layoutManagerTrending);
 
-        loadForYou();
+        loadForYou(listViewForYou, "hi");
+        loadForYou(randomListView, "ng");
+
         loadTrending();
 
 
@@ -94,6 +105,7 @@ public class HomeFragment extends Fragment {
                 listSlide = response.body().getData();
                 adapterSlide.renewItems(listSlide);
             }
+
             @Override
             public void onFailure(Call<BannerResponseObj> call, Throwable t) {
 
@@ -132,8 +144,8 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void loadForYou() {
-        Call<SearchResponseObj> callDetail = api.search("hi");
+    private void loadForYou(RecyclerView view, String query) {
+        Call<SearchResponseObj> callDetail = api.search(query);
         callDetail.enqueue(new Callback<SearchResponseObj>() {
             @Override
             public void onResponse(Call<SearchResponseObj> call, Response<SearchResponseObj> response) {
@@ -142,8 +154,7 @@ public class HomeFragment extends Fragment {
                     return;
                 }
                 RecyclerForYouViewAdapter forYouAdapter = new RecyclerForYouViewAdapter(response.body().getData());
-                listViewForYou.setAdapter(forYouAdapter);
-
+                view.setAdapter(forYouAdapter);
             }
 
             @Override

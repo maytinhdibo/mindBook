@@ -104,14 +104,41 @@
             android:orientation="horizontal"
             android:paddingVertical="6pt"
             android:paddingEnd="8pt"
-            android:scrollbars="none" />
+            android:scrollbars="none" >
+
+        </androidx.recyclerview.widget.RecyclerView>
 
         <!--    <WebView-->
         <!--        android:id="@+id/webview"-->
         <!--        android:layout_width="match_parent"-->
         <!--        android:layout_height="match_parent" />-->
+
+        <TextView
+            android:id="@+id/textView4"
+            style="@style/section_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/best_novel"
+            android:textStyle="bold" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listview_category"
+            style="@style/Widget.AppCompat.Light.ListView.DropDown"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@null"
+            android:nestedScrollingEnabled="false"
+            android:orientation="horizontal"
+            android:paddingVertical="6pt"
+            android:paddingEnd="8pt"
+            android:scrollbars="none" />
+
+
+
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_nav" />
+
     </LinearLayout>
 </ScrollView>
