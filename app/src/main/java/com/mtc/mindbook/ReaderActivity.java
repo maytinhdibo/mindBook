@@ -1,9 +1,17 @@
 package com.mtc.mindbook;
 
 import android.annotation.SuppressLint;
+import android.app.DownloadManager;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Base64;;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -26,6 +34,8 @@ import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 ;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 
 import nl.siegmann.epublib.domain.Book;
@@ -38,9 +48,10 @@ import retrofit2.Response;
 
 public class ReaderActivity extends AppCompatActivity {
 
-    private int currentChapter = 0;
+    private int currentChapter = 1;
     private Book book;
     private WebView epubContent;
+    private Toolbar toolbar;
 
     @Override
     protected void onStart() {
@@ -57,8 +68,60 @@ public class ReaderActivity extends AppCompatActivity {
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
                 Detail detail = response.body().getData().get(0);
 
-                Toolbar toolbar = findViewById(R.id.epub_top_bar);
                 toolbar.setTitle(detail.getBookTitle());
+
+                String epubLink = detail.getBookEpub();
+                String storagePath = Environment.getExternalStorageDirectory().getPath() + "/mindBook-epub";
+                Log.d("Storage", "" + storagePath);
+                File f = new File(storagePath);
+                if (!f.exists()) {
+                    f.mkdirs();
+                }
+
+                DownloadManager dm = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+
+
+                Uri uri = Uri.parse(epubLink);
+                String epubFilePath = storagePath + File.separator + uri.getLastPathSegment();
+                File epubFile = new File(epubFilePath);
+
+                registerReceiver(new BroadcastReceiver() {
+                    @Override
+                    public void onReceive(Context context, Intent intent) {
+                        try {
+                            EpubReader epubReader = new EpubReader();
+                            book = epubReader.readEpub(new FileInputStream(epubFile));
+                            loadChapter();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            finish();
+                        }
+                    }
+                }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+                if (!epubFile.exists()) {
+
+                    DownloadManager.Request request = new DownloadManager.Request(uri);
+                    request.setAllowedNetworkTypes(
+                            DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI
+                    )
+                            .setAllowedOverRoaming(false)
+                            .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
+                            .setDestinationInExternalPublicDir("/mindbook-epub", uri.getLastPathSegment());
+                    Long referese = dm.enqueue(request);
+                    Toast.makeText(getApplicationContext(), "Downloading ...", Toast.LENGTH_SHORT).show();
+
+                } else {
+                    try {
+                        EpubReader epubReader = new EpubReader();
+                        book = epubReader.readEpub(new FileInputStream(epubFile));
+                        loadChapter();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        finish();
+                    }
+                }
+
             }
 
             @Override
@@ -81,7 +144,7 @@ public class ReaderActivity extends AppCompatActivity {
         String type = extras.getString("EXTRA_MESSAGE_TYPE");
         String id = extras.getString("EXTRA_MESSAGE_ID");
 
-        Toolbar toolbar = findViewById(R.id.epub_top_bar);
+        toolbar = findViewById(R.id.epub_top_bar);
         setSupportActionBar(toolbar);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -147,26 +210,12 @@ public class ReaderActivity extends AppCompatActivity {
             }
         });
 
-        try {
-            EpubReader epubReader = new EpubReader();
-            book = epubReader.readEpub(getAssets().open("pg730.epub"));
-//            List<String> titles = book.getMetadata().getTitles();
-            Spine spine = book.getSpine();
-            StringBuilder htmlText = new StringBuilder();
-            Resource resource = spine.getResource(currentChapter);
-            htmlText.append(new String(resource.getData()));
-            loadChapter();
-            WebSettings webSettings = epubContent.getSettings();
-            webSettings.setUseWideViewPort(true);
-            webSettings.setLoadWithOverviewMode(true);
-            webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
-            webSettings.setDefaultTextEncodingName("utf-8");
-            webSettings.setJavaScriptEnabled(true);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-            finish();
-        }
+        WebSettings webSettings = epubContent.getSettings();
+        webSettings.setUseWideViewPort(true);
+        webSettings.setLoadWithOverviewMode(true);
+        webSettings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING);
+        webSettings.setDefaultTextEncodingName("utf-8");
+        webSettings.setJavaScriptEnabled(true);
 
     }
 
