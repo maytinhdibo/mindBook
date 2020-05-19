@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="com.google.android.material.BottomSheet">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:id="@+id/font-size"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="16dp"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_font_size"
+            android:tint="@color/grayColor"
+            android:contentDescription="TODO" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:text="@string/bottom_sheet_text_size"
+            android:textColor="@color/grayColor"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/epub_current_font_size"
+            android:text="16px"
+            android:textSize="16sp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/grayColor"
+            />
+
+    </LinearLayout>
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/font_size_seekbar"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:id="@+id/font-color"
+        android:orientation="horizontal"
+        android:clickable="true"
+        android:focusable="true"
+        android:padding="16dp"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_choose_font"
+            android:tint="@color/grayColor"
+            android:contentDescription="@string/bottom_sheet_choose_font"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:textSize="16sp"
+            android:text="Font"
+            android:textColor="@color/grayColor"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/epub_current_font"
+            android:text="Open Sans"
+            android:textSize="16sp"
+            android:textAlignment="textEnd"
+            android:textColor="@color/grayColor"
+            />
+    </LinearLayout>
+</LinearLayout>

@@ -32,8 +32,7 @@
         <WebView
             android:id="@+id/epub_content"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
+            android:layout_height="match_parent" />
     </LinearLayout>
     <!--    <androidx.appcompat.widget.Toolbar-->
     <!--        android:id="@+id/epub_bottom_bar"-->
@@ -51,10 +50,10 @@
         app:elevation="19dp"
         app:itemIconTint="@color/bottom_nav_item"
         app:itemTextColor="@color/bottom_nav_item"
+        app:labelVisibilityMode="unlabeled"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintCircleRadius="3dp"
-        app:menu="@menu/epub_bottom_bar"
-        app:labelVisibilityMode="unlabeled" />
+        app:menu="@menu/epub_bottom_bar" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

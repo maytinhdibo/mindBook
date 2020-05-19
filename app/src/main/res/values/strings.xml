@@ -55,5 +55,7 @@
     <string name="next_chapter">Next Chapter</string>
     <string name="love">Love</string>
     <string name="custom_reader">Custom Reader</string>
+    <string name="bottom_sheet_text_size">Text size</string>
+    <string name="bottom_sheet_choose_font">Choose Font</string>
 
 </resources>

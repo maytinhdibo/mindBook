@@ -21,6 +21,8 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,6 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mtc.mindbook.models.responseObj.detail.Detail;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
@@ -53,6 +56,14 @@ public class ReaderActivity extends AppCompatActivity {
     private WebView epubContent;
     private Toolbar toolbar;
 
+
+    private String fontSize = "50px";
+    private String backgroundColor = "#fff";
+    private String fontFamily = "Open Sans";
+    private String fontColor = "#000";
+
+    private BroadcastReceiver onDoneDownload;
+
     @Override
     protected void onStart() {
         APIService detailService = null;
@@ -71,7 +82,7 @@ public class ReaderActivity extends AppCompatActivity {
                 toolbar.setTitle(detail.getBookTitle());
 
                 String epubLink = detail.getBookEpub();
-                String storagePath = Environment.getExternalStorageDirectory().getPath() + "/mindBook-epub";
+                String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath() + "/mindBook-epub";
                 Log.d("Storage", "" + storagePath);
                 File f = new File(storagePath);
                 if (!f.exists()) {
@@ -85,7 +96,7 @@ public class ReaderActivity extends AppCompatActivity {
                 String epubFilePath = storagePath + File.separator + uri.getLastPathSegment();
                 File epubFile = new File(epubFilePath);
 
-                registerReceiver(new BroadcastReceiver() {
+                onDoneDownload = new BroadcastReceiver() {
                     @Override
                     public void onReceive(Context context, Intent intent) {
                         try {
@@ -97,7 +108,9 @@ public class ReaderActivity extends AppCompatActivity {
                             finish();
                         }
                     }
-                }, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+                };
+
+                registerReceiver(onDoneDownload, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
 
                 if (!epubFile.exists()) {
 
@@ -107,7 +120,7 @@ public class ReaderActivity extends AppCompatActivity {
                     )
                             .setAllowedOverRoaming(false)
                             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                            .setDestinationInExternalPublicDir("/mindbook-epub", uri.getLastPathSegment());
+                            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS + "/mindbook-epub", uri.getLastPathSegment());
                     Long referese = dm.enqueue(request);
                     Toast.makeText(getApplicationContext(), "Downloading ...", Toast.LENGTH_SHORT).show();
 
@@ -246,6 +259,12 @@ public class ReaderActivity extends AppCompatActivity {
         StringBuilder htmlText = new StringBuilder();
         Resource resource = spine.getResource(currentChapter);
         htmlText.append(new String(resource.getData()));
+        htmlText.append("<style type=\"text/css\">" +
+                "* { " +
+                "font-size: " + fontSize + ";" +
+                "font-family: " + fontFamily + ";" +
+                "color: " + fontColor + ";" +
+                "} body {margin:75px 20px 200px 20px;} </style>");
         String encodedHtml = Base64.encodeToString(htmlText.toString().getBytes(),
                 Base64.NO_PADDING);
         epubContent.loadData(encodedHtml, "text/html", "base64");
@@ -283,7 +302,7 @@ public class ReaderActivity extends AppCompatActivity {
                                 break;
                             case R.id.epub_custom:
                                 itemIndex = 3;
-                                Toast.makeText(getApplicationContext(), "Custom Reader", Toast.LENGTH_SHORT).show();
+                                toggleDialogBottom();
                                 break;
                         }
                         bottomBar.getMenu().getItem(itemIndex).setCheckable(false);
@@ -294,6 +313,32 @@ public class ReaderActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
+    private void toggleDialogBottom() {
+        BottomSheetDialog dialog = new BottomSheetDialog(ReaderActivity.this);
+        View view = getLayoutInflater().inflate(R.layout.epub_custom_dialog, null);
+        dialog.setContentView(view);
+        dialog.show();
+        ((SeekBar) view.findViewById(R.id.font_size_seekbar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                seekBar.getProgress();
+                Log.d("test", "onStopTrackingTouch: " + seekBar.getProgress());
+            }
+        });
+        ((TextView) dialog.findViewById(R.id.epub_current_font_size)).setText(fontSize);
+        ((TextView) dialog.findViewById(R.id.epub_current_font)).setText(fontFamily);
+    }
 
     private float distance(float x1, float y1, float x2, float y2) {
         float dx = x1 - x2;
@@ -306,4 +351,9 @@ public class ReaderActivity extends AppCompatActivity {
         return px / getResources().getDisplayMetrics().density;
     }
 
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(onDoneDownload);
+        super.onDestroy();
+    }
 }
