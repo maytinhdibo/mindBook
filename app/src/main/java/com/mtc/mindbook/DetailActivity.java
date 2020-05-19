@@ -291,6 +291,10 @@ public class DetailActivity extends AppCompatActivity {
                 String accessToken = sharedPrefs.getString("accessToken", "");
                 String comment = commentText.getText().toString();
                 int rate = (int) ratingBar.getRating();
+                if(rate==0){
+                    Toast.makeText(getBaseContext(), R.string.require_star, Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Call<DefaultResponseObj> callPostRate = apiServices.rateBook("Bearer " + accessToken, id, rate, comment);
                 callPostRate.enqueue(new Callback<DefaultResponseObj>() {
                     @Override
