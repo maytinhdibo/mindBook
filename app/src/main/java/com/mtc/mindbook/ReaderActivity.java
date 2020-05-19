@@ -82,7 +82,7 @@ public class ReaderActivity extends AppCompatActivity {
                 toolbar.setTitle(detail.getBookTitle());
 
                 String epubLink = detail.getBookEpub();
-                String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath() + "/mindBook-epub";
+                String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath();
                 Log.d("Storage", "" + storagePath);
                 File f = new File(storagePath);
                 if (!f.exists()) {
@@ -120,7 +120,7 @@ public class ReaderActivity extends AppCompatActivity {
                     )
                             .setAllowedOverRoaming(false)
                             .setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE)
-                            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS + "/mindbook-epub", uri.getLastPathSegment());
+                            .setDestinationInExternalPublicDir(Environment.DIRECTORY_DOCUMENTS, uri.getLastPathSegment());
                     Long referese = dm.enqueue(request);
                     Toast.makeText(getApplicationContext(), "Downloading ...", Toast.LENGTH_SHORT).show();
 
