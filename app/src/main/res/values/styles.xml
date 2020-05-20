@@ -3,11 +3,13 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:windowLightStatusBar">true</item>
+<!--        <item name="android:windowLightStatusBar">false</item>-->
         <item name="colorPrimary">@color/bottom_nav_item</item>
         <item name="colorPrimaryDark">@color/backgroundPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
-        <item name="android:statusBarColor">@color/backgroundPrimary</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
     </style>
 
     <style name="AppTheme.MaterialCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -19,7 +21,8 @@
 
     <style name="DetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowBackground">@android:color/black</item>
     </style>
 
     <style name="BottomNavigation.ActiveItemTextAppearance" parent="TextAppearance.AppCompat">
