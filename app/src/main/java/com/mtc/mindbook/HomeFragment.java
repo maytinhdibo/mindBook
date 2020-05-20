@@ -1,6 +1,7 @@
 package com.mtc.mindbook;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -77,10 +78,10 @@ public class HomeFragment extends Fragment {
         listViewTrending = rootView.findViewById(R.id.listview_trending);
         listViewTrending.setLayoutManager(layoutManagerTrending);
 
-        loadForYou(listViewForYou, "hi");
-        loadForYou(randomListView, "ng");
+        loadForYou(listViewForYou, "hi", getContext());
+        loadForYou(randomListView, "ng", getContext());
 
-        loadTrending();
+        loadTrending(getContext());
 
 
         // Construct the data source
@@ -124,7 +125,7 @@ public class HomeFragment extends Fragment {
         return rootView;
     }
 
-    private void loadTrending() {
+    private void loadTrending(Context context) {
         Call<BookTrendResponseObj> callDetail = api.trending();
         callDetail.enqueue(new Callback<BookTrendResponseObj>() {
             @Override
@@ -139,12 +140,15 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<BookTrendResponseObj> call, Throwable t) {
-                Toast.makeText(getContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
+                try {
+                    Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                }
             }
         });
     }
 
-    private void loadForYou(RecyclerView view, String query) {
+    private void loadForYou(RecyclerView view, String query, Context context) {
         Call<SearchResponseObj> callDetail = api.search(query);
         callDetail.enqueue(new Callback<SearchResponseObj>() {
             @Override
@@ -159,7 +163,10 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onFailure(Call<SearchResponseObj> call, Throwable t) {
-                Toast.makeText(getContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
+                try {
+                    Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                }
             }
         });
     }
