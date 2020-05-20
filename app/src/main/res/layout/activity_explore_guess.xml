@@ -2,7 +2,8 @@
 <LinearLayout
     style="@style/container"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    >
     <LinearLayout
         android:id="@+id/location_req"
         android:layout_width="match_parent"
@@ -10,7 +11,7 @@
         android:orientation="vertical"
         style="@style/container"
         android:gravity="center_horizontal"
-        android:layout_marginTop="8pt"
+        android:layout_marginTop="36pt"
         android:paddingTop="8pt"
         android:paddingBottom="8pt"
         android:background="@drawable/review_item"
