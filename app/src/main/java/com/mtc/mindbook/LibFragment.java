@@ -1,9 +1,14 @@
 package com.mtc.mindbook;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,21 +22,37 @@ import com.mtc.mindbook.models.explore.SectionPageAdapter;
 import com.mtc.mindbook.explore.ShareFragment;
 
 
-public class LibFragment extends Fragment{
+public class LibFragment extends Fragment {
+    SharedPreferences sharedPrefs = null;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.activity_explore, container, false);
-        update(rootView);
+        sharedPrefs = getActivity().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+        Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
 
-        AppBarLayout appbar = rootView.findViewById(R.id.appbar);
-        appbar.setOutlineProvider(null);
+        View rootView = null;
+        if (isLoggedIn) {
+            rootView = inflater.inflate(R.layout.activity_explore, container, false);
+            update(rootView);
+
+            AppBarLayout appbar = rootView.findViewById(R.id.appbar);
+            appbar.setOutlineProvider(null);
+        } else {
+            rootView = inflater.inflate(R.layout.activity_explore_guess, container, false);
+            Button openLoginBtn = rootView.findViewById(R.id.open_login);
+            openLoginBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), LoginActivity.class);
+                    startActivityForResult(intent, 1);
+                }
+            });
+        }
         return rootView;
     }
 
-    private void update(View v)
-    {
+    private void update(View v) {
         ViewPager mViewPager = (ViewPager) v.findViewById(R.id.container);
         setupViewPager(mViewPager);
 

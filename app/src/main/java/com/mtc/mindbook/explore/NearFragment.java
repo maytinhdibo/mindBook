@@ -3,6 +3,7 @@ package com.mtc.mindbook.explore;
 import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -31,6 +32,7 @@ import com.mtc.mindbook.models.explore.RecyclerNearAdapter;
 import com.mtc.mindbook.models.explore.RecyclerShareAdapter;
 import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
+import com.mtc.mindbook.models.responseObj.user.UserResponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 
@@ -154,11 +156,13 @@ public class NearFragment extends Fragment implements LocationListener {
             nearListView.setVisibility(View.VISIBLE);
             Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
             if (location != null) {
-                Log.d("Location", location.getLatitude() + ":" + location.getLongitude());
-                Call<DefaultResponseObj> callDetail = apiServices.updateLocation(location.getLatitude(), location.getLongitude());
+                SharedPreferences sharedPrefs = getContext().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+                String accessToken = sharedPrefs.getString("accessToken", "");
+                Call<DefaultResponseObj> callDetail = apiServices.updateLocation("Bearer " + accessToken, location.getLatitude(), location.getLongitude());
                 callDetail.enqueue(new Callback<DefaultResponseObj>() {
                     @Override
                     public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                        Location lo = location;
                         if (response.body() == null || !response.body().getMesssage().equals("success")) {
                             onFailure(call, null);
                             return;

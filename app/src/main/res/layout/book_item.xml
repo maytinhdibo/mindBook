@@ -29,6 +29,6 @@
         android:lines="2"
         android:maxLines="2"
         android:text="Đi chợ"
-        android:textSize="7pt"
+        android:textSize="14sp"
         android:textStyle="bold" />
 </LinearLayout>

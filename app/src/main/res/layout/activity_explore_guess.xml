@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    style="@style/container"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <LinearLayout
+        android:id="@+id/location_req"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        style="@style/container"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="36pt"
+        android:paddingTop="8pt"
+        android:paddingBottom="8pt"
+        android:background="@drawable/review_item"
+        >
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textAlignment="center"
+            android:text="@string/logInRequest"
+            />
+        <Button
+            android:id="@+id/open_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/detail_button"
+            android:layout_marginTop="8pt"
+            android:paddingRight="8pt"
+            android:paddingLeft="8pt"
+            android:text="@string/openLogin"/>
+    </LinearLayout>
+
+</LinearLayout>

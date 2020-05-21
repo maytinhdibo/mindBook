@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/detail_layout"
     android:layout_width="match_parent"
+    android:theme="@style/AppTheme"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
@@ -44,7 +45,7 @@
                 <View
                     android:id="@+id/book_overlay"
                     android:layout_width="match_parent"
-                    android:layout_height="60dp"
+                    android:layout_height="115dp"
                     android:background="@drawable/top_round"
                     app:layout_constraintBottom_toBottomOf="parent"
                     tools:ignore="MissingConstraints"></View>
