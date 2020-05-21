@@ -239,6 +239,7 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
+
         LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
         bottomBar.setLayoutParams(new LinearLayout.LayoutParams
                 (LinearLayout.LayoutParams.MATCH_PARENT

@@ -1,11 +1,13 @@
 package com.mtc.mindbook;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -29,6 +31,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -66,6 +70,20 @@ public class ReaderActivity extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        boolean isReadPermission = checkPermission();
+        if (!isReadPermission) {
+            ActivityCompat.requestPermissions(ReaderActivity.this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    21);
+        } else {
+            loadEpub();
+        }
+
+        super.onStart();
+
+    }
+
+    private void loadEpub() {
         APIService detailService = null;
         detailService = APIUtils.getUserService();
 
@@ -77,6 +95,7 @@ public class ReaderActivity extends AppCompatActivity {
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
+
                 Detail detail = response.body().getData().get(0);
 
                 toolbar.setTitle(detail.getBookTitle());
@@ -142,16 +161,16 @@ public class ReaderActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
             }
         });
-
-        super.onStart();
-
     }
 
     @SuppressLint({"ClickableViewAccessibility", "SetJavaScriptEnabled"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
+
 
         Bundle extras = getIntent().getExtras();
         String type = extras.getString("EXTRA_MESSAGE_TYPE");
@@ -233,6 +252,22 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case 21: {
+
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    loadEpub();
+                } else {
+                    finish();
+                }
+                return;
+            }
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.epub_menu, menu);
         return true;
@@ -252,6 +287,11 @@ public class ReaderActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "You click feedback", Toast.LENGTH_SHORT).show();
         }
         return true;
+    }
+
+    private boolean checkPermission() {
+        return ContextCompat.checkSelfPermission(ReaderActivity.this, Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(ReaderActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
     }
 
     private void loadChapter() throws IOException {
@@ -353,7 +393,11 @@ public class ReaderActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(onDoneDownload);
+        try {
+            unregisterReceiver(onDoneDownload);
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+        }
         super.onDestroy();
     }
 }
