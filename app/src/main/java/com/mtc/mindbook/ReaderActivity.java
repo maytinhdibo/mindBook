@@ -61,10 +61,12 @@ public class ReaderActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
 
-    private String fontSize = "50px";
+    private int fontSize = 30;
+    private int MIN_FONT_SIZE = 20;
     private String backgroundColor = "#fff";
     private String fontFamily = "Open Sans";
     private String fontColor = "#000";
+
 
     private BroadcastReceiver onDoneDownload;
 
@@ -301,7 +303,7 @@ public class ReaderActivity extends AppCompatActivity {
         htmlText.append(new String(resource.getData()));
         htmlText.append("<style type=\"text/css\">" +
                 "* { " +
-                "font-size: " + fontSize + ";" +
+                "font-size: " + fontSize + "px !important;" +
                 "font-family: " + fontFamily + ";" +
                 "color: " + fontColor + ";" +
                 "} body {margin:75px 20px 200px 20px;} </style>");
@@ -354,15 +356,24 @@ public class ReaderActivity extends AppCompatActivity {
                 }
             };
 
+    @SuppressLint("SetTextI18n")
     private void toggleDialogBottom() {
         BottomSheetDialog dialog = new BottomSheetDialog(ReaderActivity.this);
         View view = getLayoutInflater().inflate(R.layout.epub_custom_dialog, null);
         dialog.setContentView(view);
         dialog.show();
-        ((SeekBar) view.findViewById(R.id.font_size_seekbar)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+        TextView currentFontSize = dialog.findViewById(R.id.epub_current_font_size);
+        currentFontSize.setText(fontSize + "px");
+        SeekBar fontSizeSeekBar = view.findViewById(R.id.font_size_seekbar);
+        fontSizeSeekBar.setProgress(fontSize - MIN_FONT_SIZE);
+        fontSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
+                seekBar.getProgress();
+                fontSize = seekBar.getProgress() + MIN_FONT_SIZE;
+                currentFontSize.setText(fontSize + "px");
+                Log.d("test", "onStopTrackingTouch: " + seekBar.getProgress());
             }
 
             @Override
@@ -372,11 +383,13 @@ public class ReaderActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                seekBar.getProgress();
-                Log.d("test", "onStopTrackingTouch: " + seekBar.getProgress());
+                try {
+                    loadChapter();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         });
-        ((TextView) dialog.findViewById(R.id.epub_current_font_size)).setText(fontSize);
         ((TextView) dialog.findViewById(R.id.epub_current_font)).setText(fontFamily);
     }
 

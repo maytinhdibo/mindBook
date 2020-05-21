@@ -10,7 +10,7 @@
         android:layout_height="55dp"
         android:id="@+id/font-size"
         android:orientation="horizontal"
-        android:clickable="true"
+        android:clickable="false"
         android:focusable="true"
         android:padding="16dp"
         android:layout_gravity="center_vertical"
@@ -48,8 +48,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/font_size_seekbar"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:max="40"
         />
     <LinearLayout
         android:layout_width="match_parent"
