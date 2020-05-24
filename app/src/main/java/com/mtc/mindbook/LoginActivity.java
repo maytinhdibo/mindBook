@@ -103,8 +103,6 @@ public class LoginActivity extends AppCompatActivity {
                     editor.putString("accessToken", accessToken);
                     editor.apply();
                     getUser fetchUser = new getUser(context);
-//                    setResult(RESULT_OK, intent);
-//                    finish();
                 } else {
                     Toast.makeText(LoginActivity.this, "Tài khoản hoặc mật khẩu sai", Toast.LENGTH_SHORT).show();
                 }

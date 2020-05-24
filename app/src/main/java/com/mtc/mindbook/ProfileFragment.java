@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ public class ProfileFragment extends Fragment {
     Button goToLoginBtn = null;
     Button logoutBtn = null;
     Button goToBookShelf = null;
+    Button changeThemeBtn = null;
     TextView userFullNameTextView = null;
     TextView userEmailTextView = null;
     TextView userNameTextView = null;
@@ -27,10 +29,12 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.activity_profile, container, false);
+        LayoutInflater themedInflater = inflater.cloneInContext(new ContextThemeWrapper(getActivity(), R.style.AppThemeDark));
+        final View rootView = themedInflater.inflate(R.layout.activity_profile, container, false);
         goToLoginBtn = rootView.findViewById(R.id.button_go_to_login);
         logoutBtn = rootView.findViewById(R.id.btn_logout);
         goToBookShelf = rootView.findViewById(R.id.btn_bookshelf);
+        changeThemeBtn = rootView.findViewById(R.id.btn_change_theme);
         userFullNameTextView = rootView.findViewById(R.id.textview_profile_user_full_name);
         userEmailTextView = rootView.findViewById(R.id.textview_profile_email);
         userNameTextView = rootView.findViewById(R.id.textview_profile_username);
@@ -72,8 +76,12 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        changeThemeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
         return rootView;
-
     }
 
     @Override

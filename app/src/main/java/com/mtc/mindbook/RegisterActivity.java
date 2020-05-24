@@ -114,8 +114,6 @@ public class RegisterActivity extends AppCompatActivity {
                     editor.putString("accessToken", accessToken);
                     editor.apply();
                     getUser fetchUser = new getUser(context);
-//                    setResult(RESULT_OK, intent);
-//                    finish();
                 } else {
                     Toast.makeText(RegisterActivity.this, "Username hoặc Email đã tồn tại", Toast.LENGTH_SHORT).show();
                 }

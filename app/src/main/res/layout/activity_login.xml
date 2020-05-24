@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:theme="@style/AppTheme.MaterialCustom"
+    android:theme="@style/AppThemeLight.MaterialCustom"
     android:background="@color/backgroundNav">
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -58,6 +58,7 @@
             android:onClick="onLoginClicked"
             android:text="Đăng nhập"
             android:textSize="16sp"
+            android:textColor="?attr/colorPrimary"
             app:iconTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -78,7 +79,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="mindBook"
-        android:textColor="@color/colorPrimary"
+        android:textColor="?attr/colorPrimary"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"

@@ -12,13 +12,27 @@
 
     </style>
 
-    <style name="AppTheme.MaterialCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="colorPrimary">@color/bottom_nav_item</item>
-        <item name="colorPrimaryDark">@color/backgroundNav</item>
-        <item name="colorAccent">@color/colorPrimary</item>
+    <style name="AppThemeLight" parent="AppTheme">
+        <item name="bgColor">@color/backgroundPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
     </style>
 
+    <style name="AppThemeDark" parent="AppTheme">
+        <item name="bgColor">@color/backgroundPrimary</item>
+        <item name="colorPrimary">#c9c9c9</item>
+    </style>
+
+    <style name="AppThemeLight.MaterialCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="bgColor">@color/backgroundPrimary</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+    </style>
+
+    <style name="AppThemeDark.MaterialCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="android:windowLightStatusBar">true</item>
+        <item name="bgColor">@color/backgroundPrimary</item>
+        <item name="colorPrimary">#c9c9c9</item>
+    </style>
     <style name="DetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:statusBarColor">@android:color/transparent</item>

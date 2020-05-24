@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/profile_main_frame"
-    android:theme="@style/AppTheme.MaterialCustom">
+    android:theme="@style/AppThemeLight.MaterialCustom">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -44,6 +44,7 @@
                                             android:layout_height="wrap_content"
                                             android:text="Your name here"
                                             android:textAppearance="?attr/textAppearanceHeadline6"
+                                            android:textColor="?attr/colorPrimary"
                                             android:visibility="gone" />
 
                                         <TextView
@@ -53,7 +54,7 @@
                                             android:layout_marginTop="8dp"
                                             android:text="youremail@example.com"
                                             android:textAppearance="?attr/textAppearanceBody2"
-                                            android:textColor="?android:attr/textColorSecondary"
+                                            android:textColor="?attr/colorPrimary"
                                             android:visibility="gone" />
 
                                         <TextView
@@ -89,6 +90,13 @@
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
                                             android:text="Tủ sách của tôi" />
+
+                                        <com.google.android.material.button.MaterialButton
+                                            android:id="@+id/btn_change_theme"
+                                            style="?attr/borderlessButtonStyle"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="Mode" />
                                 </LinearLayout>
 
                         </LinearLayout>

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:theme="@style/AppTheme.MaterialCustom">
+    android:theme="@style/AppThemeLight.MaterialCustom">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/playlist_item_container"
