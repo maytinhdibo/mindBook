@@ -5,9 +5,10 @@
     android:layout_height="match_parent"
     android:scrollbars="none">
 
+
     <LinearLayout
+        android:id="@+id/main_layout"
         android:layout_width="match_parent"
-        android:layout_marginTop="@*android:dimen/status_bar_height"
         android:layout_height="match_parent"
         android:orientation="vertical">
 

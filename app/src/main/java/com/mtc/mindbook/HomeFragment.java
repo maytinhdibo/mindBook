@@ -50,6 +50,10 @@ public class HomeFragment extends Fragment {
 
         View rootView = inflater.inflate(R.layout.activity_home, container, false);
 
+        rootView.findViewById(R.id.main_layout).setPaddingRelative(0, getResources().getDimensionPixelSize(
+                getResources().getIdentifier("status_bar_height", "dimen", "android")
+        ), 0, 0);
+
         // Construct the data source
         final List<BookItem> listItem = new ArrayList<>();
 

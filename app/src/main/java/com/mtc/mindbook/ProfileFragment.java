@@ -32,6 +32,10 @@ public class ProfileFragment extends Fragment {
         LayoutInflater themedInflater = inflater.cloneInContext(new ContextThemeWrapper(getActivity(), R.style.AppThemeDark));
         final View rootView = themedInflater.inflate(R.layout.activity_profile, container, false);
 
+        rootView.findViewById(R.id.title_bar).setPaddingRelative(0, getResources().getDimensionPixelSize(
+                getResources().getIdentifier("status_bar_height", "dimen", "android")
+        ), 0, 0);
+
         goToLoginBtn = rootView.findViewById(R.id.button_go_to_login);
         logoutBtn = rootView.findViewById(R.id.btn_logout);
         goToBookShelf = rootView.findViewById(R.id.btn_bookshelf);
