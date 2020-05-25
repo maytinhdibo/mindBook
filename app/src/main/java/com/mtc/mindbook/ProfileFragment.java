@@ -31,6 +31,7 @@ public class ProfileFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LayoutInflater themedInflater = inflater.cloneInContext(new ContextThemeWrapper(getActivity(), R.style.AppThemeDark));
         final View rootView = themedInflater.inflate(R.layout.activity_profile, container, false);
+
         goToLoginBtn = rootView.findViewById(R.id.button_go_to_login);
         logoutBtn = rootView.findViewById(R.id.btn_logout);
         goToBookShelf = rootView.findViewById(R.id.btn_bookshelf);

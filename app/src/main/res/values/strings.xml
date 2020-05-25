@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">mindBook</string>
+    <string name="app_desc">The best audio book store!</string>
     <string name="nav_home">Home</string>
     <string name="nav_explore">Explore</string>
     <string name="nav_lib">Library</string>

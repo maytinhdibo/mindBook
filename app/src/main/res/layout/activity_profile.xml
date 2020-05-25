@@ -1,121 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    >
+<LinearLayout
+    android:id="@+id/profile_main_frame"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/profile_main_frame"
-    android:theme="@style/AppThemeLight.MaterialCustom">
+    android:theme="@style/AppThemeLight.MaterialCustom"
+    android:orientation="vertical">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Media -->
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="0dp"
+            android:orientation="vertical">
 
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/card"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="400dp"
+                android:background="@drawable/bottom_round"
+                android:contentDescription="background"
+                android:orientation="vertical"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/profile">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="1dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent">
+                    android:layout_marginTop="@*android:dimen/status_bar_height"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/app_name"
+                        android:textAppearance="?attr/textAppearanceHeadline6"
+                        android:textColor="@color/lightColor"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="18dp"
+                        android:layout_height="2dp"
+                        android:background="@drawable/light_round" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp"
+                    android:layout_marginBottom="6dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    tools:ignore="MissingConstraints">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Những cuốn sách thú vị"
+                        android:textColor="@color/lightColor"
+                        android:textSize="24sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Đang chờ bạn khám phá tại đây!"
+                        android:textColor="@color/lightOpacityColor"
+                        android:textSize="14sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:background="@drawable/max_light_round"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <LinearLayout
+                        style="@style/container"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:paddingVertical="6pt">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                                <!-- Media -->
-                                <ImageView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="194dp"
-                                    android:contentDescription="background"
-                                    android:scaleType="centerCrop"
-                                    app:srcCompat="@drawable/profile" />
+                            <TextView
+                                android:id="@+id/textview_profile_user_full_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Your name here"
+                                android:textColor="@color/textColor"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
 
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:orientation="vertical"
-                                    android:padding="16dp">
-
-                                        <!-- Title, secondary and supporting text -->
-                                        <TextView
-                                            android:id="@+id/textview_profile_user_full_name"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Your name here"
-                                            android:textAppearance="?attr/textAppearanceHeadline6"
-                                            android:textColor="?attr/colorPrimary"
-                                            android:visibility="gone" />
-
-                                        <TextView
-                                            android:id="@+id/textview_profile_email"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="8dp"
-                                            android:text="youremail@example.com"
-                                            android:textAppearance="?attr/textAppearanceBody2"
-                                            android:textColor="?attr/colorPrimary"
-                                            android:visibility="gone" />
-
-                                        <TextView
-                                            android:id="@+id/textview_profile_username"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginTop="16dp"
-                                            android:text="09447595930535"
-                                            android:textAppearance="?attr/textAppearanceBody2"
-                                            android:textColor="?android:attr/textColorSecondary"
-                                            android:visibility="gone" />
-
-                                </LinearLayout>
-
-                                <!-- Buttons -->
-                                <LinearLayout
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_margin="8dp"
-                                    android:orientation="horizontal">
-
-                                        <com.google.android.material.button.MaterialButton
-                                            android:id="@+id/btn_logout"
-                                            style="?attr/borderlessButtonStyle"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:layout_marginEnd="8dp"
-                                            android:text="Đăng nhập" />
-
-                                        <com.google.android.material.button.MaterialButton
-                                            android:id="@+id/btn_bookshelf"
-                                            style="?attr/borderlessButtonStyle"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Tủ sách của tôi" />
-
-                                        <com.google.android.material.button.MaterialButton
-                                            android:id="@+id/btn_change_theme"
-                                            style="?attr/borderlessButtonStyle"
-                                            android:layout_width="wrap_content"
-                                            android:layout_height="wrap_content"
-                                            android:text="Mode" />
-                                </LinearLayout>
-
+                            <TextView
+                                android:id="@+id/textview_profile_email"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="youremail@example.com"
+                                android:textColor="@color/textColorOpacity"
+                                android:textSize="14sp" />
                         </LinearLayout>
 
-                </com.google.android.material.card.MaterialCardView>
+                        <ImageView
+                            android:layout_width="18sp"
+                            android:layout_height="18sp"
+                            android:src="@drawable/ic_logout"
+                            android:tint="#444" />
 
-                <Button
-                    android:visibility="invisible"
-                    android:id="@+id/button_go_to_login"
+                    </LinearLayout>
+                </LinearLayout>
+
+                <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:text="Đăng nhập"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/card" />
+                    android:layout_height="match_parent"
+                    android:paddingTop="45dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:srcCompat="@drawable/profile">
+
+                    </ImageView>
+
+                </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            </LinearLayout>
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/textview_profile_username"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:text="09447595930535"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:textColor="@color/lightColor"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+        <!-- Buttons -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:orientation="vertical">
+
+            <Button
+                android:layout_marginTop="6dp"
+                android:id="@+id/btn_logout"
+                android:background="@drawable/review_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Đăng nhập" />
 
 
-</FrameLayout>
+            <Button
+                android:layout_marginTop="6dp"
+                android:id="@+id/btn_bookshelf"
+                android:background="@drawable/review_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tủ sách của tôi" />
+
+            <Button
+                android:layout_marginTop="6dp"
+                android:id="@+id/btn_change_theme"
+                android:background="@drawable/review_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mode" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:id="@+id/button_go_to_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:text="Đăng nhập"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            tools:layout_editor_absoluteY="1dp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</LinearLayout>
+</ScrollView>
