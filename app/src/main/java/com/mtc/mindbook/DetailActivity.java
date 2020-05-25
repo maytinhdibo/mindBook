@@ -290,9 +290,9 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
                         if (response.body() != null) {
-                            //success
-
+                            loadComment(limitComment, 1);
                         } else {
+
                         }
                         reviewDialog.dismiss();
                     }
