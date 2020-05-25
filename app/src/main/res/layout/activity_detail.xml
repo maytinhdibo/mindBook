@@ -160,7 +160,7 @@
                     style="@style/container"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Harry Potter và Hòn Đá Phù Thủy là bộ phim đầu tiên trong series phim “Harry Potter” được xây dựng dựa trên tiểu thuyết của nhà văn J.K.Rowling. Nhân vật chính của phim, Harry Potter - một cậu bé 11 tuổi sau khi mồ côi cha mẹ đã bị gửi đến nhà dì dượng của mình, gia đình Dursley. Tuy nhiên, cậu bé bị ngược đãi và không hề biết về thân phận thực sự của mình."
+                    android:text="@string/loading"
                     android:textColor="@color/textColor"
                     android:textSize="16sp"
                     app:layout_constraintStart_toStartOf="parent"
