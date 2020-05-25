@@ -48,6 +48,7 @@ public class DetailActivity extends AppCompatActivity {
 
     private APIService apiServices = APIUtils.getUserService();
 
+    int limitComment = 2;
     int pageComment = 1;
 
     Button loadMoreBtn = null;
@@ -62,10 +63,6 @@ public class DetailActivity extends AppCompatActivity {
         isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
 
         sharedPrefs = getBaseContext().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
-
-        Bundle tagValue = getIntent().getExtras();
-
-        id = tagValue.getString("EXTRA_BOOK_ID") != null ? tagValue.getString("EXTRA_BOOK_ID") : "1";
 
         Call<DetailReponseObj> callDetail = apiServices.detailBook(id);
         callDetail.enqueue(new Callback<DetailReponseObj>() {
@@ -125,15 +122,11 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        int limit = 2;
-
-        loadMoreBtn = (Button) findViewById(R.id.load_comment);
-        loadComment(limit, pageComment);
 
         loadMoreBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                loadComment(limit, ++pageComment);
+                loadComment(limitComment, ++pageComment);
             }
         });
 
@@ -157,11 +150,16 @@ public class DetailActivity extends AppCompatActivity {
         callRatingComment.enqueue(new Callback<RatingCommentsResponseObj>() {
             @Override
             public void onResponse(Call<RatingCommentsResponseObj> call, Response<RatingCommentsResponseObj> response) {
+                if (response.body() == null) {
+                    Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if (page == 1) ratingCommentList.clear();
                 ratingCommentList.addAll(response.body().getData());
                 adapter.notifyDataSetChanged();
                 if (response.body().getData().size() < limit) {
                     loadMoreBtn.setVisibility(View.GONE);
-                }else{
+                } else {
                     loadMoreBtn.setText(getString(R.string.loadMoreReview));
                 }
             }
@@ -178,9 +176,10 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-//        Window w = getWindow();
-//        w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        Bundle tagValue = getIntent().getExtras();
+        id = tagValue.getString("EXTRA_BOOK_ID") != null ? tagValue.getString("EXTRA_BOOK_ID") : "1";
 
 
         View view = findViewById(android.R.id.content).getRootView();
@@ -239,16 +238,6 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-
-//        LinearLayout bottomBar = (LinearLayout) findViewById(R.id.bottom_bar);
-//        bottomBar.setLayoutParams(new LinearLayout.LayoutParams
-//                (LinearLayout.LayoutParams.MATCH_PARENT
-//                        , 240 + this.getNavigationBarHeight()));
-//
-//        View decor = getWindow().getDecorView();
-//        decor.setSystemUiVisibility(0);
-
-
         final AppCompatActivity self = this;
 
         final Dialog reviewDialog = new Dialog(view.getContext());
@@ -292,7 +281,7 @@ public class DetailActivity extends AppCompatActivity {
                 String accessToken = sharedPrefs.getString("accessToken", "");
                 String comment = commentText.getText().toString();
                 int rate = (int) ratingBar.getRating();
-                if(rate==0){
+                if (rate == 0) {
                     Toast.makeText(getBaseContext(), R.string.require_star, Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -302,6 +291,7 @@ public class DetailActivity extends AppCompatActivity {
                     public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
                         if (response.body() != null) {
                             //success
+
                         } else {
                         }
                         reviewDialog.dismiss();
@@ -317,6 +307,11 @@ public class DetailActivity extends AppCompatActivity {
 
             }
         });
+
+        loadMoreBtn = (Button) findViewById(R.id.load_comment);
+
+
+        loadComment(limitComment, pageComment);
 
     }
 
