@@ -3,6 +3,7 @@
     style="@style/container"
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@*android:dimen/status_bar_height"
     >
     <LinearLayout
         android:id="@+id/location_req"
