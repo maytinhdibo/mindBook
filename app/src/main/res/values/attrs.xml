@@ -2,4 +2,5 @@
 <resources>
     <attr name="bgColor" format="color" />
     <attr name="colorPrimary" format="color" />
+
 </resources>

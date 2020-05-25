@@ -25,7 +25,6 @@ public class ProfileFragment extends Fragment {
     Button changeThemeBtn = null;
     TextView userFullNameTextView = null;
     TextView userEmailTextView = null;
-    TextView userNameTextView = null;
     SharedPreferences sharedPrefs = null;
     ImageView logout = null;
     LinearLayout userInfoWrapper = null;
@@ -44,7 +43,6 @@ public class ProfileFragment extends Fragment {
         changeThemeBtn = rootView.findViewById(R.id.btn_change_theme);
         userFullNameTextView = rootView.findViewById(R.id.textview_profile_user_full_name);
         userEmailTextView = rootView.findViewById(R.id.textview_profile_email);
-        userNameTextView = rootView.findViewById(R.id.textview_profile_username);
         logout = rootView.findViewById(R.id.log_out);
         userInfoWrapper = rootView.findViewById(R.id.user_info_wrapper);
 
@@ -101,7 +99,6 @@ public class ProfileFragment extends Fragment {
         if (isLoggedIn) {
             userFullNameTextView.setText(sharedPrefs.getString("userFullName", ""));
             userEmailTextView.setText(sharedPrefs.getString("userEmail", ""));
-            userNameTextView.setText(sharedPrefs.getString("userName", ""));
             userFullNameTextView.setVisibility(View.VISIBLE);
             userEmailTextView.setVisibility(View.VISIBLE);
             userInfoWrapper.setGravity(Gravity.LEFT);
@@ -131,10 +128,8 @@ public class ProfileFragment extends Fragment {
                 goToLoginBtn.setVisibility(View.INVISIBLE);
                 userFullNameTextView.setText(sharedPrefs.getString("userFullName", ""));
                 userEmailTextView.setText(sharedPrefs.getString("userEmail", ""));
-                userNameTextView.setText(sharedPrefs.getString("userName", ""));
                 userFullNameTextView.setVisibility(View.VISIBLE);
                 userEmailTextView.setVisibility(View.VISIBLE);
-                userNameTextView.setVisibility(View.VISIBLE);
             }
         }
     }
