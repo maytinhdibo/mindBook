@@ -101,6 +101,7 @@
                         android:paddingVertical="6pt">
 
                         <LinearLayout
+                            android:id="@+id/user_info_wrapper"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
@@ -125,6 +126,7 @@
                         </LinearLayout>
 
                         <ImageView
+                            android:id="@+id/log_out"
                             android:layout_width="18sp"
                             android:layout_height="18sp"
                             android:src="@drawable/ic_logout"
@@ -167,15 +169,6 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:orientation="vertical">
-
-            <Button
-                android:layout_marginTop="6dp"
-                android:id="@+id/btn_logout"
-                android:background="@drawable/review_item"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Đăng nhập" />
-
 
             <Button
                 android:layout_marginTop="6dp"
