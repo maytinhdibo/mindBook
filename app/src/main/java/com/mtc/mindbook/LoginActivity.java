@@ -94,7 +94,9 @@ public class LoginActivity extends AppCompatActivity {
                 frameLayoutParams.height = usableHeightSansKeyboard - heightDifference;
             } else {
                 // keyboard probably just became hidden
-                frameLayoutParams.height = usableHeightSansKeyboard;
+                frameLayoutParams.height = usableHeightSansKeyboard-2*getResources().getDimensionPixelSize(
+                        getResources().getIdentifier("status_bar_height", "dimen", "android")
+                );
             }
             mChildOfContent.requestLayout();
             usableHeightPrevious = usableHeightNow;
