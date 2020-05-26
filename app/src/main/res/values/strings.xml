@@ -66,5 +66,9 @@
     <string name="custom_reader">Custom Reader</string>
     <string name="bottom_sheet_text_size">Text size</string>
     <string name="bottom_sheet_choose_font">Choose Font</string>
+    <string name="merriweather_font">Merriweather</string>
+    <string name="volkhov_font">Volkhov</string>
+    <string name="literata_font">Literata</string>
+    <string name="open_sans_font">Open Sans</string>
 
 </resources>

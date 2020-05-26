@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -19,10 +20,13 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -33,6 +37,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -41,6 +46,8 @@ import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 ;
+import org.w3c.dom.Text;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -64,9 +71,11 @@ public class ReaderActivity extends AppCompatActivity {
     private int fontSize = 30;
     private int MIN_FONT_SIZE = 20;
     private String backgroundColor = "#fff";
-    private String fontFamily = "Open Sans";
+    private int fontFamily = R.id.font_literata;
+    private String fontFamilyString = "Literata";
     private String fontColor = "#000";
 
+    private BottomSheetDialog dialog;
 
     private BroadcastReceiver onDoneDownload;
 
@@ -169,7 +178,6 @@ public class ReaderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
 
@@ -195,6 +203,17 @@ public class ReaderActivity extends AppCompatActivity {
 
         // Use webview
         epubContent = (WebView) findViewById(R.id.epub_content);
+
+        WebViewClient webViewClient= new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest url) {
+                Log.d("TESST", "shouldOverrideUrlLoading: " + url.getUrl());
+                return true;
+            }
+
+        };
+        epubContent.setWebViewClient(webViewClient);
+
         epubContent.setBackgroundColor(Color.TRANSPARENT);
         epubContent.setOnTouchListener(new OnTouchListener() {
             private static final int MAX_CLICK_DURATION = 200;
@@ -302,14 +321,18 @@ public class ReaderActivity extends AppCompatActivity {
         Resource resource = spine.getResource(currentChapter);
         htmlText.append(new String(resource.getData()));
         htmlText.append("<style type=\"text/css\">" +
+                "@font-face {" +
+                "font-family: literata;" +
+                        "src: url(\"" + getCurrentFontInfo() + "\")" +
+                "}" +
                 "* { " +
+                "font-family: literata;" +
                 "font-size: " + fontSize + "px !important;" +
-                "font-family: " + fontFamily + ";" +
                 "color: " + fontColor + ";" +
                 "} body {margin:75px 20px 200px 20px;} </style>");
         String encodedHtml = Base64.encodeToString(htmlText.toString().getBytes(),
                 Base64.NO_PADDING);
-        epubContent.loadData(encodedHtml, "text/html", "base64");
+        epubContent.loadDataWithBaseURL("file:///android_asset/", htmlText.toString(), "text/html", "UTF-8", "");
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
@@ -358,10 +381,22 @@ public class ReaderActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void toggleDialogBottom() {
-        BottomSheetDialog dialog = new BottomSheetDialog(ReaderActivity.this);
+        dialog = new BottomSheetDialog(ReaderActivity.this);
         View view = getLayoutInflater().inflate(R.layout.epub_custom_dialog, null);
         dialog.setContentView(view);
         dialog.show();
+        View font = dialog.findViewById(R.id.font_family);
+        font.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleFontSelector();
+            }
+        });
+
+        TextView currentFont = dialog.findViewById(R.id.epub_current_font);
+        currentFont.setText(fontFamilyString);
+        Typeface typeface = getCurrentTypeface();
+        currentFont.setTypeface(typeface);
 
         TextView currentFontSize = dialog.findViewById(R.id.epub_current_font_size);
         currentFontSize.setText(fontSize + "px");
@@ -390,7 +425,97 @@ public class ReaderActivity extends AppCompatActivity {
                 }
             }
         });
-        ((TextView) dialog.findViewById(R.id.epub_current_font)).setText(fontFamily);
+    }
+
+    private void toggleFontSelector() {
+//        dialog.hide();
+        dialog.cancel();
+        dialog = new BottomSheetDialog(ReaderActivity.this);
+        View view = getLayoutInflater().inflate(R.layout.font_selector, null);
+        dialog.setContentView(view);
+        dialog.show();
+
+        View backBtn = dialog.findViewById(R.id.back_btn);
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.cancel();
+                toggleDialogBottom();
+            }
+        });
+
+        ViewGroup listFont = dialog.findViewById(R.id.font_list);
+
+        for (int ind = 0; ind < listFont.getChildCount(); ind++) {
+            View font = listFont.getChildAt(ind);
+            font.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    fontFamily = v.getId();
+                    fontFamilyString = ((TextView) ((ViewGroup) font).getChildAt(1)).getText().toString();
+                    try {
+                        loadChapter();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    dialog.cancel();
+                }
+            });
+        }
+        setSelectedFont();
+    }
+
+    private void setSelectedFont() {
+        ViewGroup listFont = dialog.findViewById(R.id.font_list);
+
+        for (int ind = 0; ind < listFont.getChildCount(); ind++) {
+            View font = listFont.getChildAt(ind);
+            if (font.getId() == fontFamily) {
+                ((ViewGroup) font).getChildAt(0).setVisibility(View.VISIBLE);
+            } else {
+                ((ViewGroup) font).getChildAt(0).setVisibility(View.INVISIBLE);
+            }
+        }
+    }
+
+    private String getCurrentFontInfo() {
+        String ret = "/fonts/";
+        switch (fontFamily) {
+            case R.id.font_literata:
+                ret += "literata.ttf";
+                break;
+            case R.id.font_merriweather:
+                ret += "merriweather.ttf";
+                break;
+            case R.id.font_sans:
+                System.out.println("Sans Serif");
+                break;
+            case R.id.font_volkhov:
+                System.out.println("Volkhov");
+                break;
+        }
+        return ret;
+    }
+
+    private Typeface getCurrentTypeface() {
+        Typeface ret;
+        switch (fontFamily) {
+            case R.id.font_literata:
+                ret = ResourcesCompat.getFont(ReaderActivity.this, R.font.literata);
+                break;
+            case R.id.font_merriweather:
+                ret = ResourcesCompat.getFont(ReaderActivity.this, R.font.merriweather);
+                break;
+            case R.id.font_sans:
+                ret = ResourcesCompat.getFont(ReaderActivity.this, R.font.opensans);
+                break;
+            case R.id.font_volkhov:
+                ret = ResourcesCompat.getFont(ReaderActivity.this, R.font.volkhov);
+                break;
+            default:
+                ret = ResourcesCompat.getFont(ReaderActivity.this, R.font.literata);
+        }
+        return ret;
     }
 
     private float distance(float x1, float y1, float x2, float y2) {

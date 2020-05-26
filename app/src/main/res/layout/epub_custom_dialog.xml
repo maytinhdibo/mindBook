@@ -23,39 +23,38 @@
             android:src="@drawable/ic_font_size"
             android:tint="@color/grayColor"
             android:contentDescription="TODO" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="16sp"
             android:text="@string/bottom_sheet_text_size"
             android:textColor="@color/grayColor"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
-            />
+            android:textSize="16sp" />
 
-        <TextView
+        <SeekBar
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/font_size_seekbar"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:max="40"
+            />
+        <TextView
             android:id="@+id/epub_current_font_size"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingEnd="16dp"
             android:text="16px"
-            android:textSize="16sp"
             android:textAlignment="textEnd"
             android:textColor="@color/grayColor"
-            />
+            android:visibility="invisible"
+            android:textSize="16sp" />
 
     </LinearLayout>
-    <SeekBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/font_size_seekbar"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:max="40"
-        />
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:id="@+id/font-color"
+        android:id="@+id/font_family"
         android:orientation="horizontal"
         android:clickable="true"
         android:focusable="true"
@@ -77,17 +76,16 @@
             android:textSize="16sp"
             android:text="Font"
             android:textColor="@color/grayColor"
-            android:layout_marginLeft="16dp"
-            android:layout_marginStart="16dp"
             />
+
         <TextView
+            android:id="@+id/epub_current_font"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/epub_current_font"
+            android:paddingEnd="16dp"
             android:text="Open Sans"
-            android:textSize="16sp"
             android:textAlignment="textEnd"
             android:textColor="@color/grayColor"
-            />
+            android:textSize="16sp" />
     </LinearLayout>
 </LinearLayout>
