@@ -2,110 +2,118 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/backgroundNav"
     android:orientation="vertical"
-    android:theme="@style/AppThemeLight.MaterialCustom"
+    android:layout_alignParentBottom="true"
     tools:context=".LoginActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:background="@drawable/bottom_round"
-        android:orientation="vertical"
-        android:gravity="center"
-        >
-        <TextView
-            android:id="@+id/textView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="mindBook"
-            android:textStyle="bold"
-            android:textColor="@color/lightColor"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="336dp"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="38dp">
-
-
-            <EditText
-                android:background="@drawable/light_round"
-                android:id="@+id/name_field"
-                style="@style/input"
-                android:hint="@string/hint_username"
-                android:textSize="14sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            <EditText
-                android:background="@drawable/light_round"
-                android:id="@+id/password_field"
-                android:hint="@string/hint_password"
-                style="@style/input"
-                android:textSize="14sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textPassword" />
-
-
-        <Button
-            android:id="@+id/login_button"
-            android:background="@drawable/detail_button"
+        <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="9dp"
-            android:onClick="onLoginClicked"
-            android:text="Đăng nhập"
-            android:textColor="@color/lightColor"
-            android:textSize="16sp"
-            app:iconTint="@color/colorPrimary"
+            android:adjustViewBounds="true"
+            android:paddingHorizontal="60dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/login" />
 
-    </LinearLayout>
-    </LinearLayout>
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="336dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="75dp"
-      android:gravity="center"
-      android:orientation="horizontal"
-      >
-      <TextView
-          android:layout_width="wrap_content"
-          android:gravity="center|center_horizontal"
-          android:layout_height="match_parent"
-          android:onClick="onRegisterClicked"
-          android:text="Do you have account?"
-          android:textColor="@color/textColor"
-          android:textSize="14sp"
-          android:textStyle="bold"/>
-      <TextView
-          android:layout_marginLeft="6dp"
-          android:layout_width="wrap_content"
-          android:id="@+id/register_button"
-          android:layout_height="match_parent"
-          android:gravity="center|center_horizontal"
-          android:onClick="onRegisterClicked"
-          android:text="Sign Up!"
-          android:textColor="@color/colorPrimary"
-          android:textSize="14sp"
-          android:textStyle="bold" />
-  </LinearLayout>
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="mindBook"
+                android:textColor="@color/lightColor"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/name_field"
+                style="@style/input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/light_round"
+                android:hint="@string/hint_username"
+                android:textSize="14sp" />
+
+
+            <EditText
+                android:id="@+id/password_field"
+                style="@style/input"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/light_round"
+                android:hint="@string/hint_password"
+                android:inputType="textPassword"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/login_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="9dp"
+                android:background="@drawable/detail_button"
+                android:onClick="onLoginClicked"
+                android:text="Đăng nhập"
+                android:textColor="@color/lightColor"
+                android:textSize="16sp"
+                app:iconTint="@color/colorPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="75dp"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center|center_horizontal"
+            android:onClick="onRegisterClicked"
+            android:text="Do you have account?"
+            android:textColor="@color/textColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/register_button"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="6dp"
+            android:gravity="center|center_horizontal"
+            android:onClick="onRegisterClicked"
+            android:text="Sign Up!"
+            android:textColor="@color/colorPrimary"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>
