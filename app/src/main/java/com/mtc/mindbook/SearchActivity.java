@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -55,12 +56,14 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
 
         Bundle tagValue = getIntent().getExtras();
 
         if (tagValue != null) {
             searchInput.setText(tagValue.getString("EXTRA_TAG"));
             searchInput.setSelection(searchInput.getText().length());
+            search();
         }
 
         ImageButton voiceBtn = findViewById(R.id.voiceSearchBtn);
@@ -96,6 +99,8 @@ public class SearchActivity extends AppCompatActivity {
     }
 
     public void search() {
+        ProgressBar loading = findViewById(R.id.loading);
+        loading.setVisibility(View.VISIBLE);
         APIService searchService = null;
         searchService = APIUtils.getUserService();
         Call<SearchResponseObj> callDetail = searchService.search(searchInput.getText().toString());
@@ -113,6 +118,7 @@ public class SearchActivity extends AppCompatActivity {
                     findViewById(R.id.null_result).setVisibility(View.GONE);
                 }
                 final SearchViewAdapter adapter = new SearchViewAdapter(searchItems);
+                loading.setVisibility(View.GONE);
                 searchResult.setAdapter(adapter);
             }
 
