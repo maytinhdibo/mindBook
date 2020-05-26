@@ -91,6 +91,14 @@
             />
     </LinearLayout>
 
+    <ProgressBar
+        android:visibility="gone"
+        android:id="@+id/loading"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6pt" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_result"
         style="@style/Widget.AppCompat.Light.ListView.DropDown"
