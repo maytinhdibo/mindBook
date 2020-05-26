@@ -6,6 +6,9 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -25,10 +28,10 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
-    public MaterialButton btnLogin = null;
-    public MaterialButton btnRegister = null;
-    public TextInputEditText fieldName = null;
-    public TextInputEditText fieldPassword = null;
+    public Button btnLogin = null;
+    public TextView btnRegister = null;
+    public EditText fieldName = null;
+    public EditText fieldPassword = null;
     public TextInputLayout fieldNameLayout = null;
     public TextInputLayout fieldPasswordLayout = null;
     APIService userService = null;
@@ -40,10 +43,12 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.login_button);
         btnRegister = findViewById(R.id.register_button);
         fieldName = findViewById(R.id.name_field);
-        fieldNameLayout = findViewById(R.id.name_fieldL);
         fieldPassword = findViewById(R.id.password_field);
-        fieldPasswordLayout = findViewById(R.id.password_fieldL);
         userService = APIUtils.getUserService();
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+
         OnBackPressedCallback backWithoutLogin = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {

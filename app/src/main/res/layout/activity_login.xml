@@ -1,12 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    android:background="@color/backgroundNav"
+    android:orientation="vertical"
     android:theme="@style/AppThemeLight.MaterialCustom"
-    android:background="@color/backgroundNav">
+    tools:context=".LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/bottom_round"
+        android:orientation="vertical"
+        android:gravity="center"
+        >
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="mindBook"
+            android:textStyle="bold"
+            android:textColor="@color/lightColor"
+            android:textSize="30sp"
+            app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="336dp"
@@ -18,71 +41,71 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="38dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/name_fieldL"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_username"
-            app:errorEnabled="true">
-            <com.google.android.material.textfield.TextInputEditText
+
+            <EditText
+                android:background="@drawable/light_round"
                 android:id="@+id/name_field"
+                style="@style/input"
+                android:hint="@string/hint_username"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/password_fieldL"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/hint_password"
-            app:errorEnabled="true"
-            app:endIconMode="password_toggle">
-
-            <com.google.android.material.textfield.TextInputEditText
+            <EditText
+                android:background="@drawable/light_round"
                 android:id="@+id/password_field"
+                android:hint="@string/hint_password"
+                style="@style/input"
+                android:textSize="14sp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
 
-        </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.button.MaterialButton
+        <Button
             android:id="@+id/login_button"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:background="@drawable/detail_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
+            android:layout_marginTop="9dp"
             android:onClick="onLoginClicked"
             android:text="Đăng nhập"
+            android:textColor="@color/lightColor"
             android:textSize="16sp"
-            android:textColor="?attr/colorPrimary"
             app:iconTint="@color/colorPrimary"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/register_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Đăng ký"
-            android:textSize="16sp"
-            android:onClick="onRegisterClicked"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="mindBook"
-        android:textColor="?attr/colorPrimary"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="90dp"
+      android:gravity="center"
+      android:orientation="horizontal"
+      >
+      <TextView
+          android:layout_width="wrap_content"
+          android:gravity="center|center_horizontal"
+          android:layout_height="match_parent"
+          android:onClick="onRegisterClicked"
+          android:text="Do you have account?"
+          android:textColor="@color/textColor"
+          android:textSize="14sp"
+          android:textStyle="bold"/>
+      <TextView
+          android:layout_marginLeft="6dp"
+          android:layout_width="wrap_content"
+          android:id="@+id/register_button"
+          android:layout_height="match_parent"
+          android:gravity="center|center_horizontal"
+          android:onClick="onRegisterClicked"
+          android:text="Sign Up!"
+          android:textColor="@color/colorPrimary"
+          android:textSize="14sp"
+          android:textStyle="bold" />
+  </LinearLayout>
+
+</LinearLayout>

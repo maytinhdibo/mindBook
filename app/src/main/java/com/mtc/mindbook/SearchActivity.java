@@ -63,6 +63,7 @@ public class SearchActivity extends AppCompatActivity {
         if (tagValue != null) {
             searchInput.setText(tagValue.getString("EXTRA_TAG"));
             searchInput.setSelection(searchInput.getText().length());
+            search();
         }
 
         ImageButton voiceBtn = findViewById(R.id.voiceSearchBtn);
