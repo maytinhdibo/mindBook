@@ -322,16 +322,16 @@ public class ReaderActivity extends AppCompatActivity {
         htmlText.append(new String(resource.getData()));
         htmlText.append("<style type=\"text/css\">" +
                 "@font-face {" +
-                "font-family: literata;" +
+                "font-family:" + fontFamilyString + ";" +
                         "src: url(\"" + getCurrentFontInfo() + "\")" +
                 "}" +
                 "* { " +
-                "font-family: literata;" +
+                "font-family:" + fontFamilyString + ";" +
                 "font-size: " + fontSize + "px !important;" +
                 "color: " + fontColor + ";" +
-                "} body {margin:75px 20px 200px 20px;} </style>");
-        String encodedHtml = Base64.encodeToString(htmlText.toString().getBytes(),
-                Base64.NO_PADDING);
+                "} body {margin:25px 20px 200px 20px;} </style>");
+//        String encodedHtml = Base64.encodeToString(htmlText.toString().getBytes(),
+//                Base64.NO_PADDING);
         epubContent.loadDataWithBaseURL("file:///android_asset/", htmlText.toString(), "text/html", "UTF-8", "");
     }
 
@@ -479,7 +479,7 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     private String getCurrentFontInfo() {
-        String ret = "/fonts/";
+        String ret = "font/";
         switch (fontFamily) {
             case R.id.font_literata:
                 ret += "literata.ttf";
@@ -488,10 +488,10 @@ public class ReaderActivity extends AppCompatActivity {
                 ret += "merriweather.ttf";
                 break;
             case R.id.font_sans:
-                System.out.println("Sans Serif");
+                ret += "opensans.ttf";
                 break;
             case R.id.font_volkhov:
-                System.out.println("Volkhov");
+                ret += "volkhov.ttf";
                 break;
         }
         return ret;
