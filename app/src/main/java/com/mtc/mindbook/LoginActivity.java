@@ -89,7 +89,7 @@ public class LoginActivity extends AppCompatActivity {
         if (usableHeightNow != usableHeightPrevious) {
             int usableHeightSansKeyboard = mChildOfContent.getRootView().getHeight();
             int heightDifference = usableHeightSansKeyboard - usableHeightNow;
-            if (heightDifference > (usableHeightSansKeyboard/4)) {
+            if (heightDifference > (usableHeightSansKeyboard / 4)) {
                 // keyboard probably just became visible
                 frameLayoutParams.height = usableHeightSansKeyboard - heightDifference;
             } else {
@@ -104,7 +104,7 @@ public class LoginActivity extends AppCompatActivity {
     private int computeUsableHeight() {
         Rect r = new Rect();
         mChildOfContent.getWindowVisibleDisplayFrame(r);
-        return (r.bottom - r.top);
+        return (r.bottom - r.top + getResources().getDimensionPixelSize(getResources().getIdentifier("status_bar_height", "dimen", "android")));
     }
 
     public void onLoginClicked(View view) {
