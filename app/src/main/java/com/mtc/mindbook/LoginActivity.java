@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     Context context = this;
 
     private int usableHeightPrevious;
+    private int defaultHeightPrevious;
     private FrameLayout.LayoutParams frameLayoutParams;
     private View mChildOfContent;
 
@@ -73,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
         this.getOnBackPressedDispatcher().addCallback(this, backWithoutLogin);
 
         FrameLayout content = (FrameLayout) findViewById(android.R.id.content);
+        defaultHeightPrevious = content.getLayoutParams().height;
+
         mChildOfContent = content.getChildAt(0);
         mChildOfContent.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             public void onGlobalLayout() {
@@ -94,9 +97,7 @@ public class LoginActivity extends AppCompatActivity {
                 frameLayoutParams.height = usableHeightSansKeyboard - heightDifference;
             } else {
                 // keyboard probably just became hidden
-                frameLayoutParams.height = usableHeightSansKeyboard-2*getResources().getDimensionPixelSize(
-                        getResources().getIdentifier("status_bar_height", "dimen", "android")
-                );
+                frameLayoutParams.height = defaultHeightPrevious;
             }
             mChildOfContent.requestLayout();
             usableHeightPrevious = usableHeightNow;
