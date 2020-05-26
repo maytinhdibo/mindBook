@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     app:layout_behavior="com.google.android.material.BottomSheet">
+
     <LinearLayout
+        android:id="@+id/font-size"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:id="@+id/font-size"
-        android:orientation="horizontal"
-        android:clickable="false"
-        android:focusable="true"
-        android:padding="16dp"
         android:layout_gravity="center_vertical"
         android:background="?attr/selectableItemBackground"
-        >
+        android:clickable="false"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:contentDescription="Text Size"
             android:src="@drawable/ic_font_size"
-            android:tint="@color/grayColor"
-            android:contentDescription="TODO" />
+            android:tint="@color/grayColor" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -32,51 +32,50 @@
             android:textSize="16sp" />
 
         <SeekBar
+            android:id="@+id/font_size_seekbar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/font_size_seekbar"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:max="40"
-            />
+            android:max="40" />
+
         <TextView
             android:id="@+id/epub_current_font_size"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingEnd="16dp"
-            android:text="16px"
+            android:text="16dp"
             android:textAlignment="textEnd"
             android:textColor="@color/grayColor"
-            android:visibility="invisible"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:visibility="invisible" />
 
     </LinearLayout>
+
     <LinearLayout
+        android:id="@+id/font_family"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:id="@+id/font_family"
-        android:orientation="horizontal"
-        android:clickable="true"
-        android:focusable="true"
-        android:padding="16dp"
         android:layout_gravity="center_vertical"
         android:background="?attr/selectableItemBackground"
-        >
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_choose_font"
-            android:tint="@color/grayColor"
             android:contentDescription="@string/bottom_sheet_choose_font"
-            />
+            android:src="@drawable/ic_choose_font"
+            android:tint="@color/grayColor" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:textSize="16sp"
             android:text="Font"
             android:textColor="@color/grayColor"
-            />
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/epub_current_font"
@@ -87,5 +86,90 @@
             android:textAlignment="textEnd"
             android:textColor="@color/grayColor"
             android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/text_color"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/bottom_sheet_choose_font"
+            android:src="@drawable/ic_colorize"
+            android:tint="@color/grayColor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Text color"
+            android:textColor="@color/grayColor"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="rtl"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/bottom_sheet_choose_font"
+                android:id="@+id/current_text_color"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_circle"
+                android:tint="@color/grayColor" />
+        </LinearLayout>
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/background_color"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackground"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/bottom_sheet_choose_font"
+            android:src="@drawable/ic_format_color_fill"
+            android:tint="@color/grayColor" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Background color"
+            android:textColor="@color/grayColor"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="rtl"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/bottom_sheet_choose_font"
+                android:id="@+id/current_background_color"
+                android:layout_marginStart="20dp"
+                android:src="@drawable/ic_circle"
+                android:tint="@color/grayColor" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

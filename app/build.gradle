@@ -49,6 +49,7 @@ dependencies {
     }
     implementation 'org.slf4j:slf4j-android:1.7.25'
     // End EpubLib
+    implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     configurations.matching { it.name == '_internal_aapt2_binary' }.all {
         config ->
             config.resolutionStrategy.eachDependency {

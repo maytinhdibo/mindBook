@@ -5,6 +5,7 @@ import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -27,6 +28,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +41,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 
+import com.flask.colorpicker.ColorPickerView;
+import com.flask.colorpicker.OnColorSelectedListener;
+import com.flask.colorpicker.builder.ColorPickerClickListener;
+import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mtc.mindbook.models.responseObj.detail.Detail;
@@ -70,10 +76,10 @@ public class ReaderActivity extends AppCompatActivity {
 
     private int fontSize = 30;
     private int MIN_FONT_SIZE = 20;
-    private String backgroundColor = "#fff";
+    private String backgroundColor = "EAE4E4";
     private int fontFamily = R.id.font_literata;
     private String fontFamilyString = "Literata";
-    private String fontColor = "#000";
+    private String fontColor = "000000";
 
     private BottomSheetDialog dialog;
 
@@ -320,6 +326,8 @@ public class ReaderActivity extends AppCompatActivity {
         StringBuilder htmlText = new StringBuilder();
         Resource resource = spine.getResource(currentChapter);
         htmlText.append(new String(resource.getData()));
+        int intColor = Integer.parseInt(fontColor, 16);
+        int intBackgroundColor = Integer.parseInt(backgroundColor, 16);
         htmlText.append("<style type=\"text/css\">" +
                 "@font-face {" +
                 "font-family:" + fontFamilyString + ";" +
@@ -328,8 +336,12 @@ public class ReaderActivity extends AppCompatActivity {
                 "* { " +
                 "font-family:" + fontFamilyString + ";" +
                 "font-size: " + fontSize + "px !important;" +
-                "color: " + fontColor + ";" +
-                "} body {margin:25px 20px 200px 20px;} </style>");
+                "color: rgb(" + Color.red(intColor) + ", " + Color.green(intColor) + ", " + Color.blue(intColor)  + ");" +
+                "} " +
+                "body {" +
+                "margin:25px 20px 20px 20px;" +
+                "background-color: rgb(" + Color.red(intBackgroundColor) + ", " + Color.green(intBackgroundColor) + ", " + Color.blue(intBackgroundColor) + ");" +
+                "} </style>");
 //        String encodedHtml = Base64.encodeToString(htmlText.toString().getBytes(),
 //                Base64.NO_PADDING);
         epubContent.loadDataWithBaseURL("file:///android_asset/", htmlText.toString(), "text/html", "UTF-8", "");
@@ -381,18 +393,42 @@ public class ReaderActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void toggleDialogBottom() {
+        // Init bottomSheet
         dialog = new BottomSheetDialog(ReaderActivity.this);
         View view = getLayoutInflater().inflate(R.layout.epub_custom_dialog, null);
         dialog.setContentView(view);
         dialog.show();
-        View font = dialog.findViewById(R.id.font_family);
-        font.setOnClickListener(new View.OnClickListener() {
+
+        // Setup Listener
+        View fontView = dialog.findViewById(R.id.font_family);
+        fontView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 toggleFontSelector();
             }
         });
 
+        View textColorView = dialog.findViewById(R.id.text_color);
+        textColorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleColor("Select text color", fontColor, textColorView.getId());
+            }
+        });
+
+        View backgroundColorView = dialog.findViewById(R.id.background_color);
+        backgroundColorView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                toggleColor("Select background color", backgroundColor, backgroundColorView.getId());
+            }
+        });
+
+        initConfigBottomValue();
+    }
+
+    private void initConfigBottomValue() {
+        // Set current Config
         TextView currentFont = dialog.findViewById(R.id.epub_current_font);
         currentFont.setText(fontFamilyString);
         Typeface typeface = getCurrentTypeface();
@@ -400,7 +436,7 @@ public class ReaderActivity extends AppCompatActivity {
 
         TextView currentFontSize = dialog.findViewById(R.id.epub_current_font_size);
         currentFontSize.setText(fontSize + "px");
-        SeekBar fontSizeSeekBar = view.findViewById(R.id.font_size_seekbar);
+        SeekBar fontSizeSeekBar = dialog.findViewById(R.id.font_size_seekbar);
         fontSizeSeekBar.setProgress(fontSize - MIN_FONT_SIZE);
         fontSizeSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -425,6 +461,12 @@ public class ReaderActivity extends AppCompatActivity {
                 }
             }
         });
+
+        ImageView currentTextColor = dialog.findViewById(R.id.current_text_color);
+        currentTextColor.setColorFilter(Color.parseColor("#" + fontColor));
+
+        ImageView currentBackgroundColor = dialog.findViewById(R.id.current_background_color);
+        currentBackgroundColor.setColorFilter(Color.parseColor('#' + backgroundColor));
     }
 
     private void toggleFontSelector() {
@@ -516,6 +558,63 @@ public class ReaderActivity extends AppCompatActivity {
                 ret = ResourcesCompat.getFont(ReaderActivity.this, R.font.literata);
         }
         return ret;
+    }
+
+    private void toggleColor(String title, String initColor, int type) {
+        String initColorWithAlpha = "#ff" + initColor;
+        ColorPickerDialogBuilder
+                .with(ReaderActivity.this)
+                .setTitle(title)
+                .showAlphaSlider(false)
+                .initialColor(Color.parseColor(initColorWithAlpha))
+                .wheelType(ColorPickerView.WHEEL_TYPE.FLOWER)
+                .density(12)
+                .setOnColorSelectedListener(new OnColorSelectedListener() {
+                    @Override
+                    public void onColorSelected(int selectedColor) {
+                        String color = Integer.toHexString(selectedColor).substring(2);
+                        switch (type) {
+                            case R.id.text_color:
+                                System.out.println( Integer.toHexString(selectedColor));
+                                fontColor = color;
+                                break;
+                            case R.id.background_color:
+                                backgroundColor = color;
+                                break;
+                        }
+                        try {
+                            loadChapter();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .setPositiveButton("ok", new ColorPickerClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int selectedColor, Integer[] allColors) {
+                        initConfigBottomValue();
+                    }
+                })
+                .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        switch (type) {
+                            case R.id.text_color:
+                                fontColor = initColor;
+                                break;
+                            case R.id.background_color:
+                                backgroundColor = initColor;
+                                break;
+                        }
+                        try {
+                            loadChapter();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                })
+                .build()
+                .show();
     }
 
     private float distance(float x1, float y1, float x2, float y2) {
