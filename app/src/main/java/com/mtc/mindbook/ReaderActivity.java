@@ -22,6 +22,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 import android.webkit.WebResourceRequest;
@@ -210,7 +211,7 @@ public class ReaderActivity extends AppCompatActivity {
         // Use webview
         epubContent = (WebView) findViewById(R.id.epub_content);
 
-        WebViewClient webViewClient= new WebViewClient() {
+        WebViewClient webViewClient = new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest url) {
                 Log.d("TESST", "shouldOverrideUrlLoading: " + url.getUrl());
@@ -331,12 +332,12 @@ public class ReaderActivity extends AppCompatActivity {
         htmlText.append("<style type=\"text/css\">" +
                 "@font-face {" +
                 "font-family:" + fontFamilyString + ";" +
-                        "src: url(\"" + getCurrentFontInfo() + "\")" +
+                "src: url(\"" + getCurrentFontInfo() + "\")" +
                 "}" +
                 "* { " +
                 "font-family:" + fontFamilyString + ";" +
                 "font-size: " + fontSize + "px !important;" +
-                "color: rgb(" + Color.red(intColor) + ", " + Color.green(intColor) + ", " + Color.blue(intColor)  + ");" +
+                "color: rgb(" + Color.red(intColor) + ", " + Color.green(intColor) + ", " + Color.blue(intColor) + ");" +
                 "} " +
                 "body {" +
                 "margin:25px 20px 20px 20px;" +
@@ -395,11 +396,13 @@ public class ReaderActivity extends AppCompatActivity {
     private void toggleDialogBottom() {
         // Init bottomSheet
         dialog = new BottomSheetDialog(ReaderActivity.this);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         View view = getLayoutInflater().inflate(R.layout.epub_custom_dialog, null);
         dialog.setContentView(view);
         dialog.show();
 
         // Setup Listener
+        setupUseTemplate();
         View fontView = dialog.findViewById(R.id.font_family);
         fontView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -469,10 +472,48 @@ public class ReaderActivity extends AppCompatActivity {
         currentBackgroundColor.setColorFilter(Color.parseColor('#' + backgroundColor));
     }
 
+    private void setupUseTemplate() {
+        ViewGroup listTemplates = dialog.findViewById(R.id.list_templates);
+
+        for (int i = 0; i < listTemplates.getChildCount(); i++) {
+            View template = listTemplates.getChildAt(i);
+            template.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (v.getId()) {
+                        case R.id.dark_template:
+                            fontColor = "d1d1d1";
+                            backgroundColor = "363636";
+                            break;
+                        case R.id.light_template:
+                            backgroundColor = "ffffff";
+                            fontColor = "292929";
+                            break;
+                        case R.id.paper_template:
+                            backgroundColor = "EAE4E4";
+                            fontColor = "000000";
+                            break;
+                        case R.id.ocean_template:
+                            backgroundColor = "DBE1F1";
+                            fontColor = "000000";
+                            break;
+                    }
+                    try {
+                        loadChapter();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    initConfigBottomValue();
+                }
+            });
+        }
+    }
+
     private void toggleFontSelector() {
 //        dialog.hide();
         dialog.cancel();
         dialog = new BottomSheetDialog(ReaderActivity.this);
+        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         View view = getLayoutInflater().inflate(R.layout.font_selector, null);
         dialog.setContentView(view);
         dialog.show();
@@ -575,7 +616,7 @@ public class ReaderActivity extends AppCompatActivity {
                         String color = Integer.toHexString(selectedColor).substring(2);
                         switch (type) {
                             case R.id.text_color:
-                                System.out.println( Integer.toHexString(selectedColor));
+                                System.out.println(Integer.toHexString(selectedColor));
                                 fontColor = color;
                                 break;
                             case R.id.background_color:

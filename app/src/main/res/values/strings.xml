@@ -73,5 +73,9 @@
     <string name="volkhov_font">Volkhov</string>
     <string name="literata_font">Literata</string>
     <string name="open_sans_font">Open Sans</string>
+    <string name="epub_dark_template">Dark</string>
+    <string name="epub_light_template">Light</string>
+    <string name="epub_paper_template">Paper</string>
+    <string name="epub_ocean_template">Ocean</string>
 
 </resources>

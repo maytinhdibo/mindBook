@@ -7,6 +7,114 @@
     app:layout_behavior="com.google.android.material.BottomSheet">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/list_templates"
+        android:clickable="false"
+        android:orientation="horizontal"
+        android:focusable="true"
+        android:padding="16dp"
+        android:gravity="fill_vertical"
+        >
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/dark_template"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/bottom_sheet_choose_font"
+                android:src="@drawable/ic_circle"
+                android:tint="@color/epub_dark_color" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="14dp"
+                android:text="@string/epub_dark_template"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/light_template"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/bottom_sheet_choose_font"
+                android:src="@drawable/outline_button"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="14dp"
+                android:text="@string/epub_light_template"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/paper_template"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/bottom_sheet_choose_font"
+                android:src="@drawable/outline_button"
+                android:tint="@color/paper_color" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="14dp"
+                android:text="@string/epub_paper_template"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/ocean_template"
+            android:clickable="true"
+            android:orientation="vertical"
+            android:focusable="true"
+            android:gravity="center_horizontal"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:contentDescription="@string/bottom_sheet_choose_font"
+                android:src="@drawable/outline_button"
+                android:tint="@color/ocean_color" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:textSize="14dp"
+                android:text="@string/epub_ocean_template"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/font-size"
         android:layout_width="match_parent"
         android:layout_height="55dp"

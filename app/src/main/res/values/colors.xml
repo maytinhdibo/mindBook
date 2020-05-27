@@ -14,5 +14,8 @@
     <color name="lightColor">#f9fcff</color>
     <color name="lightOpacityColor">#BFF9FCFF</color>
     <color name="maxLightOpacityColor">#F2FFFFFF</color>
+    <color name="paper_color">#EAE4E4</color>
+    <color name="ocean_color">#DBE1F1</color>
+    <color name="epub_dark_color">#363636</color>
 
 </resources>
