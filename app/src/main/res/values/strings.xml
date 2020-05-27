@@ -42,6 +42,9 @@
     <!--    Category-->
     <string name="best_novel">Best novel</string>
 
+    <!--    Profile-->
+    <string name="signup_now">SignUp!</string>
+    <string name="ques_register">Do you have account?</string>
 
     <string name="require_star">Please pick rating star</string>
 

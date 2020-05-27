@@ -27,7 +27,15 @@ public class BookShelfActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_book_shelf);
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        findViewById(R.id.title_bar).setPaddingRelative(0, getResources().getDimensionPixelSize(
+                getResources().getIdentifier("status_bar_height", "dimen", "android")
+        ), 0, 0);
+
         playListItems = new ArrayList<>();
         playListItems.add(new PlayListItem("Danh sách yêu thích", 10));
         playListItems.add(new PlayListItem("Sách khoa học", 11));

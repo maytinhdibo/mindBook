@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:paddingHorizontal="60dp"
+
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
@@ -98,7 +98,7 @@
             android:layout_height="match_parent"
             android:gravity="center|center_horizontal"
             android:onClick="onRegisterClicked"
-            android:text="Do you have account?"
+            android:text="@string/ques_register"
             android:textColor="@color/textColor"
             android:textSize="14sp"
             android:textStyle="bold" />
@@ -110,7 +110,7 @@
             android:layout_marginLeft="6dp"
             android:gravity="center|center_horizontal"
             android:onClick="onRegisterClicked"
-            android:text="Sign Up!"
+            android:text="@string/signup_now"
             android:textColor="@color/colorPrimary"
             android:textSize="14sp"
             android:textStyle="bold" />
