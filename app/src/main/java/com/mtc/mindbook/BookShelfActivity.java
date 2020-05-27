@@ -28,9 +28,9 @@ public class BookShelfActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
         setContentView(R.layout.activity_book_shelf);
+
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
 
         findViewById(R.id.title_bar).setPaddingRelative(0, getResources().getDimensionPixelSize(
                 getResources().getIdentifier("status_bar_height", "dimen", "android")
