@@ -8,13 +8,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Base64;;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -52,8 +52,6 @@ import com.mtc.mindbook.models.responseObj.detail.Detail;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
-;
-import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -75,12 +73,14 @@ public class ReaderActivity extends AppCompatActivity {
     private Toolbar toolbar;
 
 
-    private int fontSize = 30;
+    private int fontSize;
     private int MIN_FONT_SIZE = 20;
-    private String backgroundColor = "EAE4E4";
-    private int fontFamily = R.id.font_literata;
-    private String fontFamilyString = "Literata";
-    private String fontColor = "000000";
+    private String backgroundColor;
+    private int fontFamily;
+    private String fontFamilyString;
+    private String fontColor;
+    SharedPreferences sharedPrefs = null;
+
 
     private BottomSheetDialog dialog;
 
@@ -89,6 +89,7 @@ public class ReaderActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         boolean isReadPermission = checkPermission();
+        sharedPrefs = getSharedPreferences("epubCustomPrefs", MODE_PRIVATE);
         if (!isReadPermission) {
             ActivityCompat.requestPermissions(ReaderActivity.this,
                     new String[]{Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE},
@@ -132,6 +133,12 @@ public class ReaderActivity extends AppCompatActivity {
                 Uri uri = Uri.parse(epubLink);
                 String epubFilePath = storagePath + File.separator + uri.getLastPathSegment();
                 File epubFile = new File(epubFilePath);
+
+                fontSize = sharedPrefs.getInt("fontSize", 30);
+                backgroundColor = sharedPrefs.getString("backgroundColor", "EAE4E4");
+                fontFamily = sharedPrefs.getInt("fontFamily", R.id.font_literata);
+                fontFamilyString = sharedPrefs.getString("fontFamilyString", "Literata");
+                fontColor = sharedPrefs.getString("fontColor", "000000");
 
                 onDoneDownload = new BroadcastReceiver() {
                     @Override
@@ -187,7 +194,6 @@ public class ReaderActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
-
 
         Bundle extras = getIntent().getExtras();
         String type = extras.getString("EXTRA_MESSAGE_TYPE");
@@ -458,6 +464,7 @@ public class ReaderActivity extends AppCompatActivity {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 try {
+                    putToPrefs("fontSize", Integer.valueOf(fontSize));
                     loadChapter();
                 } catch (IOException e) {
                     e.printStackTrace();
@@ -504,6 +511,8 @@ public class ReaderActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
                     initConfigBottomValue();
+                    putToPrefs("fontColor", fontColor);
+                    putToPrefs("backgroundColor", backgroundColor);
                 }
             });
         }
@@ -535,7 +544,9 @@ public class ReaderActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     fontFamily = v.getId();
+                    putToPrefs("fontFamily", fontFamily);
                     fontFamilyString = ((TextView) ((ViewGroup) font).getChildAt(1)).getText().toString();
+                    putToPrefs("fontFamilyString", fontFamilyString);
                     try {
                         loadChapter();
                     } catch (IOException e) {
@@ -618,9 +629,11 @@ public class ReaderActivity extends AppCompatActivity {
                             case R.id.text_color:
                                 System.out.println(Integer.toHexString(selectedColor));
                                 fontColor = color;
+                                putToPrefs("fontColor", fontColor);
                                 break;
                             case R.id.background_color:
                                 backgroundColor = color;
+                                putToPrefs("backgroundColor", backgroundColor);
                                 break;
                         }
                         try {
@@ -642,9 +655,11 @@ public class ReaderActivity extends AppCompatActivity {
                         switch (type) {
                             case R.id.text_color:
                                 fontColor = initColor;
+                                putToPrefs("fontColor", fontColor);
                                 break;
                             case R.id.background_color:
                                 backgroundColor = initColor;
+                                putToPrefs("backgroundColor", backgroundColor);
                                 break;
                         }
                         try {
@@ -656,6 +671,16 @@ public class ReaderActivity extends AppCompatActivity {
                 })
                 .build()
                 .show();
+    }
+
+    private <T> void putToPrefs(String key, T value) {
+        SharedPreferences.Editor editor = sharedPrefs.edit();
+        if (value instanceof String) {
+            editor.putString(key, (String) value);
+        } else if (value instanceof Integer) {
+            editor.putInt(key, (Integer) value);
+        }
+        editor.apply();
     }
 
     private float distance(float x1, float y1, float x2, float y2) {
