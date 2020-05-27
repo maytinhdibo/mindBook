@@ -41,6 +41,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation 'com.squareup.retrofit2:retrofit:2.8.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.8.1'
+    implementation 'com.github.QuadFlask:colorpicker:0.0.15'
     implementation 'androidx.multidex:multidex:2.0.0' // ( for androidx)
     // EpubLib
     implementation('nl.siegmann.epublib:epublib-core:3.1') {
