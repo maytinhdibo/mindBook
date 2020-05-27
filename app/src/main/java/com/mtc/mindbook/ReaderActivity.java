@@ -195,6 +195,8 @@ public class ReaderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
 
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         Bundle extras = getIntent().getExtras();
         String type = extras.getString("EXTRA_MESSAGE_TYPE");
         String id = extras.getString("EXTRA_MESSAGE_ID");
