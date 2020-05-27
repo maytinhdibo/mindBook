@@ -7,6 +7,7 @@
 
 
     <LinearLayout
+        android:background="@color/backgroundNav"
         android:id="@+id/main_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -22,6 +23,7 @@
             >
 
             <TextView
+                android:textStyle="bold"
                 style="@style/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -42,6 +44,13 @@
                 android:src="@drawable/ic_search" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_marginTop="3dp"
+            android:elevation="4dp"
+            android:background="@drawable/top_round"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -137,7 +146,7 @@
             android:scrollbars="none" />
 
 
-
+        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/bottom_nav" />

@@ -7,7 +7,6 @@
         <item name="colorPrimary">@color/bottom_nav_item</item>
         <item name="colorPrimaryDark">@color/backgroundPrimary</item>
         <item name="colorAccent">@color/colorPrimary</item>
-
         <item name="android:statusBarColor">@android:color/transparent</item>
 
     </style>
