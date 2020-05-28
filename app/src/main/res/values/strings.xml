@@ -77,5 +77,6 @@
     <string name="epub_light_template">Light</string>
     <string name="epub_paper_template">Paper</string>
     <string name="epub_ocean_template">Ocean</string>
+    <string name="appName">mindBook</string>
 
 </resources>
