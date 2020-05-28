@@ -17,5 +17,13 @@
     <color name="paper_color">#EAE4E4</color>
     <color name="ocean_color">#DBE1F1</color>
     <color name="epub_dark_color">#363636</color>
+    <color name="background_default_dark">#424242</color>
+    <color name="dark_grey">#666666</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent_orange">#44FFA500</color>
+    <color name="lighter_grey">#EAEAEA</color>
 
+    <color name="grey">#acacac</color>
+    <color name="fma_red">#CC0000</color>
 </resources>

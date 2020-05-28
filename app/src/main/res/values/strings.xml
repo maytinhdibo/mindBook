@@ -77,5 +77,11 @@
     <string name="epub_light_template">Light</string>
     <string name="epub_paper_template">Paper</string>
     <string name="epub_ocean_template">Ocean</string>
+    <string name="description_blurred_image" />
+    <string name="description_track_image">Image of the track</string>
+    <string name="progress_start_val">00:00</string>
+    <string name="button_mute_description">Mute/UnMute volume</string>
+    <string name="button_play_pause">play/pause button</string>
+    <string name="no_data">No data</string>
 
 </resources>

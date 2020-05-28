@@ -226,7 +226,7 @@ public class DetailActivity extends AppCompatActivity {
         listenButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ReaderActivity.class);
+                Intent intent = new Intent(getApplicationContext(), PlayerActivity.class);
                 Bundle extras = new Bundle();
                 extras.putString("EXTRA_MESSAGE_TYPE", "listen");
                 Bundle tagValue = getIntent().getExtras();
