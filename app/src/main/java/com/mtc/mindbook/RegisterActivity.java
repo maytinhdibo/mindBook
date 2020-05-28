@@ -6,13 +6,13 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.models.responseObj.user.getUser;
 import com.mtc.mindbook.remote.APIService;
@@ -23,18 +23,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RegisterActivity extends AppCompatActivity {
-    public MaterialButton btnRegister = null;
-    public TextInputLayout usernameFieldLayout = null;
-    public TextInputEditText usernameField = null;
-    public TextInputLayout firstnameFieldLayout = null;
-    public TextInputEditText firstnameField = null;
-    public TextInputLayout lastnameFieldLayout = null;
-    public TextInputEditText lastnameField = null;
-    public TextInputLayout passwordFieldLayout = null;
-    public TextInputEditText emailField = null;
-    public TextInputEditText passwordField = null;
-    public TextInputLayout repasswordFieldLayout = null;
-    public TextInputEditText repasswordField = null;
+    public Button btnRegister = null;
+    public EditText usernameField = null;
+    public EditText firstnameField = null;
+    public EditText lastnameField = null;
+    public EditText emailField = null;
+    public EditText passwordField = null;
+    public EditText repasswordField = null;
     APIService userService = null;
     Context context = this;
 
@@ -42,6 +37,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(this ,R.color.colorPrimary));
+
+
         btnRegister = findViewById(R.id.confirm_register_button);
         usernameField = findViewById(R.id.username_field_register);
         firstnameField = findViewById(R.id.firstname_field);

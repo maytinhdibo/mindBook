@@ -37,7 +37,7 @@ public class LibFragment extends Fragment {
             update(rootView);
 
             AppBarLayout appbar = rootView.findViewById(R.id.appbar);
-            appbar.setPaddingRelative(0, getResources().getDimensionPixelSize(
+            rootView.findViewById(R.id.title_bar).setPaddingRelative(0, getResources().getDimensionPixelSize(
                     getResources().getIdentifier("status_bar_height", "dimen", "android")
             ), 0, 0);
             appbar.setOutlineProvider(null);
