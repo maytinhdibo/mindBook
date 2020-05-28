@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
                             break;
                         case R.id.nav_lib:
                             selectedFragment = new LibFragment();
-                            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+                            getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
                             break;
                         case R.id.nav_profile:
                             selectedFragment = new ProfileFragment();

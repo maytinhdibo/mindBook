@@ -5,34 +5,41 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/backgroundPrimary"
    >
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/backgroundPrimary"
         android:elevation="0dp"
+        android:background="@color/backgroundPrimary"
         android:gravity="center">
 
         <androidx.appcompat.widget.Toolbar
+            android:background="@drawable/bottom_round_corner"
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:background="@color/backgroundPrimary"
+            android:elevation="4dp"
             app:layout_scrollFlags="scroll|enterAlways">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 >
-            <TextView
-                style="@style/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/nav_explore" />
+
+                <TextView
+                    android:id="@+id/title_bar"
+                    android:textStyle="bold"
+                    style="@style/title"
+                    android:textColor="@color/lightColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/nav_explore" />
 
             <com.google.android.material.tabs.TabLayout
                 android:layout_gravity="center_horizontal"
@@ -49,7 +56,7 @@
                 app:tabPaddingEnd="16dp"
                 app:tabPaddingStart="16dp"
                 app:tabRippleColor="@null"
-                app:tabSelectedTextColor="@color/colorPrimary"
+                app:tabSelectedTextColor="@color/lightColor"
                 app:tabTextAppearance="@style/TabTextAppearance"/>
             </LinearLayout>
         </androidx.appcompat.widget.Toolbar>
