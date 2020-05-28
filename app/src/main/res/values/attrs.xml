@@ -2,5 +2,5 @@
 <resources>
     <attr name="bgColor" format="color" />
     <attr name="colorPrimary" format="color" />
-
+    <attr name="colorAccent" format="color" />
 </resources>

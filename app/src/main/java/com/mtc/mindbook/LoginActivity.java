@@ -3,19 +3,14 @@ package com.mtc.mindbook;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Rect;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,9 +18,6 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.models.responseObj.user.getUser;
 import com.mtc.mindbook.remote.APIService;
@@ -40,8 +32,6 @@ public class LoginActivity extends AppCompatActivity {
     public TextView btnRegister = null;
     public EditText fieldName = null;
     public EditText fieldPassword = null;
-    public TextInputLayout fieldNameLayout = null;
-    public TextInputLayout fieldPasswordLayout = null;
     APIService userService = null;
     Context context = this;
 
@@ -130,15 +120,13 @@ public class LoginActivity extends AppCompatActivity {
 
     public boolean validateInput(String userName, String password) {
         if (userName == null || userName.trim().length() == 0) {
-            fieldNameLayout.setError("Username không được để trống");
+            Toast.makeText(LoginActivity.this, "Username không được để trống", Toast.LENGTH_SHORT).show();
             return false;
         }
-        fieldNameLayout.setError(null);
         if (password == null || password.trim().length() == 0) {
-            fieldPasswordLayout.setError("Password không được để trống");
+            Toast.makeText(LoginActivity.this, "Password không được để trống", Toast.LENGTH_SHORT).show();
             return false;
         }
-        fieldPasswordLayout.setError(null);
         return true;
     }
 
