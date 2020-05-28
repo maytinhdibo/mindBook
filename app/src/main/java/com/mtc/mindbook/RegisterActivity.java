@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.models.responseObj.user.getUser;
@@ -36,6 +37,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(this ,R.color.colorPrimary));
+
+
         btnRegister = findViewById(R.id.confirm_register_button);
         usernameField = findViewById(R.id.username_field_register);
         firstnameField = findViewById(R.id.firstname_field);

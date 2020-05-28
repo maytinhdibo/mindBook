@@ -17,6 +17,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.models.responseObj.user.getUser;
@@ -51,7 +52,6 @@ public class LoginActivity extends AppCompatActivity {
         userService = APIUtils.getUserService();
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-
 
         OnBackPressedCallback backWithoutLogin = new OnBackPressedCallback(true) {
             @Override
