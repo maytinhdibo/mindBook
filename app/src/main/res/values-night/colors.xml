@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#012d52</color>
+    <color name="colorAccent">#FF0000</color>
+    <color name="backgroundNav">#171717</color>
+    <color name="backgroundPrimary">#001d36</color>
+    <color name="overlayBgPrimary">#637a8f</color>
+    <color name="lightOverlayBgPrimary">#CBFFFFFF</color>
+    <color name="textColor">#e8e8e8</color>
+    <color name="textColorOpacity">#adadad</color>
+    <color name="grayColor">#7F7F7F</color>
+    <color name="grayColorLight">#C5C5C5</color>
+    <color name="lightColor">#f9fcff</color>
+    <color name="lightOpacityColor">#BFF9FCFF</color>
+    <color name="maxLightOpacityColor">#363636</color>
+    <color name="paper_color">#EAE4E4</color>
+    <color name="ocean_color">#DBE1F1</color>
+    <color name="epub_dark_color">#363636</color>
+    <color name="background_default_dark">#424242</color>
+    <color name="dark_grey">#666666</color>
+    <color name="transparent">#00000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="transparent_orange">#44FFA500</color>
+    <color name="lighter_grey">#EAEAEA</color>
+
+    <color name="grey">#acacac</color>
+    <color name="fma_red">#CC0000</color>
+</resources>

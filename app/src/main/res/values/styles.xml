@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
 <!--        <item name="android:windowLightStatusBar">false</item>-->
         <item name="colorPrimary">@color/bottom_nav_item</item>
@@ -23,17 +23,6 @@
         <item name="colorPrimary">#c9c9c9</item>
     </style>
 
-    <style name="AppThemeLight.MaterialCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="bgColor">@color/backgroundPrimary</item>
-        <item name="colorPrimary">@color/colorPrimary</item>
-    </style>
-
-    <style name="AppThemeDark.MaterialCustom" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:windowLightStatusBar">true</item>
-        <item name="bgColor">@color/backgroundPrimary</item>
-        <item name="colorPrimary">#c9c9c9</item>
-    </style>
     <style name="DetailTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:statusBarColor">@android:color/transparent</item>

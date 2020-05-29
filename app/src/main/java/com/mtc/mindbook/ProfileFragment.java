@@ -16,35 +16,35 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 
 
 public class ProfileFragment extends Fragment {
-    Button goToLoginBtn = null;
     Button goToBookShelf = null;
-    Button changeThemeBtn = null;
     TextView userFullNameTextView = null;
     TextView userEmailTextView = null;
     SharedPreferences sharedPrefs = null;
     ImageView logout = null;
     LinearLayout userInfoWrapper = null;
+    LinearLayout enableLight = null;
+    LinearLayout enableDark = null;
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         LayoutInflater themedInflater = inflater.cloneInContext(new ContextThemeWrapper(getActivity(), R.style.AppThemeDark));
         final View rootView = themedInflater.inflate(R.layout.activity_profile, container, false);
-
         rootView.findViewById(R.id.title_bar).setPaddingRelative(0, getResources().getDimensionPixelSize(
                 getResources().getIdentifier("status_bar_height", "dimen", "android")
         ), 0, 0);
 
-        goToLoginBtn = rootView.findViewById(R.id.button_go_to_login);
         goToBookShelf = rootView.findViewById(R.id.btn_bookshelf);
-        changeThemeBtn = rootView.findViewById(R.id.btn_change_theme);
         userFullNameTextView = rootView.findViewById(R.id.textview_profile_user_full_name);
         userEmailTextView = rootView.findViewById(R.id.textview_profile_email);
         logout = rootView.findViewById(R.id.log_out);
         userInfoWrapper = rootView.findViewById(R.id.user_info_wrapper);
+        enableDark = rootView.findViewById(R.id.enable_night_theme);
+        enableLight = rootView.findViewById(R.id.enable_light_theme);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,13 +69,6 @@ public class ProfileFragment extends Fragment {
                 }
             }
         });
-        goToLoginBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), LoginActivity.class);
-                startActivityForResult(intent,1);
-            }
-        });
         goToBookShelf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,9 +76,26 @@ public class ProfileFragment extends Fragment {
                 startActivity(intent);
             }
         });
-        changeThemeBtn.setOnClickListener(new View.OnClickListener() {
+        enableLight.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_UNSPECIFIED) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            }
+        });
+        enableDark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_UNSPECIFIED) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
+                    AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
             }
         });
         return rootView;
@@ -125,7 +135,6 @@ public class ProfileFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1){
             if (resultCode != 0) {
-                goToLoginBtn.setVisibility(View.INVISIBLE);
                 userFullNameTextView.setText(sharedPrefs.getString("userFullName", ""));
                 userEmailTextView.setText(sharedPrefs.getString("userEmail", ""));
                 userFullNameTextView.setVisibility(View.VISIBLE);
@@ -134,13 +143,6 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    @Override
-    public void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        if (goToLoginBtn.getVisibility() == View.INVISIBLE) {
-            outState.putBoolean("isLogin", true);
-        }
-    }
 
 
 }
