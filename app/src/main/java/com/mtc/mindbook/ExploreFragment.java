@@ -22,7 +22,7 @@ import com.mtc.mindbook.models.explore.SectionPageAdapter;
 import com.mtc.mindbook.explore.ShareFragment;
 
 
-public class LibFragment extends Fragment {
+public class ExploreFragment extends Fragment {
     SharedPreferences sharedPrefs = null;
 
     @Nullable

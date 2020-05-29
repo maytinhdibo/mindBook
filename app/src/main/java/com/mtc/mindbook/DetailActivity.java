@@ -68,6 +68,7 @@ public class DetailActivity extends AppCompatActivity {
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
+                if(response.body()==null) return;
                 Detail detail = response.body().getData().get(0);
                 // Render data
                 // Render tag
