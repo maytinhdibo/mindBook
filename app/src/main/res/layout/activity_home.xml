@@ -42,6 +42,7 @@
                 android:background="@drawable/search_icon"
                 android:padding="9dp"
                 android:scaleType="centerCrop"
+                android:tint="@color/textColor"
                 android:src="@drawable/ic_search" />
         </LinearLayout>
 

@@ -81,6 +81,17 @@
         <item name="android:paddingLeft">12dp</item>
     </style>
 
+    <style name="SheetDialog" parent="Theme.Design.Light.BottomSheetDialog">
+        <!--<item name="android:windowCloseOnTouchOutside">false</item>-->
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:colorBackground">     @android:color/transparent</item>
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:backgroundDimAmount">0.3</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+    </style>
+
     <style name="outline_btn">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
@@ -90,7 +101,7 @@
         <item name="android:layout_marginTop">4pt</item>
         <item name="android:paddingTop">4pt</item>
         <item name="android:paddingBottom">4pt</item>
-        <item name="android:textColor">#555</item>
+        <item name="android:textColor">@color/textLightColor</item>
         <item name="android:textAllCaps">false</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">14sp</item>

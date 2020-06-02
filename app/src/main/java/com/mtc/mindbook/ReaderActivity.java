@@ -403,9 +403,11 @@ public class ReaderActivity extends AppCompatActivity {
     @SuppressLint("SetTextI18n")
     private void toggleDialogBottom() {
         // Init bottomSheet
-        dialog = new BottomSheetDialog(ReaderActivity.this);
+        dialog = new BottomSheetDialog(ReaderActivity.this, R.style.SheetDialog);
+
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
         View view = getLayoutInflater().inflate(R.layout.epub_custom_dialog, null);
+
         dialog.setContentView(view);
         dialog.show();
 

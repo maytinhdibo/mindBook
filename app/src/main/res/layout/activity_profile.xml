@@ -129,7 +129,7 @@
                                 android:layout_width="18sp"
                                 android:layout_height="18sp"
                                 android:src="@drawable/ic_logout"
-                                android:tint="#444" />
+                                android:tint="@color/textColorOpacity" />
 
                         </LinearLayout>
                     </LinearLayout>

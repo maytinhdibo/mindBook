@@ -56,7 +56,11 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        findViewById(R.id.statusBarView).setPaddingRelative(0, getResources().getDimensionPixelSize(
+                getResources().getIdentifier("status_bar_height", "dimen", "android")
+        ), 0, 0);
 
         Bundle tagValue = getIntent().getExtras();
 
