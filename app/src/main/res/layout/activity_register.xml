@@ -35,6 +35,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/light_round"
+            android:textColor="@color/dark"
+            android:textColorHint="@color/dark_grey"
             android:hint="@string/hint_username"
             android:textSize="14sp" />
 
@@ -44,6 +46,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/light_round"
+            android:textColor="@color/dark"
+            android:textColorHint="@color/dark_grey"
             android:hint="@string/hint_firstname"
             android:textSize="14sp" />
 
@@ -53,6 +57,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/light_round"
+            android:textColor="@color/dark"
+            android:textColorHint="@color/dark_grey"
             android:hint="@string/hint_lastname"
             android:textSize="14sp" />
 
@@ -62,6 +68,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/light_round"
+            android:textColor="@color/dark"
+            android:textColorHint="@color/dark_grey"
             android:hint="@string/hint_email"
             android:textSize="14sp" />
 
@@ -71,6 +79,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/light_round"
+            android:textColor="@color/dark"
+            android:textColorHint="@color/dark_grey"
             android:hint="@string/hint_password"
             android:textSize="14sp" />
 
@@ -80,6 +90,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/light_round"
+            android:textColor="@color/dark"
+            android:textColorHint="@color/dark_grey"
             android:hint="@string/hint_repassword"
             android:textSize="14sp" />
 
