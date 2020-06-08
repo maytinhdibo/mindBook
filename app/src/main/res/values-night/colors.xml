@@ -24,7 +24,7 @@
     <color name="white">#FFFFFF</color>
     <color name="transparent_orange">#44FFA500</color>
     <color name="lighter_grey">#EAEAEA</color>
-
+    <color name="bar_icon">#FFFFFF</color>
     <color name="grey">#acacac</color>
     <color name="fma_red">#CC0000</color>
 </resources>

@@ -43,7 +43,7 @@ public class ProfileFragment extends Fragment {
         userInfoWrapper = rootView.findViewById(R.id.user_info_wrapper);
         enableDark = rootView.findViewById(R.id.enable_night_theme);
         enableLight = rootView.findViewById(R.id.enable_light_theme);
-
+        getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
