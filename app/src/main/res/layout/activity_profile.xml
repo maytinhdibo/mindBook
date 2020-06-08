@@ -175,7 +175,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/review_item"
-                    android:text="Tủ sách của tôi" />
+                    android:textColor="@color/textColor"
+                    android:text="Tủ sách của tôi"
+                    />
 
             </LinearLayout>
 
