@@ -3,8 +3,8 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:theme="@style/container"
-    android:paddingTop="6dp">
+    style="@style/container"
+    android:paddingTop="12dp">
 
     <TextView
         android:paddingHorizontal="0dp"
@@ -22,29 +22,37 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:textSize="14sp"
-        android:layout_marginTop="6dp"
+        android:layout_marginTop="12dp"
         android:paddingVertical="12dp"
         android:inputType="text"
         android:gravity="start|top"
         android:background="@drawable/outline_input"
+        style="@style/container"
         android:hint="Playlist's name" />
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="3dp"
+        >
 
         <Button
             android:id="@+id/cancel_new_playlist_dialog"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_toLeftOf="@+id/submit_new_playlist_dialog"
-            android:padding="0dp"
             android:layout_margin="0dp"
-            android:textColor="@color/grayColor"
-            android:textStyle="bold"
+            android:layout_marginStart="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="32dp"
+            android:layout_toLeftOf="@+id/submit_new_playlist_dialog"
+            android:background="@android:color/transparent"
+            android:onClick="onCancelDialog"
+            android:padding="0dp"
+            android:paddingRight="30dp"
             android:text="Cancel"
-            android:onClick="onCancelDialog" />
+            android:textAllCaps="true"
+            android:textColor="@color/grayColor"
+            android:textStyle="bold" />
 
         <Button
             android:id="@+id/submit_new_playlist_dialog"
@@ -54,12 +62,13 @@
             android:layout_alignParentRight="true"
             android:background="@android:color/transparent"
             android:paddingRight="0dp"
-            android:paddingLeft="6dp"
+            android:paddingLeft="16dp"
             android:gravity="left|center_vertical"
             android:layout_margin="0dp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
             android:text="Done"
+            android:textAllCaps="true"
             android:onClick="onPlaylistSubmit" />
     </RelativeLayout>
 
