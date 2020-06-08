@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -17,7 +16,6 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.models.responseObj.user.getUser;
@@ -63,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         };
         this.getOnBackPressedDispatcher().addCallback(this, backWithoutLogin);
 
-        FrameLayout content = (FrameLayout) findViewById(android.R.id.content);
+        FrameLayout content = findViewById(android.R.id.content);
         defaultHeightPrevious = content.getLayoutParams().height;
 
         mChildOfContent = content.getChildAt(0);
@@ -137,7 +135,6 @@ public class LoginActivity extends AppCompatActivity {
             public void onResponse(Call<LoginResponseObj> call, Response<LoginResponseObj> response) {
                 if (response.message().equals("OK")) {
                     String accessToken = response.body().getAccessToken();
-                    Log.d("auth_from_login", "accessToken: " + accessToken);
                     Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                     SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPrefs.edit();

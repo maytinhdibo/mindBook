@@ -1,5 +1,6 @@
 package com.mtc.mindbook;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -28,7 +29,13 @@ public class MainActivity extends AppCompatActivity {
 //        if (getSupportActionBar() != null) {
 //            getSupportActionBar().hide();
 //        }
-
+        SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
+        boolean isNightTheme = sharedPrefs.getBoolean("isNightTheme", false);
+        if (isNightTheme) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
         BottomNavigationView bottomNav = findViewById(R.id.bottom_nav);
         bottomNav.setOnNavigationItemSelectedListener(navListener);
 
