@@ -9,5 +9,15 @@
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:textViewStyle">@style/QuickSandTextViewStyle</item>
+        <item name="android:buttonStyle">@style/QuickSandButtonStyle</item>
+    </style>
+
+    <style name="QuickSandTextViewStyle" parent="android:Widget.TextView">
+        <item name="android:fontFamily">@font/quicksand_regular</item>
+    </style>
+
+    <style name="QuickSandButtonStyle" parent="android:Widget.Button">
+        <item name="android:fontFamily">@font/quicksand_regular</item>
     </style>
 </resources>
