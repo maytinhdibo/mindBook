@@ -1,5 +1,6 @@
 package com.mtc.mindbook;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -28,6 +29,7 @@ public class ProfileFragment extends Fragment {
     LinearLayout userInfoWrapper = null;
     LinearLayout enableLight = null;
     LinearLayout enableDark = null;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class ProfileFragment extends Fragment {
         enableDark = rootView.findViewById(R.id.enable_night_theme);
         enableLight = rootView.findViewById(R.id.enable_light_theme);
         getActivity().getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        sharedPrefs = getActivity().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,6 +86,10 @@ public class ProfileFragment extends Fragment {
                 if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
+                sharedPrefs = getActivity().getSharedPreferences("userDataPrefs", Activity.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putBoolean("isNightTheme", false);
+                editor.apply();
             }
         });
         enableDark.setOnClickListener(new View.OnClickListener() {
@@ -94,6 +101,9 @@ public class ProfileFragment extends Fragment {
                 if (AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_NO) {
                     AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
+                SharedPreferences.Editor editor = sharedPrefs.edit();
+                editor.putBoolean("isNightTheme", true);
+                editor.apply();
             }
         });
         return rootView;
@@ -102,7 +112,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        sharedPrefs = getActivity().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
         Boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
         if (isLoggedIn) {
             userFullNameTextView.setText(sharedPrefs.getString("userFullName", ""));
