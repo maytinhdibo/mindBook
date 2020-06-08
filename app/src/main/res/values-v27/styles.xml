@@ -19,5 +19,6 @@
 
     <style name="QuickSandButtonStyle" parent="android:Widget.Button">
         <item name="android:fontFamily">@font/quicksand_regular</item>
+        <item name="android:height">45dp</item>
     </style>
 </resources>
