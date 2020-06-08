@@ -31,6 +31,7 @@
             android:layout_marginTop="8pt"
             android:paddingRight="8pt"
             android:paddingLeft="8pt"
+            android:textColor="@color/textColor"
             android:text="@string/openLogin"/>
     </LinearLayout>
 
