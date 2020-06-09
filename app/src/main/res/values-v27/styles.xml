@@ -11,6 +11,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:textViewStyle">@style/QuickSandTextViewStyle</item>
         <item name="android:buttonStyle">@style/QuickSandButtonStyle</item>
+        <item name="android:windowBackground">@android:color/black</item>
     </style>
 
     <style name="QuickSandTextViewStyle" parent="android:Widget.TextView">

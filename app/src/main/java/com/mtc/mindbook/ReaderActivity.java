@@ -193,7 +193,7 @@ public class ReaderActivity extends AppCompatActivity {
         });
     }
 
-    @SuppressLint({"ClickableViewAccessibility", "SetJavaScriptEnabled"})
+    @SuppressLint({"ClickableViewAccessibility", "SetJavaScriptEnabled", "ResourceAsColor"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -203,6 +203,9 @@ public class ReaderActivity extends AppCompatActivity {
         arrowPopup = findViewById(R.id.arrow);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        getWindow().setStatusBarColor(R.color.ocean_color);
+
 
         Bundle extras = getIntent().getExtras();
         String type = extras.getString("EXTRA_MESSAGE_TYPE");
