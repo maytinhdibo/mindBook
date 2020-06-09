@@ -1,6 +1,8 @@
 package com.mtc.mindbook;
 
 import android.Manifest;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
@@ -73,6 +75,7 @@ public class ReaderActivity extends AppCompatActivity {
     private Book book;
     private WebView epubContent;
     private Toolbar toolbar;
+    private ImageView arrowPopup;
 
 
     private int fontSize;
@@ -196,6 +199,8 @@ public class ReaderActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
+
+        arrowPopup = findViewById(R.id.arrow);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -350,12 +355,49 @@ public class ReaderActivity extends AppCompatActivity {
         epubContent.loadDataWithBaseURL("file:///android_asset/", htmlText.toString(), "text/html", "UTF-8", "");
     }
 
+    private boolean isAnimating = false;
+
+    private void arrowDisplay(boolean next) {
+
+        if(next){
+            arrowPopup.setRotationY(180f);
+        }else{
+            arrowPopup.setRotationY(0f);
+        }
+
+        isAnimating = true;
+        arrowPopup.getBackground().setAlpha(255);
+
+        arrowPopup.setVisibility(View.VISIBLE);
+
+        arrowPopup.animate().alpha(1.0f).setStartDelay(0)
+                .setListener(
+                        new AnimatorListenerAdapter() {
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                super.onAnimationEnd(animation);
+                                arrowPopup.animate().alpha(0.0f).setStartDelay(750)
+                                        .setListener(new AnimatorListenerAdapter() {
+                                            @Override
+                                            public void onAnimationEnd(Animator animation) {
+                                                if (!isAnimating) {
+                                                    super.onAnimationEnd(animation);
+                                                    arrowPopup.setVisibility(View.GONE);
+                                                    isAnimating = false;
+                                                }
+                                            }
+                                        });
+                            }
+                        });
+    }
+
     private void loadPrevChapter() throws IOException {
         if (currentChapter <= 0) {
             Toast.makeText(getApplicationContext(), "This is the first chapter", Toast.LENGTH_SHORT).show();
         } else {
             currentChapter = Math.max(0, --currentChapter);
             loadChapter();
+            arrowDisplay(false);
         }
     }
 
@@ -365,6 +407,7 @@ public class ReaderActivity extends AppCompatActivity {
         } else {
             currentChapter = Math.min(book.getSpine().size() - 1, ++currentChapter);
             loadChapter();
+            arrowDisplay(true);
         }
     }
 

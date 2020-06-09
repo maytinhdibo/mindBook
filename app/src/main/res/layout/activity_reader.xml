@@ -53,5 +53,20 @@
         app:layout_constraintCircleRadius="3dp"
         app:menu="@menu/epub_bottom_bar" />
 
+    <ImageView
+        android:visibility="gone"
+        android:tint="#F22D2D2D"
+        android:id="@+id/arrow"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:background="@drawable/round"
+        android:padding="16dp"
+        android:src="@drawable/ic_chevron_left"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
