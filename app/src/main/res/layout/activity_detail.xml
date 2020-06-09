@@ -6,6 +6,7 @@
     android:layout_width="match_parent"
     android:theme="@style/AppTheme"
     android:layout_height="match_parent"
+    android:background="@color/backgroundPrimary"
     android:orientation="vertical">
 
     <androidx.core.widget.NestedScrollView
@@ -136,7 +137,7 @@
 
             <LinearLayout
                 android:id="@+id/app_bar_layout"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/backgroundPrimary"
                 android:orientation="vertical">
