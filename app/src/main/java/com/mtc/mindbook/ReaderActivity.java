@@ -16,6 +16,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -48,6 +49,7 @@ import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.mtc.mindbook.gestures.OnSwipeTouchListener;
 import com.mtc.mindbook.models.responseObj.detail.Detail;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
@@ -195,7 +197,7 @@ public class ReaderActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_reader);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Bundle extras = getIntent().getExtras();
         String type = extras.getString("EXTRA_MESSAGE_TYPE");
@@ -222,59 +224,51 @@ public class ReaderActivity extends AppCompatActivity {
         WebViewClient webViewClient = new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest url) {
-                Log.d("TESST", "shouldOverrideUrlLoading: " + url.getUrl());
+                Log.d("TEST", "shouldOverrideUrlLoading: " + url.getUrl());
                 return true;
             }
 
         };
+
         epubContent.setWebViewClient(webViewClient);
 
         epubContent.setBackgroundColor(Color.TRANSPARENT);
-        epubContent.setOnTouchListener(new OnTouchListener() {
-            private static final int MAX_CLICK_DURATION = 200;
-            private static final int MAX_CLICK_DISTANCE = 15;
-            private long pressStartTime;
-            private float pressedX;
-            private float pressedY;
-            private boolean stayedWithinClickDistance;
+        epubContent.setOnTouchListener(new OnSwipeTouchListener(ReaderActivity.this) {
 
             @Override
-            public boolean onTouch(View v, MotionEvent e) {
-                switch (e.getAction()) {
-                    case MotionEvent.ACTION_DOWN: {
-                        pressStartTime = System.currentTimeMillis();
-                        pressedX = e.getX();
-                        pressedY = e.getY();
-                        stayedWithinClickDistance = true;
-                        break;
-                    }
-                    case MotionEvent.ACTION_MOVE: {
-                        if (stayedWithinClickDistance && distance(pressedX, pressedY, e.getX(), e.getY()) > MAX_CLICK_DISTANCE) {
-                            stayedWithinClickDistance = false;
-                        }
-                        break;
-                    }
-                    case MotionEvent.ACTION_UP: {
-                        long pressDuration = System.currentTimeMillis() - pressStartTime;
-                        if (pressDuration < MAX_CLICK_DURATION && stayedWithinClickDistance) {
-                            if (toolbar.isShown()) {
-                                ActionBar x = getSupportActionBar();
-                                toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        x.hide();
-                                    }
-                                }).alpha(0).start();
-
-                            } else {
-                                getSupportActionBar().show();
-                                toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).alpha(1).start();
-                            }
-
-                        }
-                    }
+            public void onSwipeRight() {
+                try {
+                    loadPrevChapter();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                return false;
+            }
+
+            @Override
+            public void onSwipeLeft() {
+                try {
+                    loadNextChapter();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onClick() {
+                if (toolbar.isShown()) {
+                    ActionBar x = getSupportActionBar();
+                    toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
+                        @Override
+                        public void run() {
+                            x.hide();
+                        }
+                    }).alpha(0).start();
+
+                } else {
+                    getSupportActionBar().show();
+                    toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).alpha(1).start();
+                }
+
             }
         });
 
@@ -356,6 +350,24 @@ public class ReaderActivity extends AppCompatActivity {
         epubContent.loadDataWithBaseURL("file:///android_asset/", htmlText.toString(), "text/html", "UTF-8", "");
     }
 
+    private void loadPrevChapter() throws IOException {
+        if (currentChapter <= 0) {
+            Toast.makeText(getApplicationContext(), "This is the first chapter", Toast.LENGTH_SHORT).show();
+        } else {
+            currentChapter = Math.max(0, --currentChapter);
+            loadChapter();
+        }
+    }
+
+    private void loadNextChapter() throws IOException {
+        if (currentChapter >= book.getSpine().size() - 1) {
+            Toast.makeText(getApplicationContext(), "This is the last chapter", Toast.LENGTH_SHORT).show();
+        } else {
+            currentChapter = Math.min(book.getSpine().size() - 1, ++currentChapter);
+            loadChapter();
+        }
+    }
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -366,21 +378,11 @@ public class ReaderActivity extends AppCompatActivity {
                         switch (item.getItemId()) {
                             case R.id.prev_chap:
                                 itemIndex = 0;
-                                if (currentChapter <= 0) {
-                                    Toast.makeText(getApplicationContext(), "This is the first chapter", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    currentChapter = Math.max(0, --currentChapter);
-                                    loadChapter();
-                                }
+                                loadPrevChapter();
                                 break;
                             case R.id.next_chap:
                                 itemIndex = 1;
-                                if (currentChapter >= book.getSpine().size() - 1) {
-                                    Toast.makeText(getApplicationContext(), "This is the last chapter", Toast.LENGTH_SHORT).show();
-                                } else {
-                                    currentChapter = Math.min(book.getSpine().size() - 1, ++currentChapter);
-                                    loadChapter();
-                                }
+                                loadNextChapter();
                                 break;
                             case R.id.epub_love:
                                 itemIndex = 2;
