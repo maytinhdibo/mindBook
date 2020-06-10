@@ -207,6 +207,7 @@
                     android:paddingHorizontal="9pt"
                     android:paddingVertical="0pt"
                     android:textAllCaps="false"
+                    android:textColor="@color/textColor"
                     android:scaleX="0.85"
                     android:scaleY="0.85"
                     android:text="@string/loading" />
