@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/backgroundPrimary"
-    >
+    android:background="@color/backgroundPrimary">
 
     <!--        <com.google.android.material.appbar.AppBarLayout-->
     <!--            android:layout_width="match_parent"-->
@@ -22,7 +21,8 @@
             android:background="@color/backgroundPrimary"
             android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:navigationIcon="@drawable/ic_arrow_back"
+            app:theme="@style/ToolbarTheme"
+            app:popupTheme="@style/PopupMenuStyle"
             app:title="@string/loading_epub_title"
             app:titleTextColor="@color/textColor" />
 

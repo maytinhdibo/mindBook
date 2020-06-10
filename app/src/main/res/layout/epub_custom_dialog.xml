@@ -133,13 +133,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="Text Size"
             android:src="@drawable/ic_font_size"
-            android:tint="@color/grayColor" />
+            android:tint="@color/textColor" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="@string/bottom_sheet_text_size"
-            android:textColor="@color/grayColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 
         <SeekBar
@@ -157,7 +157,7 @@
             android:paddingEnd="16dp"
             android:text="16dp"
             android:textAlignment="textEnd"
-            android:textColor="@color/grayColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp"
             android:visibility="invisible" />
 
@@ -179,13 +179,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/bottom_sheet_choose_font"
             android:src="@drawable/ic_choose_font"
-            android:tint="@color/grayColor" />
+            android:tint="@color/textColor" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Font"
-            android:textColor="@color/grayColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 
         <TextView
@@ -195,7 +195,7 @@
             android:paddingEnd="16dp"
             android:text="Open Sans"
             android:textAlignment="textEnd"
-            android:textColor="@color/grayColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
     </LinearLayout>
 
@@ -215,13 +215,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/bottom_sheet_choose_font"
             android:src="@drawable/ic_colorize"
-            android:tint="@color/grayColor" />
+            android:tint="@color/textColor" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Text color"
-            android:textColor="@color/grayColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -237,7 +237,7 @@
                 android:layout_marginStart="20dp"
                 android:contentDescription="@string/bottom_sheet_choose_font"
                 android:src="@drawable/ic_circle"
-                android:tint="@color/grayColor" />
+                android:tint="@color/textColor" />
         </LinearLayout>
 
     </LinearLayout>
@@ -258,13 +258,13 @@
             android:layout_height="wrap_content"
             android:contentDescription="@string/bottom_sheet_choose_font"
             android:src="@drawable/ic_format_color_fill"
-            android:tint="@color/grayColor" />
+            android:tint="@color/textColor" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="Background color"
-            android:textColor="@color/grayColor"
+            android:textColor="@color/textColor"
             android:textSize="16sp" />
 
         <LinearLayout
@@ -280,7 +280,7 @@
                 android:layout_marginStart="20dp"
                 android:contentDescription="@string/bottom_sheet_choose_font"
                 android:src="@drawable/ic_circle"
-                android:tint="@color/grayColor" />
+                android:tint="@color/textColor" />
         </LinearLayout>
 
     </LinearLayout>
