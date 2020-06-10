@@ -4,6 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/top_round"
     app:layout_behavior="com.google.android.material.BottomSheet">
     <LinearLayout
         android:layout_width="match_parent"
@@ -21,8 +22,8 @@
             android:layout_height="match_parent"
             android:clickable="true"
             android:id="@+id/back_btn"
-            android:src="@drawable/ic_arrow_back"
-            android:tint="@color/grayColor"
+            android:src="@drawable/ic_chevron_left"
+            android:tint="@color/textColor"
             android:contentDescription="@string/bottom_sheet_choose_font"
             />
 
@@ -31,7 +32,7 @@
             android:layout_height="match_parent"
             android:text="Select Font"
             android:paddingStart="10dp"
-            android:textColor="@color/grayColor"
+            android:textColor="@color/textColor"
             android:textSize="18sp" />
     </LinearLayout>
     <LinearLayout
@@ -57,7 +58,7 @@
                 android:src="@drawable/ic_check"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="20dp"
-                android:tint="@color/grayColor"
+                android:tint="@color/textColor"
                 android:contentDescription="@string/bottom_sheet_choose_font"
                 android:visibility="invisible"
                 />
@@ -67,7 +68,7 @@
                 android:textSize="16sp"
                 android:text="@string/literata_font"
                 android:fontFamily="@font/literata"
-                android:textColor="@color/grayColor"
+                android:textColor="@color/textColor"
                 />
         </LinearLayout>
         <LinearLayout
@@ -88,7 +89,7 @@
                 android:src="@drawable/ic_check"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="20dp"
-                android:tint="@color/grayColor"
+                android:tint="@color/textColor"
                 android:contentDescription="@string/bottom_sheet_choose_font"
                 android:visibility="invisible"
                 />
@@ -98,7 +99,7 @@
                 android:textSize="16sp"
                 android:text="@string/open_sans_font"
                 android:fontFamily="@font/opensans"
-                android:textColor="@color/grayColor"
+                android:textColor="@color/textColor"
                 />
         </LinearLayout>
         <LinearLayout
@@ -119,7 +120,7 @@
                 android:src="@drawable/ic_check"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="20dp"
-                android:tint="@color/grayColor"
+                android:tint="@color/textColor"
                 android:contentDescription="@string/bottom_sheet_choose_font"
                 android:visibility="invisible"
                 />
@@ -129,7 +130,7 @@
                 android:textSize="16sp"
                 android:text="@string/volkhov_font"
                 android:fontFamily="@font/volkhov"
-                android:textColor="@color/grayColor"
+                android:textColor="@color/textColor"
                 />
         </LinearLayout>
         <LinearLayout
@@ -149,7 +150,7 @@
                 android:src="@drawable/ic_check"
                 android:layout_marginEnd="10dp"
                 android:layout_marginStart="20dp"
-                android:tint="@color/grayColor"
+                android:tint="@color/textColor"
                 android:contentDescription="@string/bottom_sheet_choose_font"
                 android:visibility="invisible"
                 />
@@ -159,7 +160,7 @@
                 android:textSize="16sp"
                 android:text="@string/merriweather_font"
                 android:fontFamily="@font/merriweather"
-                android:textColor="@color/grayColor"
+                android:textColor="@color/textColor"
                 />
         </LinearLayout>
     </LinearLayout>

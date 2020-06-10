@@ -580,8 +580,9 @@ public class ReaderActivity extends AppCompatActivity {
     private void toggleFontSelector() {
 //        dialog.hide();
         dialog.cancel();
-        dialog = new BottomSheetDialog(ReaderActivity.this);
+        dialog = new BottomSheetDialog(ReaderActivity.this, R.style.SheetDialog);
         dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+
         View view = getLayoutInflater().inflate(R.layout.font_selector, null);
         dialog.setContentView(view);
         dialog.show();
