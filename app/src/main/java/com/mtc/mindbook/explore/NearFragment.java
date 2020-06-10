@@ -31,6 +31,8 @@ import com.mtc.mindbook.models.explore.NearItem;
 import com.mtc.mindbook.models.explore.RecyclerNearAdapter;
 import com.mtc.mindbook.models.explore.RecyclerShareAdapter;
 import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
+import com.mtc.mindbook.models.responseObj.explore.near.NearbyItem;
+import com.mtc.mindbook.models.responseObj.explore.near.NearbyResponseObj;
 import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
 import com.mtc.mindbook.models.responseObj.user.UserResponseObj;
 import com.mtc.mindbook.remote.APIService;
@@ -49,6 +51,10 @@ public class NearFragment extends Fragment implements LocationListener {
     private LinearLayout locationAlert;
     private RecyclerView nearListView;
     private Location location;
+    private int page = 1;
+    boolean loadEnd = false;
+
+    private List<NearbyItem> listNearby = new ArrayList<>();
 
     APIService apiServices = APIUtils.getUserService();
 
@@ -59,28 +65,30 @@ public class NearFragment extends Fragment implements LocationListener {
 
         locationAlert = rootView.findViewById(R.id.location_req);
 
-        NearItem[] shareItems = {
-                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
-                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 4.5)),
-                new NearItem("Cá nhân mình đánh giá cao về giao diện này bởi nó rất mượt và nhẹ.", "Xuân Đức"
-                        , new BookItemOld(111, "https://static.wixstatic.com/media/9c4410_876c178659774d75aa6d9ec9fadfa4a2~mv2_d_1650_2550_s_2.jpg/v1/fill/w_270,h_412,al_c,q_80,usm_0.66_1.00_0.01/WILD%20LIGHT%20EBOOK.webp", "Quyển sách 1", "Tác Giả", (float) 3)),
-                new NearItem("Biết nhóm từ một người thật đặc biệt và giờ gắn bó với những bài nhạc của nhóm còn người đó thì không", "Anh Tuấn"
-                        , new BookItemOld(111, "https://pictures.abebooks.com/MICHELLANTEIGNE/4187602196.jpg", "Khi Loài Thú Xa Nhau", "Lê Uyên", (float) 2.5)),
-                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
-                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
-                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
-                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
-                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
-                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
-                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
-                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
-                null
-        };
+//        NearItem[] shareItems = {
+//                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
+//                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 4.5)),
+//                new NearItem("Cá nhân mình đánh giá cao về giao diện này bởi nó rất mượt và nhẹ.", "Xuân Đức"
+//                        , new BookItemOld(111, "https://static.wixstatic.com/media/9c4410_876c178659774d75aa6d9ec9fadfa4a2~mv2_d_1650_2550_s_2.jpg/v1/fill/w_270,h_412,al_c,q_80,usm_0.66_1.00_0.01/WILD%20LIGHT%20EBOOK.webp", "Quyển sách 1", "Tác Giả", (float) 3)),
+//                new NearItem("Biết nhóm từ một người thật đặc biệt và giờ gắn bó với những bài nhạc của nhóm còn người đó thì không", "Anh Tuấn"
+//                        , new BookItemOld(111, "https://pictures.abebooks.com/MICHELLANTEIGNE/4187602196.jpg", "Khi Loài Thú Xa Nhau", "Lê Uyên", (float) 2.5)),
+//                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
+//                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
+//                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
+//                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
+//                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
+//                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
+//                new NearItem("Tôi sống một thời thơ ấu chịu ảnh hưởng hoàn toàn của các anh chị tôi, hai chị và hai anh lớn, họ ca hát bài gì thì tôi lặp lại đúng bài đó, họ ngâm nga bài thơ nào thì tôi nhớ lõm bõm mấy câu của bài đó. Bây giờ kiểm điểm lại, về các bài hát tôi nhớ nhiều, gần như trọn vẹn ca điệu và ca từ của mỗi bài, còn thơ chỉ thuộc đây đó một số câu.", "Bin Gết"
+//                        , new BookItemOld(111, "https://res.cloudinary.com/fen-learning/image/upload/c_limit,w_320,h_475/infopls_images/images/HPusa5_320x475.jpg", "Quyển sách 1", "Tác Giả", (float) 1.5)),
+//                null
+//        };
 
+
+        listNearby.add(null);
 
         // Construct the data source
-        final List<NearItem> listShare = new ArrayList<>(Arrays.asList(shareItems));
-        final RecyclerNearAdapter adapter = new RecyclerNearAdapter(listShare);
+//        final List<NearItem> listShare = new ArrayList<>(Arrays.asList(shareItems));
+        final RecyclerNearAdapter adapter = new RecyclerNearAdapter(listNearby);
 
 
         nearListView = rootView.findViewById(R.id.near_list);
@@ -115,14 +123,11 @@ public class NearFragment extends Fragment implements LocationListener {
             @Override
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                LinearLayoutManager linearLayoutManager = (LinearLayoutManager) recyclerView.getLayoutManager();
-                if (!isLoading) {
-                    Log.d("Position", String.valueOf(layoutManager.findLastCompletelyVisibleItemPosition()));
-                    if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == listShare.size() - 1) {
-
-                        Log.d("Load", "onScrolled: ");
-//                        adapter.setLoading(false);
-//                        isLoading = true;
+                if (!loadEnd) {
+                    if (layoutManager != null && layoutManager.findLastCompletelyVisibleItemPosition() == listNearby.size() - 1) {
+                        page++;
+                        loadNewPage();
+                        return;
                     }
                 }
             }
@@ -131,6 +136,9 @@ public class NearFragment extends Fragment implements LocationListener {
 
 
         checkLocation(rootView, true);
+
+
+        loadNewPage();
 
 
         return rootView;
@@ -175,9 +183,41 @@ public class NearFragment extends Fragment implements LocationListener {
                     }
                 });
             }
-
         }
     }
+
+    private void loadNewPage() {
+        APIService userService = null;
+        userService = APIUtils.getUserService();
+        SharedPreferences sharedPrefs = getContext().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPrefs.getString("accessToken", "");
+        Call<NearbyResponseObj> callDetail = userService.getNearBy("Bearer " + accessToken, page);
+        callDetail.enqueue(new Callback<NearbyResponseObj>() {
+            @Override
+            public void onResponse(Call<NearbyResponseObj> call, Response<NearbyResponseObj> response) {
+                if (response.body() == null) {
+                    onFailure(call, null);
+                    return;
+                }
+                if (response.body().getData().size() == 0) {
+                    RecyclerNearAdapter adapter = (RecyclerNearAdapter) nearListView.getAdapter();
+                    adapter.setLoading(false);
+                    loadEnd = true;
+                }
+
+                listNearby.remove(null);
+                listNearby.addAll(response.body().getData());
+                listNearby.add(null);
+                nearListView.getAdapter().notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<NearbyResponseObj> call, Throwable t) {
+                Toast.makeText(getContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
 
     private boolean firstTime = false;
 

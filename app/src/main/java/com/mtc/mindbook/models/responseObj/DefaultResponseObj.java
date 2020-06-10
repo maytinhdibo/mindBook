@@ -2,7 +2,6 @@ package com.mtc.mindbook.models.responseObj;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import com.mtc.mindbook.models.responseObj.user.userData;
 
 public class DefaultResponseObj {
     @SerializedName("message")

@@ -4,6 +4,7 @@ import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.LoginResponseObj;
+import com.mtc.mindbook.models.responseObj.explore.near.NearbyResponseObj;
 import com.mtc.mindbook.models.responseObj.rating.RatingCommentsResponseObj;
 import com.mtc.mindbook.models.responseObj.search.SearchResponseObj;
 import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
@@ -43,6 +44,9 @@ public interface APIService {
     @GET("ratings/new?limit=5")
     Call<ShareItemResponseObj> getShares(@Query("page") int page);
 
+    @GET("user/nearby?limit=2&radius=999999999999999999999999999999999999999999999")
+    Call<NearbyResponseObj> getNearBy(@Header("Authorization") String token,
+                                      @Query("page") int page);
 
     @GET("books/ratings")
     Call<RatingCommentsResponseObj> getRatingComment(@Query("book_id") String bookId,

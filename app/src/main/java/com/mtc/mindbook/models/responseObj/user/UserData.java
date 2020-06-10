@@ -3,7 +3,7 @@ package com.mtc.mindbook.models.responseObj.user;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class userData {
+public class UserData {
     @SerializedName("user_id")
     @Expose
     private String userId;

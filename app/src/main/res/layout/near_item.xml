@@ -102,16 +102,17 @@
             android:paddingBottom="2dp"
             android:singleLine="true"
             android:text="Tran Cuong"
-            android:textColor="#345"
+            android:textColor="@color/textColor"
             android:textSize="15sp"
             android:textStyle="bold" />
         <TextView
+            android:id="@+id/distance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:paddingBottom="2dp"
             android:singleLine="true"
             android:text="1 mét"
-            android:textColor="#345"
+            android:textColor="@color/textColor"
             android:textSize="15sp" />
     </LinearLayout>
 

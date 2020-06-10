@@ -18,12 +18,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.view.animation.AccelerateInterpolator;
@@ -52,7 +49,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mtc.mindbook.gestures.OnSwipeTouchListener;
-import com.mtc.mindbook.models.responseObj.detail.Detail;
+import com.mtc.mindbook.models.responseObj.detail.BookDetail;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
@@ -120,11 +117,11 @@ public class ReaderActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
 
-                Detail detail = response.body().getData().get(0);
+                BookDetail bookDetail = response.body().getData().get(0);
 
-                toolbar.setTitle(detail.getBookTitle());
+                toolbar.setTitle(bookDetail.getBookTitle());
 
-                String epubLink = detail.getBookEpub();
+                String epubLink = bookDetail.getBookEpub();
                 String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath();
                 Log.d("Storage", "" + storagePath);
                 File f = new File(storagePath);

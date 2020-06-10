@@ -14,19 +14,21 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.R;
+import com.mtc.mindbook.models.responseObj.explore.near.NearbyItem;
 import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RecyclerNearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class RecyclerNearAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public ProgressBar progressBar = null;
-    private List<NearItem> data = new ArrayList<>();
+    private List<NearbyItem> data = new ArrayList<>();
 
-    public RecyclerNearAdapter(List<NearItem> data) {
+    public RecyclerNearAdapter(List<NearbyItem> data) {
         this.data = data;
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -60,15 +62,16 @@ public class RecyclerNearAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, final int position) {
         if (viewHolder instanceof RecyclerViewHolder) {
             RecyclerViewHolder holder = (RecyclerViewHolder) viewHolder;
-            holder.userName.setText(data.get(position).getName());
-            holder.ratingBar.setRating(data.get(position).getBook().getRating());
-            holder.bookAuthorName.setText(data.get(position).getBook().getAuthorName());
-            holder.bookName.setText(data.get(position).getBook().getName());
-            Picasso.get().load(data.get(position).getBook().getCover()).into(holder.avt);
+            holder.userName.setText(data.get(position).getUser().getFirstName() + " " + data.get(position).getUser().getLastName());
+            holder.ratingBar.setRating(data.get(position).getBookDetail().getRating());
+            holder.bookAuthorName.setText(data.get(position).getBookDetail().getAuthor());
+            holder.bookName.setText(data.get(position).getBookDetail().getBookTitle());
+            holder.distance.setText(Utils.convertDistance(data.get(position).getDistance()));
+            Picasso.get().load(data.get(position).getBookDetail().getBookCover()).into(holder.avt);
             holder.nearItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getBook().getId()));
+                    Utils.openDetailPage(view.getContext(), String.valueOf(data.get(position).getBookDetail().getBookId()));
                 }
             });
         } else {
@@ -95,12 +98,13 @@ public class RecyclerNearAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     public class RecyclerViewHolder extends RecyclerView.ViewHolder {
         TextView userName;
-//        TextView comment;
+        TextView distance;
         TextView bookName;
         TextView bookAuthorName;
         ImageView avt;
         RatingBar ratingBar;
         LinearLayout nearItem;
+
         public RecyclerViewHolder(View itemView) {
             super(itemView);
             userName = (TextView) itemView.findViewById(R.id.user_name);
@@ -110,6 +114,7 @@ public class RecyclerNearAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //            comment.setEllipsize(TextUtils.TruncateAt.END);
             bookName = (TextView) itemView.findViewById(R.id.book_name);
             bookAuthorName = (TextView) itemView.findViewById(R.id.book_author_name);
+            distance = (TextView) itemView.findViewById(R.id.distance);
             nearItem = (LinearLayout) itemView.findViewById(R.id.near_item);
         }
     }

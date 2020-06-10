@@ -5,10 +5,13 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class Detail {
+public class BookDetail {
     @SerializedName("book_id")
     @Expose
     private Integer bookId;
+    @SerializedName("id")
+    @Expose
+    private Integer id;
     @SerializedName("book_title")
     @Expose
     private String bookTitle;
@@ -33,6 +36,10 @@ public class Detail {
 
     public Integer getBookId() {
         return bookId;
+    }
+
+    public Integer getId() {
+        return id;
     }
 
     public void setBookId(Integer bookId) {

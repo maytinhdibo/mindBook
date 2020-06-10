@@ -1,21 +1,20 @@
-package com.mtc.mindbook.models.responseObj.detail;
+package com.mtc.mindbook.models.responseObj.explore.near;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class DetailReponseObj {
-
+public class NearbyResponseObj {
     @SerializedName("data")
     @Expose
-    private List<BookDetail> data = null;
+    private List<NearbyItem> data = null;
 
-    public List<BookDetail> getData() {
+    public List<NearbyItem> getData() {
         return data;
     }
 
-    public void setData(List<BookDetail> data) {
+    public void setData(List<NearbyItem> data) {
         this.data = data;
     }
 }

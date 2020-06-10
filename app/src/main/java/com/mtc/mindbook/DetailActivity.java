@@ -8,8 +8,6 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -25,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
-import com.mtc.mindbook.models.responseObj.detail.Detail;
+import com.mtc.mindbook.models.responseObj.detail.BookDetail;
 import com.mtc.mindbook.models.responseObj.rating.RatingComment;
 import com.mtc.mindbook.models.responseObj.rating.RatingCommentsResponseObj;
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
@@ -69,10 +67,10 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
                 if(response.body()==null) return;
-                Detail detail = response.body().getData().get(0);
+                BookDetail bookDetail = response.body().getData().get(0);
                 // Render data
                 // Render tag
-                final List<String> listItem = detail.getCategories();
+                final List<String> listItem = bookDetail.getCategories();
                 final TagAdapter tagAdapter = new TagAdapter(listItem);
                 LinearLayoutManager tagLayoutManager = new LinearLayoutManager(getBaseContext());
                 tagLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -81,15 +79,15 @@ public class DetailActivity extends AppCompatActivity {
                 listViewTag.setAdapter(tagAdapter);
                 // Render title
                 TextView title = findViewById(R.id.detail_title);
-                title.setText(detail.getBookTitle());
+                title.setText(bookDetail.getBookTitle());
                 // Render author
                 TextView author = findViewById(R.id.detail_author);
-                author.setText(detail.getAuthor());
+                author.setText(bookDetail.getAuthor());
                 // Render rating
                 TextView rating = findViewById(R.id.detail_rating);
                 RatingBar ratingBar = findViewById(R.id.detail_rating_bar);
-                rating.setText(String.format("%.01f", detail.getRating()) + "/5.0");
-                ratingBar.setRating(detail.getRating());
+                rating.setText(String.format("%.01f", bookDetail.getRating()) + "/5.0");
+                ratingBar.setRating(bookDetail.getRating());
 
                 // Render overlay
                 View overlay = (View) findViewById(R.id.book_overlay);
@@ -105,15 +103,15 @@ public class DetailActivity extends AppCompatActivity {
                 });
                 //Render desc
                 TextView desc = findViewById(R.id.detail_desc);
-                desc.setText(detail.getBookDescription());
+                desc.setText(bookDetail.getBookDescription());
                 //Render cover
                 Picasso.get()
-                        .load(detail.getBookCover())
+                        .load(bookDetail.getBookCover())
                         .transform(new BlurTransformation(getBaseContext(), 18, 2))
                         .into((ImageView) findViewById(R.id.blur_bg));
 
                 Picasso.get()
-                        .load(detail.getBookCover())
+                        .load(bookDetail.getBookCover())
                         .into((ImageView) findViewById(R.id.cover));
             }
 

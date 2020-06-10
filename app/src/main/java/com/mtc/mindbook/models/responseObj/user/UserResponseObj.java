@@ -6,13 +6,13 @@ import com.google.gson.annotations.SerializedName;
 public class UserResponseObj {
     @SerializedName("data")
     @Expose
-    private userData data;
+    private UserData data;
 
-    public userData getData() {
+    public UserData getData() {
         return data;
     }
 
-    public void setData(userData data) {
+    public void setData(UserData data) {
         this.data = data;
     }
 }
