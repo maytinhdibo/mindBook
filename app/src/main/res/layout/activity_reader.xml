@@ -16,22 +16,20 @@
         android:orientation="vertical">
 
 
-        <androidx.appcompat.widget.Toolbar
+        <LinearLayout
             android:id="@+id/epub_top_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/backgroundPrimary"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:title=""
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingHorizontal="6pt"
             app:titleTextColor="@color/textColor">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/toc_btn"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@drawable/ic_menu"
@@ -47,19 +45,18 @@
                     android:text="@string/loading_epub_title"
                     android:textColor="@color/textColor"
                     android:textSize="16sp"
+                    android:paddingHorizontal="10dp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="34dp"
                     android:layout_height="34dp"
-                    android:layout_marginRight="6pt"
                     android:padding="7dp"
                     android:src="@drawable/ic_search"
                     android:tint="@color/textColor" />
 
             </LinearLayout>
 
-        </androidx.appcompat.widget.Toolbar>
 
 
         <!--        </com.google.android.material.appbar.AppBarLayout>-->

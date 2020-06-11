@@ -31,7 +31,11 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -59,6 +63,10 @@ import com.mtc.mindbook.remote.APIUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;
@@ -73,8 +81,9 @@ public class ReaderActivity extends AppCompatActivity {
     private int currentChapter = 1;
     private Book book;
     private WebView epubContent;
-    private Toolbar toolbar;
+    private LinearLayout toolbar;
     private ImageView arrowPopup;
+    private ImageView tocButton;
 
 
     private int fontSize;
@@ -152,6 +161,7 @@ public class ReaderActivity extends AppCompatActivity {
                             EpubReader epubReader = new EpubReader();
                             book = epubReader.readEpub(new FileInputStream(epubFile));
                             loadChapter();
+
                         } catch (Exception e) {
                             e.printStackTrace();
                             finish();
@@ -184,6 +194,51 @@ public class ReaderActivity extends AppCompatActivity {
                     }
                 }
 
+                tocButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        dialog = new BottomSheetDialog(ReaderActivity.this, R.style.SheetDialog);
+
+                        dialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+                        View view = getLayoutInflater().inflate(R.layout.epub_toc_dialog, null);
+
+                        dialog.setContentView(view);
+                        dialog.show();
+
+                        ListView listTocView = (ListView) dialog.findViewById(R.id.list_toc);
+
+                        List<String> values = new ArrayList<>();
+
+                        for (int i = 0; i < book.getSpine().size(); i++) {
+                            values.add(getResources().getString(R.string.chapter) + " " + (i + 1));
+                        }
+
+
+                        ArrayAdapter<String> adapter = new ArrayAdapter<String>(dialog.getContext(),
+                                R.layout.chapter_item, R.id.chapter_name, values);
+
+                        listTocView.setAdapter(adapter);
+
+                        listTocView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                            @Override
+                            public void onItemClick(AdapterView<?> adapter, View v, int position,
+                                                    long arg3) {
+
+                                currentChapter = position;
+                                try {
+                                    loadChapter();
+                                    dialog.cancel();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+
+                        });
+
+                    }
+                });
+
             }
 
             @Override
@@ -191,6 +246,7 @@ public class ReaderActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
             }
         });
+
     }
 
     @SuppressLint({"ClickableViewAccessibility", "SetJavaScriptEnabled", "ResourceAsColor"})
@@ -202,6 +258,8 @@ public class ReaderActivity extends AppCompatActivity {
 
         arrowPopup = findViewById(R.id.arrow);
 
+        tocButton = findViewById(R.id.toc_btn);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         getWindow().setStatusBarColor(R.color.ocean_color);
@@ -212,16 +270,16 @@ public class ReaderActivity extends AppCompatActivity {
         String id = extras.getString("EXTRA_MESSAGE_ID");
 
         toolbar = findViewById(R.id.epub_top_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false);
+//        setSupportActionBar(toolbar);
+//        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
 
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+//        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
 
         BottomNavigationView bottomBar = findViewById(R.id.epub_bottom_bar);
         bottomBar.setOnNavigationItemSelectedListener(navListener);
@@ -270,12 +328,13 @@ public class ReaderActivity extends AppCompatActivity {
                     toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
                         @Override
                         public void run() {
-                            x.hide();
+//                            x.hide();
+                            toolbar.setVisibility(View.GONE);
                         }
                     }).alpha(0).start();
 
                 } else {
-                    getSupportActionBar().show();
+                    toolbar.setVisibility(View.VISIBLE);
                     toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).alpha(1).start();
                 }
 
@@ -443,6 +502,7 @@ public class ReaderActivity extends AppCompatActivity {
                     return true;
                 }
             };
+
 
     @SuppressLint("SetTextI18n")
     private void toggleDialogBottom() {
