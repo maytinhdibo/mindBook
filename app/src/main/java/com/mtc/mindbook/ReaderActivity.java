@@ -415,7 +415,7 @@ public class ReaderActivity extends AppCompatActivity {
 
     private boolean isAnimating = false;
 
-    private void arrowDisplay(boolean next) {
+    private void displayArrow(boolean next) {
 
         if (next) {
             arrowPopup.setRotationY(180f);
@@ -455,7 +455,7 @@ public class ReaderActivity extends AppCompatActivity {
         } else {
             currentChapter = Math.max(0, --currentChapter);
             loadChapter();
-            arrowDisplay(false);
+            displayArrow(false);
         }
     }
 
@@ -465,7 +465,7 @@ public class ReaderActivity extends AppCompatActivity {
         } else {
             currentChapter = Math.min(book.getSpine().size() - 1, ++currentChapter);
             loadChapter();
-            arrowDisplay(true);
+            displayArrow(true);
         }
     }
 
