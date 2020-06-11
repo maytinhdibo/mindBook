@@ -121,7 +121,8 @@ public class ReaderActivity extends AppCompatActivity {
 
                 BookDetail bookDetail = response.body().getData().get(0);
 
-                toolbar.setTitle(bookDetail.getBookTitle());
+                TextView title = findViewById(R.id.epub_title);
+                title.setText(bookDetail.getBookTitle());
 
                 String epubLink = bookDetail.getBookEpub();
                 String storagePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS).getPath();
@@ -212,6 +213,8 @@ public class ReaderActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.epub_top_bar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
+
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -305,20 +308,6 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.epub_menu, menu);
-        for(int i = 0; i < menu.size(); i++){
-            Drawable drawable = menu.getItem(i).getIcon();
-            if(drawable != null) {
-                drawable.mutate();
-                drawable.setColorFilter(getResources().getColor(R.color.textColor), PorterDuff.Mode.SRC_ATOP);
-            }
-        }
-
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
@@ -369,9 +358,9 @@ public class ReaderActivity extends AppCompatActivity {
 
     private void arrowDisplay(boolean next) {
 
-        if(next){
+        if (next) {
             arrowPopup.setRotationY(180f);
-        }else{
+        } else {
             arrowPopup.setRotationY(0f);
         }
 

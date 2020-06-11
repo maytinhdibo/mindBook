@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/backgroundPrimary">
 
+
     <!--        <com.google.android.material.appbar.AppBarLayout-->
     <!--            android:layout_width="match_parent"-->
     <!--            android:layout_height="wrap_content">-->
@@ -14,17 +15,51 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/epub_top_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/backgroundPrimary"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"
             app:layout_scrollFlags="scroll|enterAlways"
-            app:theme="@style/ToolbarTheme"
-            app:popupTheme="@style/PopupMenuStyle"
-            app:title="@string/loading_epub_title"
-            app:titleTextColor="@color/textColor" />
+            app:title=""
+            app:titleTextColor="@color/textColor">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/ic_menu"
+                    android:tint="@color/textColor" />
+
+
+                <TextView
+                    android:id="@+id/epub_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_horizontal"
+                    android:text="@string/loading_epub_title"
+                    android:textColor="@color/textColor"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:layout_width="34dp"
+                    android:layout_height="34dp"
+                    android:layout_marginRight="6pt"
+                    android:padding="7dp"
+                    android:src="@drawable/ic_search"
+                    android:tint="@color/textColor" />
+
+            </LinearLayout>
+
+        </androidx.appcompat.widget.Toolbar>
 
 
         <!--        </com.google.android.material.appbar.AppBarLayout>-->
