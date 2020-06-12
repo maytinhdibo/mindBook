@@ -39,6 +39,8 @@
             android:name=".RegisterActivity"
             android:parentActivityName=".LoginActivity"
             android:windowSoftInputMode="adjustResize" />
+        <receiver android:name=".services.notification.NotificationActionService"/>
+        <service android:name=".services.notification.OnClearFromRecentService" />
     </application>
 
 </manifest>

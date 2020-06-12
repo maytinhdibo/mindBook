@@ -47,11 +47,13 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
+import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mtc.mindbook.gestures.OnSwipeTouchListener;
@@ -78,7 +80,7 @@ import retrofit2.Response;
 
 public class ReaderActivity extends AppCompatActivity {
 
-    private int currentChapter = 1;
+    private int currentChapter = 0;
     private Book book;
     private WebView epubContent;
     private LinearLayout toolbar;
@@ -332,9 +334,11 @@ public class ReaderActivity extends AppCompatActivity {
                             toolbar.setVisibility(View.GONE);
                         }
                     }).alpha(0).start();
+                    findViewById(R.id.epub_bottom_bar).setVisibility(View.GONE);
 
                 } else {
                     toolbar.setVisibility(View.VISIBLE);
+                    findViewById(R.id.epub_bottom_bar).setVisibility(View.VISIBLE);
                     toolbar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).alpha(1).start();
                 }
 
@@ -450,23 +454,40 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     private void loadPrevChapter() throws IOException {
-        if (currentChapter <= 0) {
-            Toast.makeText(getApplicationContext(), "This is the first chapter", Toast.LENGTH_SHORT).show();
-        } else {
+        if (currentChapter == book.getSpine().size() - 1) {
+            changeMenuIconTint(R.id.next_chap, R.color.colorPrimary);
+        }
+        if (currentChapter > 0){
             currentChapter = Math.max(0, --currentChapter);
             loadChapter();
+            if (currentChapter == 0) {
+                changeMenuIconTint(R.id.prev_chap, R.color.middleColor);
+            }
             arrowDisplay(false);
         }
     }
 
     private void loadNextChapter() throws IOException {
-        if (currentChapter >= book.getSpine().size() - 1) {
-            Toast.makeText(getApplicationContext(), "This is the last chapter", Toast.LENGTH_SHORT).show();
-        } else {
+        if (currentChapter == 0) {
+            changeMenuIconTint(R.id.prev_chap, R.color.colorPrimary);
+        }
+        if (currentChapter < book.getSpine().size() - 1){
             currentChapter = Math.min(book.getSpine().size() - 1, ++currentChapter);
             loadChapter();
+            if (currentChapter == book.getSpine().size() - 1) {
+                changeMenuIconTint(R.id.next_chap, R.color.middleColor);
+            }
             arrowDisplay(true);
         }
+    }
+
+    private void changeMenuIconTint(int itemId, int colorId) {
+        BottomNavigationView itemView = findViewById(R.id.epub_bottom_bar);
+        MenuItem item = itemView.getMenu().findItem(itemId);
+        Drawable icon = item.getIcon();
+        icon = DrawableCompat.wrap(icon);
+        DrawableCompat.setTint(icon, ContextCompat.getColor(this, colorId));
+        item.setIcon(icon);
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =

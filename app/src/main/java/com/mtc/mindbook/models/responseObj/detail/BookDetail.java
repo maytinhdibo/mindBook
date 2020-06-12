@@ -33,6 +33,9 @@ public class BookDetail {
     @SerializedName("categories")
     @Expose
     private List<String> categories = null;
+    @SerializedName("audio")
+    @Expose
+    private List<String> audio = null;
 
     public Integer getBookId() {
         return bookId;
@@ -100,6 +103,14 @@ public class BookDetail {
 
     public void setCategories(List<String> categories) {
         this.categories = categories;
+    }
+
+    public List<String> getAudio() {
+        return audio;
+    }
+
+    public void setAudio(List<String> audio) {
+        this.audio = audio;
     }
 }
 
