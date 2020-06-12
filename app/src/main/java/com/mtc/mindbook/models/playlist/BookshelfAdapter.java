@@ -9,17 +9,17 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.card.MaterialCardView;
 import com.mtc.mindbook.PlaylistActivity;
 import com.mtc.mindbook.R;
+import com.mtc.mindbook.models.responseObj.playlist.PlaylistDataResponseObj;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BookshelfAdapter extends RecyclerView.Adapter<BookshelfAdapter.RecyclerViewHolder> {
-    private List<PlayListItem> data = new ArrayList<>();
+    private List<PlaylistDataResponseObj> data = new ArrayList<>();
 
-    public BookshelfAdapter(List<PlayListItem> data) {
+    public BookshelfAdapter(List<PlaylistDataResponseObj> data) {
         this.data = data;
     }
 
@@ -33,7 +33,7 @@ public class BookshelfAdapter extends RecyclerView.Adapter<BookshelfAdapter.Recy
     @Override
     public void onBindViewHolder(BookshelfAdapter.RecyclerViewHolder holder, final int position) {
         holder.playlistName.setText(data.get(position).getName());
-        holder.bookCount.setText(data.get(position).getBookCount() + " Cuốn sách");
+        holder.bookCount.setText(data.get(position).getBooksCount() + " Cuốn sách");
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

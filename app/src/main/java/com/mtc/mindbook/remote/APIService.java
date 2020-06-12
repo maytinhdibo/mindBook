@@ -1,14 +1,15 @@
 package com.mtc.mindbook.remote;
 
 import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
+import com.mtc.mindbook.models.responseObj.LoginResponseObj;
+import com.mtc.mindbook.models.responseObj.banner.BannerResponseObj;
 import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
-import com.mtc.mindbook.models.responseObj.LoginResponseObj;
 import com.mtc.mindbook.models.responseObj.explore.near.NearbyResponseObj;
+import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
+import com.mtc.mindbook.models.responseObj.playlist.PlaylistResponseObj;
 import com.mtc.mindbook.models.responseObj.rating.RatingCommentsResponseObj;
 import com.mtc.mindbook.models.responseObj.search.SearchResponseObj;
-import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
-import com.mtc.mindbook.models.responseObj.banner.BannerResponseObj;
 import com.mtc.mindbook.models.responseObj.user.UserResponseObj;
 
 import retrofit2.Call;
@@ -47,6 +48,9 @@ public interface APIService {
     @GET("user/nearby?limit=2&radius=999999999999999999999999999999999999999999999")
     Call<NearbyResponseObj> getNearBy(@Header("Authorization") String token,
                                       @Query("page") int page);
+
+    @GET("/user/playlist")
+    Call<PlaylistResponseObj> getUserPlaylistList(@Header("Authorization") String token);
 
     @GET("books/ratings")
     Call<RatingCommentsResponseObj> getRatingComment(@Query("book_id") String bookId,

@@ -94,8 +94,8 @@ public class HomeFragment extends Fragment {
 
         SlideShowAdapter adapterSlide = new SlideShowAdapter(getContext());
 
-
         sliderView.setSliderAdapter(adapterSlide);
+        sliderView.setScrollTimeInSec(5);
         sliderView.startAutoCycle();
 
         Call<BannerResponseObj> callBanner = api.getBanners();

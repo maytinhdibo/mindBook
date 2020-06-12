@@ -419,7 +419,7 @@ public class ReaderActivity extends AppCompatActivity {
 
     private boolean isAnimating = false;
 
-    private void arrowDisplay(boolean next) {
+    private void displayArrow(boolean next) {
 
         if (next) {
             arrowPopup.setRotationY(180f);
@@ -463,7 +463,7 @@ public class ReaderActivity extends AppCompatActivity {
             if (currentChapter == 0) {
                 changeMenuIconTint(R.id.prev_chap, R.color.middleColor);
             }
-            arrowDisplay(false);
+            displayArrow(false);
         }
     }
 
@@ -477,7 +477,7 @@ public class ReaderActivity extends AppCompatActivity {
             if (currentChapter == book.getSpine().size() - 1) {
                 changeMenuIconTint(R.id.next_chap, R.color.middleColor);
             }
-            arrowDisplay(true);
+            displayArrow(true);
         }
     }
 

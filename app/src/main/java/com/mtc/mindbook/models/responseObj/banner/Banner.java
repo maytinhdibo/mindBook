@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class Banner {
-    @SerializedName("id")
+    @SerializedName("book_id")
     @Expose
     private Integer id;
     @SerializedName("image")
