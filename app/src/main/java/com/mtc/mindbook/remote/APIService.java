@@ -71,6 +71,10 @@ public interface APIService {
                                             @Query("latitude") double latitude,
                                             @Query("longitude") double longitude);
 
+    @POST("/user/share")
+    Call<DefaultResponseObj> shareBook(@Header("Authorization") String token,
+                                       @Query("book_id") String bookId);
+
     @GET("user/profile")
     Call<UserResponseObj> fetchUserInfo(@Header("Authorization") String token);
 }

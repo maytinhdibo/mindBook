@@ -9,6 +9,10 @@
         android:title="@string/next_chapter"
         android:icon="@drawable/ic_chevron_right" />
     <item
+        android:id="@+id/epub_share"
+        android:title="@string/share_epub"
+        android:icon="@drawable/ic_share" />
+    <item
         android:id="@+id/epub_love"
         android:title="@string/love"
         android:icon="@drawable/ic_heart"/>

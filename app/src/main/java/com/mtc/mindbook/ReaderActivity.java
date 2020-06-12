@@ -16,6 +16,8 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.location.Location;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -57,6 +59,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mtc.mindbook.gestures.OnSwipeTouchListener;
+import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.BookDetail;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
@@ -98,8 +101,10 @@ public class ReaderActivity extends AppCompatActivity {
 
 
     private BottomSheetDialog dialog;
-
     private BroadcastReceiver onDoneDownload;
+    private LocationManager locationManager;
+
+    APIService apiServices = APIUtils.getUserService();
 
     @Override
     protected void onStart() {
@@ -118,14 +123,12 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     private void loadEpub() {
-        APIService detailService = null;
-        detailService = APIUtils.getUserService();
 
         Bundle extras = getIntent().getExtras();
 
         String id = extras.getString("EXTRA_MESSAGE_ID");
 
-        Call<DetailReponseObj> callDetail = detailService.detailBook(id);
+        Call<DetailReponseObj> callDetail = apiServices.detailBook(id);
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
@@ -358,7 +361,6 @@ public class ReaderActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
         switch (requestCode) {
             case 21: {
-
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     loadEpub();
@@ -457,7 +459,7 @@ public class ReaderActivity extends AppCompatActivity {
         if (currentChapter == book.getSpine().size() - 1) {
             changeMenuIconTint(R.id.next_chap, R.color.colorPrimary);
         }
-        if (currentChapter > 0){
+        if (currentChapter > 0) {
             currentChapter = Math.max(0, --currentChapter);
             loadChapter();
             if (currentChapter == 0) {
@@ -471,7 +473,7 @@ public class ReaderActivity extends AppCompatActivity {
         if (currentChapter == 0) {
             changeMenuIconTint(R.id.prev_chap, R.color.colorPrimary);
         }
-        if (currentChapter < book.getSpine().size() - 1){
+        if (currentChapter < book.getSpine().size() - 1) {
             currentChapter = Math.min(book.getSpine().size() - 1, ++currentChapter);
             loadChapter();
             if (currentChapter == book.getSpine().size() - 1) {
@@ -505,6 +507,9 @@ public class ReaderActivity extends AppCompatActivity {
                             case R.id.next_chap:
                                 itemIndex = 1;
                                 loadNextChapter();
+                                break;
+                            case R.id.epub_share:
+                                shareEpub();
                                 break;
                             case R.id.epub_love:
                                 itemIndex = 2;
@@ -563,6 +568,59 @@ public class ReaderActivity extends AppCompatActivity {
         });
 
         initConfigBottomValue();
+    }
+
+    private void shareEpub() {
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{
+                            android.Manifest.permission.ACCESS_FINE_LOCATION
+                    },
+                    124);
+            return;
+        }
+        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+        if (location != null) {
+            SharedPreferences sharedPrefs = this.getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+            String accessToken = sharedPrefs.getString("accessToken", "");
+            Call<DefaultResponseObj> callDetail = apiServices.updateLocation("Bearer " + accessToken, location.getLatitude(), location.getLongitude());
+            callDetail.enqueue(new Callback<DefaultResponseObj>() {
+                @Override
+                public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                    System.out.println("Share location " + response.body() + "    " + location);
+                    if (response.body() == null || !response.body().getMesssage().equals("success")) {
+                        onFailure(call, null);
+                        return;
+                    }
+
+                    Bundle extras = getIntent().getExtras();
+                    String id = extras.getString("EXTRA_MESSAGE_ID");
+                    Call<DefaultResponseObj> shareResponse = apiServices.shareBook("Bearer " + accessToken, id);
+                    shareResponse.enqueue(new Callback<DefaultResponseObj>() {
+                        @Override
+                        public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                            System.out.println("Share: " + response.body());
+                            if (response.body() == null) {
+                                onFailure(call, null);
+                                return;
+                            }
+                            Toast.makeText(ReaderActivity.this, "Đã chia sẻ sách với những người gần bạn", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                            Toast.makeText(ReaderActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                    Toast.makeText(ReaderActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void initConfigBottomValue() {

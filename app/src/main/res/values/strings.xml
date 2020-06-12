@@ -89,5 +89,6 @@
     <string name="button_mute_description">Mute/UnMute volume</string>
     <string name="button_play_pause">play/pause button</string>
     <string name="no_data">No data</string>
+    <string name="share_epub">Share Epub</string>
 
 </resources>
