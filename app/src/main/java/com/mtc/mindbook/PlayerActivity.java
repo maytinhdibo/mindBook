@@ -93,6 +93,17 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
+        getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
+        findViewById(R.id.statusBarView).getLayoutParams().height = getResources().getDimensionPixelSize(
+                getResources().getIdentifier("status_bar_height", "dimen", "android")
+        );
+        findViewById(R.id.statusBarView).requestLayout();
+
+//                .setPaddingRelative(0, getResources().getDimensionPixelSize(
+//                getResources().getIdentifier("status_bar_height", "dimen", "android")
+//        ), 0, 0);
+
         mHandler = new Handler();
 
         progress_bar = (SeekBar) findViewById(R.id.progress_bar);
