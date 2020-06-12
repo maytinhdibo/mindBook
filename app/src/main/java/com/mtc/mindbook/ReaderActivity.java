@@ -211,8 +211,8 @@ public class ReaderActivity extends AppCompatActivity {
 
                         List<String> values = new ArrayList<>();
 
-                        for (int i = 0; i < book.getSpine().size(); i++) {
-                            values.add(getResources().getString(R.string.chapter) + " " + (i + 1));
+                        for (int i = 0; i < book.getTableOfContents().getTocReferences().size(); i++) {
+                            values.add(book.getTableOfContents().getTocReferences().get(i).getTitle());
                         }
 
 
@@ -226,8 +226,8 @@ public class ReaderActivity extends AppCompatActivity {
                             @Override
                             public void onItemClick(AdapterView<?> adapter, View v, int position,
                                                     long arg3) {
-
-                                currentChapter = position;
+                                String resourceID = book.getTableOfContents().getTocReferences().get(position).getResourceId();
+                                currentChapter = book.getSpine().findFirstResourceById(resourceID);
                                 try {
                                     loadChapter();
                                     dialog.cancel();
