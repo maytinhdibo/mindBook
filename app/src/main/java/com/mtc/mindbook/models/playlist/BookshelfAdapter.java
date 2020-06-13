@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mtc.mindbook.PlaylistActivity;
 import com.mtc.mindbook.R;
 import com.mtc.mindbook.models.responseObj.playlist.PlaylistDataResponseObj;
+import com.mtc.mindbook.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,9 +38,7 @@ public class BookshelfAdapter extends RecyclerView.Adapter<BookshelfAdapter.Recy
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PlaylistActivity.class);
-                intent.putExtra("title", data.get(position).getName());
-                v.getContext().startActivity(intent);
+                Utils.openPlaylistDetail(v.getContext(),data.get(position).getPlaylistId());
             }
         });
     }
