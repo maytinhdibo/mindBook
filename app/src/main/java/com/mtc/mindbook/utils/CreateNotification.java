@@ -13,6 +13,7 @@ import android.support.v4.media.session.MediaSessionCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.mtc.mindbook.PlayerActivity;
 import com.mtc.mindbook.R;
 import com.mtc.mindbook.models.Track;
 import com.mtc.mindbook.services.notification.NotificationActionService;
@@ -93,7 +94,11 @@ public class CreateNotification {
                 drwNext = R.drawable.ic_skip_next;
             }
 
-
+            Intent notificationIntent = new Intent(context, PlayerActivity.class);
+            notificationIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+                    | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            PendingIntent noti = PendingIntent.getActivity(context, 0,
+                    notificationIntent, 0);
 
             try {
                 Bitmap bmp = new DownloadImageTask()
@@ -115,6 +120,7 @@ public class CreateNotification {
                                 .setShowActionsInCompactView(0, 1, 2)
                                 .setMediaSession(mediaSessionCompat.getSessionToken())
                         )
+                        .setContentIntent(noti)
                         .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                         .build();
 
