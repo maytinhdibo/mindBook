@@ -36,7 +36,7 @@ public class BookshelfAdapter extends RecyclerView.Adapter<BookshelfAdapter.Recy
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.openPlaylistDetail(v.getContext(), data.get(position).getPlaylistId());
+                Utils.openPlaylistDetail(v.getContext(), data.get(position).getPlaylistId(), data.get(position).getName());
             }
         });
     }

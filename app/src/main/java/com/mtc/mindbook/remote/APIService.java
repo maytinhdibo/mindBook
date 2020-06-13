@@ -7,6 +7,7 @@ import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseOb
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.explore.near.NearbyResponseObj;
 import com.mtc.mindbook.models.responseObj.explore.share.ShareItemResponseObj;
+import com.mtc.mindbook.models.responseObj.playlist.PlaylistDetailResponseObj;
 import com.mtc.mindbook.models.responseObj.playlist.PlaylistResponseObj;
 import com.mtc.mindbook.models.responseObj.rating.RatingCommentsResponseObj;
 import com.mtc.mindbook.models.responseObj.search.SearchResponseObj;
@@ -51,6 +52,11 @@ public interface APIService {
 
     @GET("/user/playlist")
     Call<PlaylistResponseObj> getUserPlaylistList(@Header("Authorization") String token);
+
+    @GET("/user/playlist/detail")
+    Call<PlaylistDetailResponseObj> getPlaylistDetail(@Header("Authorization") String token,
+                                                      @Query("playlist_id") Integer playlistId,
+                                                      @Query("lang") String language);
 
     @GET("books/ratings")
     Call<RatingCommentsResponseObj> getRatingComment(@Query("book_id") String bookId,

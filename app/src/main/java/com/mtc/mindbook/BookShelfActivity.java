@@ -42,11 +42,6 @@ public class BookShelfActivity extends AppCompatActivity {
                 getResources().getIdentifier("status_bar_height", "dimen", "android")
         ), 0, 0);
 
-//        playListItems = new ArrayList<>();
-//        playListItems.add(new PlayListItem("Danh sách yêu thích", 10));
-//        playListItems.add(new PlayListItem("Sách khoa học", 11));
-//        playListItems.add(new PlayListItem("Tiểu thuyết", 2));
-//        final BookshelfAdapter adapter = new BookshelfAdapter(playListItems);
         RecyclerView listView = this.findViewById(R.id.list_playlists);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -97,7 +92,6 @@ public class BookShelfActivity extends AppCompatActivity {
             Toast.makeText(getBaseContext(), "Tên playlist không được để trống.", Toast.LENGTH_SHORT).show();
             return;
         } else {
-            //playListItems.add(new PlayListItem(name, 0));
             newPlaylistDialog.dismiss();
         }
     }
