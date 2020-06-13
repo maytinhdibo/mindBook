@@ -2,6 +2,7 @@ package com.mtc.mindbook.models;
 
 public class Track {
     private String title;
+    private String bookTitle;
     private String author;
     private String mp3Link;
     private String coverLink;
@@ -9,8 +10,9 @@ public class Track {
     public Track() {
     }
 
-    public Track(String title, String author, String mp3Link, String coverLink) {
+    public Track(String title, String bookTitle, String author, String mp3Link, String coverLink) {
         this.title = title;
+        this.bookTitle = bookTitle;
         this.author = author;
         this.mp3Link = mp3Link;
         this.coverLink = coverLink;
@@ -30,6 +32,14 @@ public class Track {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getBookTitle() {
+        return bookTitle;
+    }
+
+    public void setBookTitle(String bookTitle) {
+        this.bookTitle = bookTitle;
     }
 
     public String getMp3Link() {

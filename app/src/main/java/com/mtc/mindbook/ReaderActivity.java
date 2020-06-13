@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +36,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -58,6 +61,7 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.textfield.TextInputEditText;
 import com.mtc.mindbook.gestures.OnSwipeTouchListener;
 import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.BookDetail;
@@ -89,7 +93,9 @@ public class ReaderActivity extends AppCompatActivity {
     private LinearLayout toolbar;
     private ImageView arrowPopup;
     private ImageView tocButton;
-
+    private ImageView searchButton;
+    private boolean isSearching = false;
+    EditText searchText;
 
     private int fontSize;
     private int MIN_FONT_SIZE = 20;
@@ -103,6 +109,9 @@ public class ReaderActivity extends AppCompatActivity {
     private BottomSheetDialog dialog;
     private BroadcastReceiver onDoneDownload;
     private LocationManager locationManager;
+    private Integer searchResultCount = 0;
+    private Integer searchIndexInPage = 0;
+//    private Boolean isSearchDone;
 
     APIService apiServices = APIUtils.getUserService();
 
@@ -244,6 +253,60 @@ public class ReaderActivity extends AppCompatActivity {
                     }
                 });
 
+                LinearLayout searchBar = findViewById(R.id.epub_search_bar);
+                searchButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (!isSearching) {
+                            isSearching = true;
+                            searchButton.setImageResource(R.drawable.ic_close);
+
+                            searchBar.setVisibility(View.VISIBLE);
+                            searchBar.animate().translationY(0).setInterpolator(new DecelerateInterpolator()).alpha(1).start();
+                        } else {
+                            isSearching = false;
+                            searchButton.setImageResource(R.drawable.ic_search);
+                            searchBar.animate().translationY(-(searchBar.getTop() - searchBar.getBottom())).setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
+                                @Override
+                                public void run() {
+                                    searchBar.setVisibility(View.GONE);
+                                }
+                            }).alpha(0).start();
+                            epubContent.clearMatches();
+                            searchIndexInPage = 0;
+                            searchResultCount = 0;
+                        }
+                    }
+                });
+
+                ImageButton searchNextBtn = findViewById(R.id.epub_search_next);
+                searchNextBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        epubContent.findNext(false);
+                    }
+                });
+
+                ImageButton searchBackBtn = findViewById(R.id.epub_search_back);
+                searchBackBtn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        epubContent.findNext(true);
+                    }
+                });
+
+                searchText = findViewById(R.id.search_keyword);
+                searchText.setOnKeyListener(new View.OnKeyListener() {
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        // If the event is a key-down event on the "enter" button
+                        if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                                (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                            search();
+                            return true;
+                        }
+                        return false;
+                    }
+                });
             }
 
             @Override
@@ -252,6 +315,69 @@ public class ReaderActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void search() {
+//        Spine spine = book.getSpine();
+//        epubContent.setVisibility(View.GONE);
+//        isSearchDone = false;
+        epubContent.setFindListener(new WebView.FindListener() {
+            @Override
+            public void onFindResultReceived(int activeMatchOrdinal, int numberOfMatches, boolean isDoneCounting) {
+                if (isDoneCounting) {
+                    if (activeMatchOrdinal == 0 && searchIndexInPage == numberOfMatches) {
+                        try {
+                            loadNextChapter();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (activeMatchOrdinal == numberOfMatches - 1 && searchIndexInPage == 1) {
+                        try {
+                            loadPrevChapter();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    searchResultCount = numberOfMatches;
+                    searchIndexInPage = activeMatchOrdinal + 1;
+                    reloadSearchText();
+                }
+            }
+        });
+        epubContent.findAllAsync(searchText.getText().toString());
+
+
+//        for (int i = 0; i < spine.size(); i++) {
+//            StringBuilder htmlText = new StringBuilder();
+//            Resource resource = spine.getResource(i);
+//            try {
+//                htmlText.append(new String(resource.getData()));
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            epubContent.loadDataWithBaseURL("file:///android_asset/", htmlText.toString(), "text/html", "UTF-8", "");
+//            epubContent.findAllAsync(searchText.getText().toString());
+//        }
+
+//        try {
+//            loadChapter();
+//            epubContent.setVisibility(View.VISIBLE);
+//            epubContent.findAllAsync(searchText.getText().toString());
+//            isSearchDone = true;
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+    }
+
+    private void reloadSearchText() {
+        TextView resultText = findViewById(R.id.epub_search_result_text);
+        StringBuilder newText = new StringBuilder();
+        newText.append("Hiển thị kết quả ")
+                .append(searchIndexInPage)
+                .append(" trên ")
+                .append(searchResultCount)
+                .append(" kết quả.");
+        resultText.setText(newText);
     }
 
     @SuppressLint({"ClickableViewAccessibility", "SetJavaScriptEnabled", "ResourceAsColor"})
@@ -264,6 +390,8 @@ public class ReaderActivity extends AppCompatActivity {
         arrowPopup = findViewById(R.id.arrow);
 
         tocButton = findViewById(R.id.toc_btn);
+
+        searchButton = findViewById(R.id.epub_search_btn);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -329,11 +457,9 @@ public class ReaderActivity extends AppCompatActivity {
             @Override
             public void onClick() {
                 if (toolbar.isShown()) {
-                    ActionBar x = getSupportActionBar();
                     toolbar.animate().translationY(-toolbar.getBottom()).setInterpolator(new AccelerateInterpolator()).withEndAction(new Runnable() {
                         @Override
                         public void run() {
-//                            x.hide();
                             toolbar.setVisibility(View.GONE);
                         }
                     }).alpha(0).start();
@@ -370,22 +496,6 @@ public class ReaderActivity extends AppCompatActivity {
                 return;
             }
         }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.epub_search) {
-            Toast.makeText(getApplicationContext(), "You click search", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.add_bookmark) {
-            Toast.makeText(getApplicationContext(), "You click add bookmark", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.epub_help) {
-            Toast.makeText(getApplicationContext(), "You click help", Toast.LENGTH_SHORT).show();
-        } else if (id == R.id.epub_feedback) {
-            Toast.makeText(getApplicationContext(), "You click feedback", Toast.LENGTH_SHORT).show();
-        }
-        return true;
     }
 
     private boolean checkPermission() {
@@ -580,46 +690,53 @@ public class ReaderActivity extends AppCompatActivity {
                     124);
             return;
         }
-        Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
-        if (location != null) {
-            SharedPreferences sharedPrefs = this.getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
-            String accessToken = sharedPrefs.getString("accessToken", "");
-            Call<DefaultResponseObj> callDetail = apiServices.updateLocation("Bearer " + accessToken, location.getLatitude(), location.getLongitude());
-            callDetail.enqueue(new Callback<DefaultResponseObj>() {
-                @Override
-                public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
-                    System.out.println("Share location " + response.body() + "    " + location);
-                    if (response.body() == null || !response.body().getMesssage().equals("success")) {
-                        onFailure(call, null);
-                        return;
+        SharedPreferences sharedPrefs = this.getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+        boolean isLogin = sharedPrefs.getBoolean("isLoggedIn", false);
+        if (!isLogin) {
+            Intent intent = new Intent(ReaderActivity.this, LoginActivity.class);
+            startActivityForResult(intent, 1);
+            Toast.makeText(ReaderActivity.this, R.string.logInRequest, Toast.LENGTH_SHORT).show();
+        } else {
+            Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+            if (location != null) {
+                String accessToken = sharedPrefs.getString("accessToken", "");
+                Call<DefaultResponseObj> callDetail = apiServices.updateLocation("Bearer " + accessToken, location.getLatitude(), location.getLongitude());
+                callDetail.enqueue(new Callback<DefaultResponseObj>() {
+                    @Override
+                    public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                        System.out.println("Share location " + response.body() + "    " + location);
+                        if (response.body() == null || !response.body().getMesssage().equals("success")) {
+                            onFailure(call, null);
+                            return;
+                        }
+
+                        Bundle extras = getIntent().getExtras();
+                        String id = extras.getString("EXTRA_MESSAGE_ID");
+                        Call<DefaultResponseObj> shareResponse = apiServices.shareBook("Bearer " + accessToken, id);
+                        shareResponse.enqueue(new Callback<DefaultResponseObj>() {
+                            @Override
+                            public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                                System.out.println("Share: " + response.body());
+                                if (response.body() == null) {
+                                    onFailure(call, null);
+                                    return;
+                                }
+                                Toast.makeText(ReaderActivity.this, "Đã chia sẻ sách với những người gần bạn", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                                Toast.makeText(ReaderActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
-                    Bundle extras = getIntent().getExtras();
-                    String id = extras.getString("EXTRA_MESSAGE_ID");
-                    Call<DefaultResponseObj> shareResponse = apiServices.shareBook("Bearer " + accessToken, id);
-                    shareResponse.enqueue(new Callback<DefaultResponseObj>() {
-                        @Override
-                        public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
-                            System.out.println("Share: " + response.body());
-                            if (response.body() == null) {
-                                onFailure(call, null);
-                                return;
-                            }
-                            Toast.makeText(ReaderActivity.this, "Đã chia sẻ sách với những người gần bạn", Toast.LENGTH_SHORT).show();
-                        }
-
-                        @Override
-                        public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
-                            Toast.makeText(ReaderActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
-
-                @Override
-                public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
-                    Toast.makeText(ReaderActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                        Toast.makeText(ReaderActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
         }
     }
 

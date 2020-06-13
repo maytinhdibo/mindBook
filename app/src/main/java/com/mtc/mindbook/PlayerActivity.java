@@ -1,11 +1,16 @@
 package com.mtc.mindbook;
 
+import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -24,12 +29,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.github.ybq.android.spinkit.sprite.Sprite;
 import com.github.ybq.android.spinkit.style.DoubleBounce;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mtc.mindbook.models.Track;
+import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.BookDetail;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.remote.APIService;
@@ -73,6 +80,8 @@ public class PlayerActivity extends AppCompatActivity {
     private BottomSheetDialog dialog;
 
     private List<Track> chapters;
+
+    APIService apiServices = APIUtils.getUserService();
 
     private class MediaInit extends NotifyingThread {
         @Override
@@ -127,11 +136,11 @@ public class PlayerActivity extends AppCompatActivity {
             }
         });
 
-        ImageButton backBtn = findViewById(R.id.player_back);
+        ImageButton backBtn = findViewById(R.id.player_share);
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                shareBook();
             }
         });
 
@@ -141,13 +150,11 @@ public class PlayerActivity extends AppCompatActivity {
             startService(new Intent(getBaseContext(), OnClearFromRecentService.class));
         }
 
-        APIService detailService = null;
-        detailService = APIUtils.getUserService();
         Bundle extras = getIntent().getExtras();
 
         String id = extras.getString("EXTRA_MESSAGE_ID");
 
-        Call<DetailReponseObj> callDetail = detailService.detailBook(id);
+        Call<DetailReponseObj> callDetail = apiServices.detailBook(id);
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
@@ -156,7 +163,7 @@ public class PlayerActivity extends AppCompatActivity {
 
                 chapters = Arrays.stream(bookDetail.getAudio().toArray())
                         .sorted()
-                        .map(link -> new Track("Chương " + index.incrementAndGet(), bookDetail.getAuthor(), (String) link, bookDetail.getBookCover()))
+                        .map(link -> new Track("Chương " + index.incrementAndGet(), bookDetail.getBookTitle(), bookDetail.getAuthor(), (String) link, bookDetail.getBookCover()))
                         .collect(Collectors.toList());
 
                 epubTitle = findViewById(R.id.player_booktitle);
@@ -321,6 +328,67 @@ public class PlayerActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void shareBook() {
+        LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(new String[]{
+                            android.Manifest.permission.ACCESS_FINE_LOCATION
+                    },
+                    124);
+            return;
+        }
+        SharedPreferences sharedPrefs = this.getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+        boolean isLogin = sharedPrefs.getBoolean("isLoggedIn", false);
+        if (!isLogin) {
+            playPauseHandler(buttonPlayPause);
+            Intent intent = new Intent(PlayerActivity.this, LoginActivity.class);
+            startActivityForResult(intent, 1);
+            Toast.makeText(PlayerActivity.this, R.string.logInRequest, Toast.LENGTH_SHORT).show();
+        } else {
+            Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+            if (location != null) {
+                String accessToken = sharedPrefs.getString("accessToken", "");
+                Call<DefaultResponseObj> callDetail = apiServices.updateLocation("Bearer " + accessToken, location.getLatitude(), location.getLongitude());
+                callDetail.enqueue(new Callback<DefaultResponseObj>() {
+                    @Override
+                    public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                        System.out.println("Share location " + response.body() + "    " + location);
+                        if (response.body() == null || !response.body().getMesssage().equals("success")) {
+                            onFailure(call, null);
+                            return;
+                        }
+
+                        Bundle extras = getIntent().getExtras();
+                        String id = extras.getString("EXTRA_MESSAGE_ID");
+                        Call<DefaultResponseObj> shareResponse = apiServices.shareBook("Bearer " + accessToken, id);
+                        shareResponse.enqueue(new Callback<DefaultResponseObj>() {
+                            @Override
+                            public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                                System.out.println("Share: " + response.body());
+                                if (response.body() == null) {
+                                    onFailure(call, null);
+                                    return;
+                                }
+                                Toast.makeText(PlayerActivity.this, "Đã chia sẻ sách với những người gần bạn", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                                Toast.makeText(PlayerActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                        Toast.makeText(PlayerActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        }
     }
 
     private void skipTenSeconds() {

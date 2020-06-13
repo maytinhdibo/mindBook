@@ -101,7 +101,7 @@ public class CreateNotification {
 
                 notification = new NotificationCompat.Builder(context, CHANNEL_ID)
                         .setSmallIcon(R.drawable.ic_mindbook)
-                        .setContentTitle(track.getTitle())
+                        .setContentTitle(track.getBookTitle())
                         .setContentText(track.getAuthor())
                         .setLargeIcon(bmp)
                         .setOnlyAlertOnce(true)

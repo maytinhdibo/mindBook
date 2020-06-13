@@ -76,14 +76,13 @@
                     android:orientation="horizontal">
 
                     <ImageButton
-                        android:id="@+id/player_back"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:id="@+id/player_toc"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
                         android:background="@color/transparent"
-                        android:src="@drawable/ic_arrow_back"
+                        android:padding="7dp"
+                        android:src="@drawable/ic_menu"
                         android:tint="@color/white" />
-
-
                     <TextView
                         android:id="@+id/player_booktitle"
                         android:layout_width="wrap_content"
@@ -99,12 +98,11 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-                        android:id="@+id/player_toc"
-                        android:layout_width="34dp"
-                        android:layout_height="34dp"
+                        android:id="@+id/player_share"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
                         android:background="@color/transparent"
-                        android:padding="7dp"
-                        android:src="@drawable/ic_menu"
+                        android:src="@drawable/ic_share"
                         android:tint="@color/white" />
                 </LinearLayout>
 
