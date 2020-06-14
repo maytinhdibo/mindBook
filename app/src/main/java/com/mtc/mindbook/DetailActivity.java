@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.Button;
@@ -22,8 +23,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
-import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
 import com.mtc.mindbook.models.responseObj.detail.BookDetail;
+import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
+import com.mtc.mindbook.models.responseObj.playlist.PlaylistDataResponseObj;
+import com.mtc.mindbook.models.responseObj.playlist.PlaylistResponseObj;
 import com.mtc.mindbook.models.responseObj.rating.RatingComment;
 import com.mtc.mindbook.models.responseObj.rating.RatingCommentsResponseObj;
 import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
@@ -52,16 +55,16 @@ public class DetailActivity extends AppCompatActivity {
     Button loadMoreBtn = null;
 
     SharedPreferences sharedPrefs = null;
+    String accessToken = null;
     boolean isLoggedIn = false;
     String id;
-
+    Integer favoritePlaylistId = null;
     @Override
     protected void onStart() {
-        sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
         isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
 
         sharedPrefs = getBaseContext().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
-
+        accessToken = sharedPrefs.getString("accessToken", "");
         Call<DetailReponseObj> callDetail = apiServices.detailBook(id);
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override
@@ -90,7 +93,7 @@ public class DetailActivity extends AppCompatActivity {
                 ratingBar.setRating(bookDetail.getRating());
 
                 // Render overlay
-                View overlay = (View) findViewById(R.id.book_overlay);
+                View overlay = findViewById(R.id.book_overlay);
                 float height = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 84, getResources().getDisplayMetrics());
                 ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) overlay.getLayoutParams();
                 title.post(new Runnable() {
@@ -173,6 +176,8 @@ public class DetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
+        accessToken = sharedPrefs.getString("accessToken", "");
         setContentView(R.layout.activity_detail);
 
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
@@ -182,16 +187,46 @@ public class DetailActivity extends AppCompatActivity {
 
 
         View view = findViewById(android.R.id.content).getRootView();
+//        List<PlaylistDataResponseObj> playlists= null;
+        Call<PlaylistResponseObj> getPlaylists = apiServices.getUserPlaylistList("Bearer " + accessToken);
+        getPlaylists.enqueue(new Callback<PlaylistResponseObj>() {
+            @Override
+            public void onResponse(Call<PlaylistResponseObj> call, Response<PlaylistResponseObj> response) {
+                List<PlaylistDataResponseObj> playlists = response.body().getData();
+                favoritePlaylistId = playlists.get(0).getPlaylistId();
+            }
 
-        //open search
-        ImageView likeBtn = (ImageView) findViewById(R.id.like_btn);
+            @Override
+            public void onFailure(Call<PlaylistResponseObj> call, Throwable t) {
+                Log.d(",...", "onResponse: " + t.getMessage());
+            }
+        });
+        ImageView likeBtn = findViewById(R.id.like_btn);
         likeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isLoggedIn) {
-                    Intent intent = new Intent(v.getContext(), SearchActivity.class);
-                    intent.putExtra("EXTRA_TAG", "viễn tưởng");
-                    v.getContext().startActivity(intent);
+                    Call<DefaultResponseObj> favoriteBook = apiServices.favoriteBook("Bearer " + accessToken, favoritePlaylistId, id);
+                    favoriteBook.enqueue(new Callback<DefaultResponseObj>() {
+                        @Override
+                        public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                            if (response.body() == null) {
+                                onFailure(call, null);
+                                return;
+                            }
+                            if (response.body().getMesssage().equals("Success")) {
+                                Toast.makeText(getBaseContext(), "Đã thêm vào yêu thích", Toast.LENGTH_SHORT);
+                            } else {
+                                Toast.makeText(getBaseContext(), "Sách đã tồn tại trong danh sách yêu thích", Toast.LENGTH_SHORT);
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                            Log.d("failed", "onFailure: " + t.getMessage());
+                        }
+                    });
+
                 } else {
                     Intent intent = new Intent(v.getContext(), LoginActivity.class);
                     startActivityForResult(intent, 1);
@@ -201,8 +236,8 @@ public class DetailActivity extends AppCompatActivity {
         });
 
 
-        final LinearLayout readButton = (LinearLayout) findViewById(R.id.read_btn);
-        final LinearLayout listenButton = (LinearLayout) findViewById(R.id.listen_btn);
+        final LinearLayout readButton = findViewById(R.id.read_btn);
+        final LinearLayout listenButton = findViewById(R.id.listen_btn);
 
         readButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -249,7 +284,7 @@ public class DetailActivity extends AppCompatActivity {
         reviewDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
         //write review
 
-        TextView more = (TextView) findViewById(R.id.write_review);
+        TextView more = findViewById(R.id.write_review);
         more.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 if (!isLoggedIn) {
@@ -262,7 +297,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        Button closeReviewDialogBtn = (Button) reviewDialog.findViewById(R.id.cancel_review_dialog);
+        Button closeReviewDialogBtn = reviewDialog.findViewById(R.id.cancel_review_dialog);
         closeReviewDialogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -270,14 +305,13 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        EditText commentText = (EditText) reviewDialog.findViewById(R.id.comment);
-        RatingBar ratingBar = (RatingBar) reviewDialog.findViewById(R.id.rate);
+        EditText commentText = reviewDialog.findViewById(R.id.comment);
+        RatingBar ratingBar = reviewDialog.findViewById(R.id.rate);
 
-        Button reviewPostDialogBtn = (Button) reviewDialog.findViewById(R.id.review_post);
+        Button reviewPostDialogBtn = reviewDialog.findViewById(R.id.review_post);
         reviewPostDialogBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String accessToken = sharedPrefs.getString("accessToken", "");
                 String comment = commentText.getText().toString();
                 int rate = (int) ratingBar.getRating();
                 if (rate == 0) {
@@ -307,7 +341,7 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
 
-        loadMoreBtn = (Button) findViewById(R.id.load_comment);
+        loadMoreBtn = findViewById(R.id.load_comment);
 
 
         loadComment(limitComment, pageComment);

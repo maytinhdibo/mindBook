@@ -25,18 +25,23 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/playlist_detail_book_list"
-                style="@style/Widget.AppCompat.Light.ListView.DropDown"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:clipToPadding="false"
-                android:divider="@null"
-                android:nestedScrollingEnabled="false"
-                android:orientation="horizontal"
-                android:paddingVertical="6pt"
-                android:paddingEnd="8pt"
-                android:scrollbars="none" />
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/playlist_detail_book_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:divider="@null"
+                    android:nestedScrollingEnabled="false"
+                    android:orientation="horizontal"
+                    android:paddingVertical="6pt"
+                    android:paddingEnd="8pt"
+                    android:scrollbars="none" />
+            </ScrollView>
         </LinearLayout>
+
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

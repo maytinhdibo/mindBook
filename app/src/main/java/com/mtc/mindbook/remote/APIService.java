@@ -58,6 +58,11 @@ public interface APIService {
                                                       @Query("playlist_id") Integer playlistId,
                                                       @Query("lang") String language);
 
+    @POST("/user/playlist/detail")
+    Call<DefaultResponseObj> favoriteBook(@Header("Authorization") String token,
+                                          @Query("playlist_id") Integer playlistId,
+                                          @Query("book_id") String bookId);
+
     @GET("books/ratings")
     Call<RatingCommentsResponseObj> getRatingComment(@Query("book_id") String bookId,
                                                      @Query("limit") int limit,
