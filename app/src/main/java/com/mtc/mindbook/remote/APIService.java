@@ -14,6 +14,7 @@ import com.mtc.mindbook.models.responseObj.search.SearchResponseObj;
 import com.mtc.mindbook.models.responseObj.user.UserResponseObj;
 
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -53,6 +54,10 @@ public interface APIService {
     @GET("/user/playlist")
     Call<PlaylistResponseObj> getUserPlaylistList(@Header("Authorization") String token);
 
+    @POST("/user/playlist")
+    Call<DefaultResponseObj> newPlaylist(@Header("Authorization") String token,
+                                         @Query("playlist_name") String playlistName);
+
     @GET("/user/playlist/detail")
     Call<PlaylistDetailResponseObj> getPlaylistDetail(@Header("Authorization") String token,
                                                       @Query("playlist_id") Integer playlistId,
@@ -62,6 +67,11 @@ public interface APIService {
     Call<DefaultResponseObj> favoriteBook(@Header("Authorization") String token,
                                           @Query("playlist_id") Integer playlistId,
                                           @Query("book_id") String bookId);
+
+    @DELETE("/user/playlist/detail")
+    Call<DefaultResponseObj> deleteBookFromPlaylist(@Header("Authorization") String token,
+                                                    @Query("playlist_id") Integer playlistId,
+                                                    @Query("book_id") String bookId);
 
     @GET("books/ratings")
     Call<RatingCommentsResponseObj> getRatingComment(@Query("book_id") String bookId,

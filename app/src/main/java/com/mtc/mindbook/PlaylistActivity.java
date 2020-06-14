@@ -1,5 +1,6 @@
 package com.mtc.mindbook;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -26,6 +27,9 @@ import retrofit2.Response;
 public class PlaylistActivity extends AppCompatActivity {
     TextView title = null;
     RecyclerView bookList = null;
+    private Integer playlistId;
+    private Context context = this;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +48,7 @@ public class PlaylistActivity extends AppCompatActivity {
         bookList.setLayoutManager(layoutManager);
 
         Intent parentIntent = getIntent();
-        Integer playlistId = parentIntent.getIntExtra("playlistId", 1);
+        playlistId = parentIntent.getIntExtra("playlistId", 1);
         String playlistTitle = parentIntent.getStringExtra("title");
 
         title.setText(playlistTitle);
@@ -62,7 +66,7 @@ public class PlaylistActivity extends AppCompatActivity {
                     return;
                 }
                 List<PlaylistDetailItem> books = response.body().getData();
-                PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(books);
+                PlaylistDetailAdapter adapter = new PlaylistDetailAdapter(books, playlistId);
                 bookList.setAdapter(adapter);
             }
 
@@ -71,5 +75,11 @@ public class PlaylistActivity extends AppCompatActivity {
                 Log.d("d", "onFailure: " + t.getMessage());
             }
         });
+    }
+
+    public void resetActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
     }
 }

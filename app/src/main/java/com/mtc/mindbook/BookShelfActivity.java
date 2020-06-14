@@ -2,9 +2,9 @@ package com.mtc.mindbook;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.mtc.mindbook.models.playlist.BookshelfAdapter;
+import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.playlist.PlaylistDataResponseObj;
 import com.mtc.mindbook.models.responseObj.playlist.PlaylistResponseObj;
 import com.mtc.mindbook.remote.APIService;
@@ -30,6 +31,9 @@ import retrofit2.Response;
 public class BookShelfActivity extends AppCompatActivity {
     private Dialog newPlaylistDialog = null;
     private Context context = this;
+    APIService userService = null;
+    SharedPreferences sharedPrefs = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,14 +46,21 @@ public class BookShelfActivity extends AppCompatActivity {
                 getResources().getIdentifier("status_bar_height", "dimen", "android")
         ), 0, 0);
 
+        sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
+
+        FloatingActionButton fab = findViewById(R.id.new_playlist_button);
+        Button submitNewPlaylistDialog = findViewById(R.id.submit_new_playlist_dialog);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         RecyclerView listView = this.findViewById(R.id.list_playlists);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
 
         listView.setLayoutManager(layoutManager);
-        SharedPreferences sharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
         String token = "Bearer " + sharedPrefs.getString("accessToken", "");
-        APIService userService = null;
         userService = APIUtils.getUserService();
         Call<PlaylistResponseObj> fetchBookshelf = userService.getUserPlaylistList(token);
         fetchBookshelf.enqueue(new Callback<PlaylistResponseObj>() {
@@ -69,9 +80,6 @@ public class BookShelfActivity extends AppCompatActivity {
                 Toast.makeText(BookShelfActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
             }
         });
-
-        FloatingActionButton fab = findViewById(R.id.new_playlist_button);
-        Button submitNewPlaylistDialog = findViewById(R.id.submit_new_playlist_dialog);
     }
 
     public void onNewPlaylistClicked(View view) {
@@ -87,11 +95,29 @@ public class BookShelfActivity extends AppCompatActivity {
     public void onPlaylistSubmit(View view) {
         EditText newPlaylistName = newPlaylistDialog.findViewById(R.id.new_playlist_name);
         String name = newPlaylistName.getText().toString();
-        Log.d("e", "asdsd " + name);
         if (name.equals("") || name.equals(" ")) {
             Toast.makeText(getBaseContext(), "Tên playlist không được để trống.", Toast.LENGTH_SHORT).show();
             return;
         } else {
+            String token = "Bearer " + sharedPrefs.getString("accessToken", "");
+            Call<DefaultResponseObj> addNewPlaylist = userService.newPlaylist(token, newPlaylistName.getText().toString());
+            addNewPlaylist.enqueue(new Callback<DefaultResponseObj>() {
+                @Override
+                public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                    if (!response.body().getMesssage().equals("success")) {
+                        Toast.makeText(context, "Tạo playlist không thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Intent intent = getIntent();
+                        finish();
+                        startActivity(intent);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                    Toast.makeText(context, "Network error", Toast.LENGTH_SHORT).show();
+                }
+            });
             newPlaylistDialog.dismiss();
         }
     }

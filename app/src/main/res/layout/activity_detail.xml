@@ -297,9 +297,9 @@
             android:background="@drawable/detail_button"
             android:backgroundTint="@color/overlayBgPrimary"
             android:backgroundTintMode="src_over"
-            android:padding="18dp"
+            android:padding="12dp"
             android:scaleType="fitCenter"
-            android:src="@drawable/ic_heart_fill"
+            android:src="@drawable/ic_add"
             android:text="Like"
             android:tint="#FF5E96" />
 

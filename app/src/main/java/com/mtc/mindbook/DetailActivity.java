@@ -215,9 +215,9 @@ public class DetailActivity extends AppCompatActivity {
                                 return;
                             }
                             if (response.body().getMesssage().equals("Success")) {
-                                Toast.makeText(getBaseContext(), "Đã thêm vào yêu thích", Toast.LENGTH_SHORT);
+                                Toast.makeText(DetailActivity.this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
                             } else {
-                                Toast.makeText(getBaseContext(), "Sách đã tồn tại trong danh sách yêu thích", Toast.LENGTH_SHORT);
+                                Toast.makeText(DetailActivity.this, "Sách đã tồn tại trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
                             }
                         }
 
