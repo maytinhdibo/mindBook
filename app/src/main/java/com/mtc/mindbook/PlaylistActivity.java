@@ -3,6 +3,7 @@ package com.mtc.mindbook;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -67,7 +68,7 @@ public class PlaylistActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PlaylistDetailResponseObj> call, Throwable t) {
-
+                Log.d("d", "onFailure: " + t.getMessage());
             }
         });
     }

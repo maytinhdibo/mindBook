@@ -18,7 +18,7 @@ public class PlaylistDetailItem {
     private String bookCover;
     @SerializedName("rating")
     @Expose
-    private Integer rating;
+    private Double rating;
     @SerializedName("author")
     @Expose
     private String author;
@@ -53,11 +53,11 @@ public class PlaylistDetailItem {
         this.bookCover = bookCover;
     }
 
-    public Integer getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(Integer rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 
