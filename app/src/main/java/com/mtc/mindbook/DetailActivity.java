@@ -22,6 +22,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mtc.mindbook.models.playlist.AddlistAdapter;
 import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.BookDetail;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
@@ -45,6 +46,7 @@ import retrofit2.Response;
 
 public class DetailActivity extends AppCompatActivity {
 
+    Context context = this;
     List<RatingComment> ratingCommentList = new ArrayList<>();
 
     private APIService apiServices = APIUtils.getUserService();
@@ -58,6 +60,7 @@ public class DetailActivity extends AppCompatActivity {
     String accessToken = null;
     boolean isLoggedIn = false;
     String id;
+    List<PlaylistDataResponseObj> addlist = null;
     Integer favoritePlaylistId = null;
     @Override
     protected void onStart() {
@@ -192,8 +195,8 @@ public class DetailActivity extends AppCompatActivity {
         getPlaylists.enqueue(new Callback<PlaylistResponseObj>() {
             @Override
             public void onResponse(Call<PlaylistResponseObj> call, Response<PlaylistResponseObj> response) {
-                List<PlaylistDataResponseObj> playlists = response.body().getData();
-                favoritePlaylistId = playlists.get(0).getPlaylistId();
+                addlist = response.body().getData();
+                favoritePlaylistId = addlist.get(0).getPlaylistId();
             }
 
             @Override
@@ -206,24 +209,25 @@ public class DetailActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (isLoggedIn) {
-                    Call<DefaultResponseObj> favoriteBook = apiServices.favoriteBook("Bearer " + accessToken, favoritePlaylistId, id);
-                    favoriteBook.enqueue(new Callback<DefaultResponseObj>() {
-                        @Override
-                        public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
-                            if (response.body() == null) {
-                                onFailure(call, null);
-                                return;
-                            }
-                            if (response.body().getMesssage().equals("Success")) {
-                                Toast.makeText(DetailActivity.this, "Đã thêm vào yêu thích", Toast.LENGTH_SHORT).show();
-                            } else {
-                                Toast.makeText(DetailActivity.this, "Sách đã tồn tại trong danh sách yêu thích", Toast.LENGTH_SHORT).show();
-                            }
-                        }
+                    Dialog addlistDialog = new Dialog(context);
+                    addlistDialog.setContentView(R.layout.add_book_to_playlist_dialog);
+                    addlistDialog.show();
 
+
+                    RecyclerView addlistView = addlistDialog.findViewById(R.id.addlist_playlist);
+
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
+                    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                    addlistView.setLayoutManager(layoutManager);
+
+                    AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, id, addlistDialog);
+                    addlistView.setAdapter(addlistAdapter);
+
+                    Button cancel = addlistDialog.findViewById(R.id.addlist_cancel);
+                    cancel.setOnClickListener(new View.OnClickListener() {
                         @Override
-                        public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
-                            Log.d("failed", "onFailure: " + t.getMessage());
+                        public void onClick(View v) {
+                            addlistDialog.dismiss();
                         }
                     });
 
@@ -234,7 +238,6 @@ public class DetailActivity extends AppCompatActivity {
                 }
             }
         });
-
 
         final LinearLayout readButton = findViewById(R.id.read_btn);
         final LinearLayout listenButton = findViewById(R.id.listen_btn);

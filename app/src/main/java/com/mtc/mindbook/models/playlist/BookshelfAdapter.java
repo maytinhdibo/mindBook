@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -36,7 +37,11 @@ public class BookshelfAdapter extends RecyclerView.Adapter<BookshelfAdapter.Recy
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Utils.openPlaylistDetail(v.getContext(), data.get(position).getPlaylistId(), data.get(position).getName());
+                if (data.get(position).getBooksCount() == 0) {
+                    Toast.makeText(v.getContext(), "Chưa có sách trong playlist này", Toast.LENGTH_SHORT).show();
+                } else {
+                    Utils.openPlaylistDetail(v.getContext(), data.get(position).getPlaylistId(), data.get(position).getName());
+                }
             }
         });
     }

@@ -64,9 +64,9 @@ public interface APIService {
                                                       @Query("lang") String language);
 
     @POST("/user/playlist/detail")
-    Call<DefaultResponseObj> favoriteBook(@Header("Authorization") String token,
-                                          @Query("playlist_id") Integer playlistId,
-                                          @Query("book_id") String bookId);
+    Call<DefaultResponseObj> addBookToPlaylist(@Header("Authorization") String token,
+                                               @Query("playlist_id") Integer playlistId,
+                                               @Query("book_id") String bookId);
 
     @DELETE("/user/playlist/detail")
     Call<DefaultResponseObj> deleteBookFromPlaylist(@Header("Authorization") String token,
