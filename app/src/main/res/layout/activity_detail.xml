@@ -290,18 +290,18 @@
         </LinearLayout>
 
         <ImageView
-            android:id="@+id/like_btn"
+            android:id="@+id/add_btn"
             android:layout_width="60dp"
             android:layout_height="55dp"
             android:layout_marginLeft="6dp"
             android:background="@drawable/detail_button"
             android:backgroundTint="@color/overlayBgPrimary"
             android:backgroundTintMode="src_over"
-            android:padding="12dp"
+            android:padding="18dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_add"
-            android:text="Like"
-            android:tint="#FF5E96" />
+            android:text="Add"
+            android:tint="@color/textColor" />
 
     </LinearLayout>
 </LinearLayout>

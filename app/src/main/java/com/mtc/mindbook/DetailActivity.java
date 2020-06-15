@@ -204,8 +204,8 @@ public class DetailActivity extends AppCompatActivity {
                 Log.d(",...", "onResponse: " + t.getMessage());
             }
         });
-        ImageView likeBtn = findViewById(R.id.like_btn);
-        likeBtn.setOnClickListener(new View.OnClickListener() {
+        ImageView addBtn = findViewById(R.id.add_btn);
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (isLoggedIn) {
