@@ -3,12 +3,12 @@ package com.mtc.mindbook;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -35,6 +35,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class HomeFragment extends Fragment {
     RecyclerView listViewTrending;
@@ -82,8 +84,9 @@ public class HomeFragment extends Fragment {
         listViewTrending = rootView.findViewById(R.id.listview_trending);
         listViewTrending.setLayoutManager(layoutManagerTrending);
 
-        loadForYou(listViewForYou, "hi", getContext());
-        loadForYou(randomListView, "ng", getContext());
+        loadForYou(listViewForYou, getContext());
+
+        loadRandom(randomListView, getContext());
 
         loadTrending(getContext());
 
@@ -152,8 +155,42 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void loadForYou(RecyclerView view, String query, Context context) {
-        Call<SearchResponseObj> callDetail = api.search(query);
+    private void loadForYou(RecyclerView view, Context context) {
+        SharedPreferences sharedPrefs = getContext().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+
+        boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
+
+        if (!isLoggedIn) {
+            loadRandom(view, context);
+            return;
+        }
+
+        String accessToken = sharedPrefs.getString("accessToken", "");
+
+        Call<SearchResponseObj> callDetail = api.forYou("Bearer " + accessToken);
+        callDetail.enqueue(new Callback<SearchResponseObj>() {
+            @Override
+            public void onResponse(Call<SearchResponseObj> call, Response<SearchResponseObj> response) {
+                if (response.body() == null) {
+                    onFailure(call, null);
+                    return;
+                }
+                RecyclerForYouViewAdapter forYouAdapter = new RecyclerForYouViewAdapter(response.body().getData());
+                view.setAdapter(forYouAdapter);
+            }
+
+            @Override
+            public void onFailure(Call<SearchResponseObj> call, Throwable t) {
+                try {
+                    Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                }
+            }
+        });
+    }
+
+    private void loadRandom(RecyclerView view, Context context) {
+        Call<SearchResponseObj> callDetail = api.random();
         callDetail.enqueue(new Callback<SearchResponseObj>() {
             @Override
             public void onResponse(Call<SearchResponseObj> call, Response<SearchResponseObj> response) {

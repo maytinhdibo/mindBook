@@ -41,6 +41,7 @@
 
     <!--    Category-->
     <string name="best_novel">Best novel</string>
+    <string name="random">Random books</string>
 
     <!--    Profile-->
     <string name="signup_now">SignUp!</string>

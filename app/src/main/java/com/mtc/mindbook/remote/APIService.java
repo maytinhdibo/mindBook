@@ -41,6 +41,12 @@ public interface APIService {
     @GET("search/")
     Call<SearchResponseObj> search(@Query("text") String searchQuery);
 
+    @GET("recommend/random")
+    Call<SearchResponseObj> random();
+
+    @GET("recommend/for_you")
+    Call<SearchResponseObj> forYou(@Header("Authorization") String token);
+
     @GET("banner/all?limit=5&page=1")
     Call<BannerResponseObj> getBanners();
 

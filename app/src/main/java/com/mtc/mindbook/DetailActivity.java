@@ -77,6 +77,7 @@ public class DetailActivity extends AppCompatActivity {
                 // Render data
                 // Render tag
                 final List<String> listItem = bookDetail.getCategories();
+                
                 final TagAdapter tagAdapter = new TagAdapter(listItem);
                 LinearLayoutManager tagLayoutManager = new LinearLayoutManager(getBaseContext());
                 tagLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -212,7 +213,6 @@ public class DetailActivity extends AppCompatActivity {
                     Dialog addlistDialog = new Dialog(context);
                     addlistDialog.setContentView(R.layout.add_book_to_playlist_dialog);
                     addlistDialog.show();
-
 
                     RecyclerView addlistView = addlistDialog.findViewById(R.id.addlist_playlist);
 
