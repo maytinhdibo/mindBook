@@ -62,22 +62,36 @@ public class DetailActivity extends AppCompatActivity {
     String id;
     List<PlaylistDataResponseObj> addlist = null;
     Integer favoritePlaylistId = null;
+
     @Override
     protected void onStart() {
+        loadDetail();
+        loadMoreBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                loadComment(limitComment, ++pageComment);
+            }
+        });
+
+        super.onStart();
+    }
+
+    private void loadDetail() {
+        Call<DetailReponseObj> callDetail = apiServices.detailBook(id);
         isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
 
         sharedPrefs = getBaseContext().getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
         accessToken = sharedPrefs.getString("accessToken", "");
-        Call<DetailReponseObj> callDetail = apiServices.detailBook(id);
+
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override
             public void onResponse(Call<DetailReponseObj> call, Response<DetailReponseObj> response) {
-                if(response.body()==null) return;
+                if (response.body() == null) return;
                 BookDetail bookDetail = response.body().getData().get(0);
                 // Render data
                 // Render tag
                 final List<String> listItem = bookDetail.getCategories();
-                
+
                 final TagAdapter tagAdapter = new TagAdapter(listItem);
                 LinearLayoutManager tagLayoutManager = new LinearLayoutManager(getBaseContext());
                 tagLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
@@ -127,17 +141,6 @@ public class DetailActivity extends AppCompatActivity {
                 Toast.makeText(getBaseContext(), R.string.err_network, Toast.LENGTH_SHORT).show();
             }
         });
-
-
-        loadMoreBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadComment(limitComment, ++pageComment);
-            }
-        });
-
-        super.onStart();
-
     }
 
     private void loadComment(int limit, int page) {
@@ -326,6 +329,7 @@ public class DetailActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
                         if (response.body() != null) {
+                            loadDetail();
                             loadComment(limitComment, 1);
                         } else {
 
