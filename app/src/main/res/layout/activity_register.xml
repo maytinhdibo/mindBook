@@ -24,7 +24,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
-            android:text="Gia nhập cộng đồng mindBook"
+            android:text="@string/join"
             android:textColor="@color/lightColor"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -103,7 +103,7 @@
             android:layout_marginTop="9dp"
             android:background="@drawable/detail_button"
             android:onClick="onConfirmRegisterClicked"
-            android:text="Đăng ký"
+            android:text="@string/signUp"
             android:textColor="@color/lightColor"
             android:textSize="16sp"
             app:iconTint="@color/colorPrimary"

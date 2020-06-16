@@ -70,7 +70,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Những cuốn sách thú vị"
+                            android:text="@string/des"
                             android:textColor="@color/lightColor"
                             android:textSize="24sp"
                             android:textStyle="bold" />
@@ -78,7 +78,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Đang chờ bạn khám phá tại đây!"
+                            android:text="@string/dessub"
                             android:textColor="@color/lightOpacityColor"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -175,29 +175,28 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="6dp"
                     android:background="@drawable/review_item"
-                    android:textColor="@color/textColor"
-                    android:text="Tủ sách của tôi"
-                    />
+                    android:text="@string/myBookshelf"
+                    android:textColor="@color/textColor" />
 
             </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Choose theme"
+                android:layout_gravity="center"
+                android:text="@string/chooseTheme"
                 android:textAppearance="?attr/textAppearanceHeadline6"
                 android:textColor="@color/textColorOpacity"
                 android:textSize="15sp"
-                android:layout_gravity="center"
                 android:textStyle="bold" />
 
             <View
                 android:layout_width="21dp"
                 android:layout_height="2dp"
                 android:layout_gravity="center"
-                android:backgroundTint="@color/textColorOpacity"
+                android:layout_marginVertical="3dp"
                 android:background="@drawable/review_item"
-                android:layout_marginVertical="3dp"/>
+                android:backgroundTint="@color/textColorOpacity" />
 
             <!-- Setting -->
             <LinearLayout
@@ -228,7 +227,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Light theme"
+                        android:text="@string/lightTheme"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -253,7 +252,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Dark theme"
+                        android:text="@string/darkTheme"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -268,7 +267,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

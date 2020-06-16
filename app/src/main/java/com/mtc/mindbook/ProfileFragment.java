@@ -55,7 +55,7 @@ public class ProfileFragment extends Fragment {
                     editor.putBoolean("isLoggedIn", false);
                     editor.commit();
                     userInfoWrapper.setGravity(Gravity.CENTER);
-                    userFullNameTextView.setText("Đăng nhập");
+                    userFullNameTextView.setText(R.string.login);
                     userEmailTextView.setVisibility(View.GONE);
                     logout.setVisibility(View.GONE);
                     userInfoWrapper.setOnClickListener(new View.OnClickListener() {
@@ -122,7 +122,7 @@ public class ProfileFragment extends Fragment {
             logout.setVisibility(View.VISIBLE);
         } else {
             userInfoWrapper.setGravity(Gravity.CENTER);
-            userFullNameTextView.setText("Đăng nhập");
+            userFullNameTextView.setText(R.string.login);
             userEmailTextView.setVisibility(View.GONE);
             logout.setVisibility(View.GONE);
             userInfoWrapper.setOnClickListener(new View.OnClickListener() {
@@ -140,7 +140,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 1){
+        if (requestCode == 1) {
             if (resultCode != 0) {
                 userFullNameTextView.setText(sharedPrefs.getString("userFullName", ""));
                 userEmailTextView.setText(sharedPrefs.getString("userEmail", ""));
@@ -149,7 +149,6 @@ public class ProfileFragment extends Fragment {
             }
         }
     }
-
 
 
 }

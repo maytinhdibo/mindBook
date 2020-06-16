@@ -53,6 +53,21 @@
     <string name="toc">Table of content</string>
     <string name="chapter">Chapter</string>
 
+    <!--    Profile-->
+    <string name="des">Interesting books</string>
+    <string name="dessub">are waiting for you to discover!</string>
+    <string name="myBookshelf">My bookshelf</string>
+
+    <string name="login">Login</string>
+    <string name="signUp">Sign Up</string>
+    <string name="join">Join the mindBook community</string>
+
+
+    <!--    Theme-->
+    <string name="chooseTheme">Choose theme</string>
+    <string name="lightTheme">Light theme</string>
+    <string name="darkTheme">Dark theme</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
