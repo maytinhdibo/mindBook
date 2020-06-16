@@ -36,8 +36,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static android.content.Context.MODE_PRIVATE;
-
 public class HomeFragment extends Fragment {
     RecyclerView listViewTrending;
     RecyclerView listViewForYou;
@@ -50,7 +48,7 @@ public class HomeFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        View rootView = inflater.inflate(R.layout.activity_home, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         rootView.findViewById(R.id.main_layout).setPaddingRelative(0, getResources().getDimensionPixelSize(
                 getResources().getIdentifier("status_bar_height", "dimen", "android")

@@ -33,7 +33,7 @@ public class ProfileFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View rootView = inflater.inflate(R.layout.activity_profile, container, false);
+        final View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
         rootView.findViewById(R.id.title_bar).setPaddingRelative(0, getResources().getDimensionPixelSize(
                 getResources().getIdentifier("status_bar_height", "dimen", "android")
         ), 0, 0);
