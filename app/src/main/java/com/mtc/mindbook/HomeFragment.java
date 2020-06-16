@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,9 +19,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.mtc.mindbook.models.RecyclerViewAdapter;
 import com.mtc.mindbook.models.foryou.RecyclerForYouViewAdapter;
 import com.mtc.mindbook.models.responseObj.BookItem;
-import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.banner.Banner;
 import com.mtc.mindbook.models.responseObj.banner.BannerResponseObj;
+import com.mtc.mindbook.models.responseObj.catetory.trending.BookTrendResponseObj;
 import com.mtc.mindbook.models.responseObj.search.SearchResponseObj;
 import com.mtc.mindbook.models.slideshow.SlideShowAdapter;
 import com.mtc.mindbook.remote.APIService;
@@ -40,14 +39,14 @@ public class HomeFragment extends Fragment {
     RecyclerView listViewTrending;
     RecyclerView listViewForYou;
     RecyclerView randomListView;
-
+    Context baseContext;
     APIService api = APIUtils.getUserService();
 
     @SuppressLint("WrongConstant")
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+        baseContext = getContext();
         View rootView = inflater.inflate(R.layout.fragment_home, container, false);
 
         rootView.findViewById(R.id.main_layout).setPaddingRelative(0, getResources().getDimensionPixelSize(
@@ -146,7 +145,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<BookTrendResponseObj> call, Throwable t) {
                 try {
-                    Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT).show();
+                    if (baseContext != null) {
+                        Intent networkErr = new Intent(baseContext, NetworkErrorActivity.class);
+                        startActivity(networkErr);
+                    }
                 } catch (Exception e) {
                 }
             }
@@ -180,7 +183,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<SearchResponseObj> call, Throwable t) {
                 try {
-                    Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                 }
             }
@@ -203,7 +206,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onFailure(Call<SearchResponseObj> call, Throwable t) {
                 try {
-                    Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(context, R.string.err_network, Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                 }
             }
