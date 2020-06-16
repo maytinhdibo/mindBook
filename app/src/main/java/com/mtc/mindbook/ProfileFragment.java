@@ -58,6 +58,7 @@ public class ProfileFragment extends Fragment {
                     userFullNameTextView.setText(R.string.login);
                     userEmailTextView.setVisibility(View.GONE);
                     logout.setVisibility(View.GONE);
+                    goToBookShelf.setVisibility(View.GONE);
                     userInfoWrapper.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -120,11 +121,13 @@ public class ProfileFragment extends Fragment {
             userEmailTextView.setVisibility(View.VISIBLE);
             userInfoWrapper.setGravity(Gravity.LEFT);
             logout.setVisibility(View.VISIBLE);
+            goToBookShelf.setVisibility(View.VISIBLE);
         } else {
             userInfoWrapper.setGravity(Gravity.CENTER);
             userFullNameTextView.setText(R.string.login);
             userEmailTextView.setVisibility(View.GONE);
             logout.setVisibility(View.GONE);
+            goToBookShelf.setVisibility(View.GONE);
             userInfoWrapper.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -152,7 +155,3 @@ public class ProfileFragment extends Fragment {
 
 
 }
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                transaction.add(R.id.profile_main_frame, new LoginFragment());
-//                transaction.addToBackStack(null);
-//                transaction.commit();

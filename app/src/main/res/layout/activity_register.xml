@@ -81,6 +81,7 @@
             android:background="@drawable/light_round"
             android:textColor="@color/dark"
             android:textColorHint="@color/dark_grey"
+            android:inputType="textPassword"
             android:hint="@string/hint_password"
             android:textSize="14sp" />
 
@@ -92,6 +93,7 @@
             android:background="@drawable/light_round"
             android:textColor="@color/dark"
             android:textColorHint="@color/dark_grey"
+            android:inputType="textPassword"
             android:hint="@string/hint_repassword"
             android:textSize="14sp" />
 
