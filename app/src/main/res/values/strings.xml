@@ -107,5 +107,12 @@
     <string name="no_data">No data</string>
     <string name="share_epub">Share Epub</string>
     <string name="epub_search_hint_text">Nhập từ khóa</string>
+    <string name="read">Read</string>
+    <string name="listen">Listen</string>
+    <string name="textColor">Text color</string>
+    <string name="bgColor">Background color</string>
+    <string name="selectFont">Select font</string>
+    <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
 
 </resources>

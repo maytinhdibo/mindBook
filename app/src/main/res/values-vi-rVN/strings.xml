@@ -1,0 +1,118 @@
+<resources>
+    <string name="app_name">mindBook</string>
+    <string name="app_desc">Ứng dụng sách nói tốt nhất!</string>
+    <string name="nav_home">Nhà</string>
+    <string name="nav_explore">Khám phá</string>
+    <string name="nav_lib">Thư viện</string>
+    <string name="nav_profile">Cá nhân</string>
+
+    <string name="for_you">Dành cho bạn</string>
+    <string name="intro">Giới thiệu</string>description
+    <string name="desc">Giới thiệu</string>
+    <string name="review">Đánh giá</string>
+
+    <string name="write_review">Viết đánh giá của bạn</string>
+    <string name="write_review_hint">Để lại những trải nghiệm của bạn...</string>
+
+
+    <string name="top_trend">Thịnh hành</string>
+
+    <string name="community">Cộng đồng</string>
+    <string name="nearby">Gần đây</string>
+
+    <string name="enter_search">Nhập từ khóa để tìm kiếm...</string>
+
+    <!--    Location-->
+    <string name="req_location_des">Bạn cần cung cấp quyền truy cập vị trí cho mindBook để sử dụng thẻ này.</string>
+    <string name="req_location">Mở cài đặt vị trí</string>
+
+    <!--    Network-->
+    <string name="err_network">Không thể kết nối đến máy chủ</string>
+
+    <!--    Search-->
+    <string name="not_found">Không thể tìm thấy bất kì kết quả nào với từ khóa bạn đã cung cấp.</string>
+
+    <!--    Common-->
+    <string name="err_action">Không thể thực hiện hành động này</string>
+    <string name="loadMoreReview">Tải thêm đánh giá</string>
+    <string name="loading">Đang tải</string>
+    <string name="logInRequest">Hãy đăng nhập để sử dụng tính năng này.</string>
+    <string name="openLogin">Mở trang đăng nhập</string>
+
+    <!--    Category-->
+    <string name="best_novel">Best novel</string>
+    <string name="random">Sách ngẫu nghiên</string>
+
+    <!--    Profile-->
+    <string name="signup_now">Đăng ký!</string>
+    <string name="ques_register">Bạn chưa có tài khoản?</string>
+
+    <string name="require_star">Vui lòng lựa chọn sao đánh giá</string>
+
+    <!--    epub reader-->
+    <string name="toc">Mục lục</string>
+    <string name="chapter">Chương</string>
+
+    <!--    Profile-->
+    <string name="des">Những cuốn sánh thú vị</string>
+    <string name="dessub">Đang chờ bạn khám phá tại đây</string>
+    <string name="myBookshelf">Tủ sách của tôi</string>
+
+    <string name="login">Đăng nhập</string>
+    <string name="signUp">Đăng ký</string>
+    <string name="join">Tham gia động đồng mindbook nào!</string>
+
+
+    <!--    Theme-->
+    <string name="chooseTheme">Chọn chủ đề</string>
+    <string name="lightTheme">Chủ đề sáng</string>
+    <string name="darkTheme">Chủ đề tối</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_username">Tên đăng nhập</string>
+    <string name="hint_password">Mật khẩu</string>
+    <string name="hint_firstname">Họ</string>
+    <string name="hint_lastname">Tên</string>
+    <string name="hint_email">Thư điện tử</string>
+    <string name="hint_repassword">Xác nhận mật khẩu</string>
+    <string name="loading_epub_title">Đang tải...</string>
+    <string name="favorite">Yêu tích</string>
+    <string name="content_description_favorite">Favorite</string>
+    <string name="epub_search">Tìm kiếm</string>
+    <string name="description_epub_search">Search</string>
+    <string name="more">Thêm nữa</string>
+    <string name="content_description_more">Thêm nữa</string>
+    <string name="previous_chapter">Chương trước</string>
+    <string name="next_chapter">Chương kế</string>
+    <string name="love">Love</string>
+    <string name="custom_reader">Tùy chỉnh trình đọc</string>
+    <string name="bottom_sheet_text_size">Cỡ chữ</string>
+    <string name="bottom_sheet_choose_font">Chọn font</string>
+    <string name="merriweather_font">Merriweather</string>
+    <string name="volkhov_font">Volkhov</string>
+    <string name="literata_font">Literata</string>
+    <string name="open_sans_font">Open Sans</string>
+    <string name="epub_dark_template">Tối</string>
+    <string name="epub_light_template">Sáng</string>
+    <string name="epub_paper_template">Giấy</string>
+    <string name="epub_ocean_template">Xanh</string>
+    <string name="appName">mindBook</string>
+    <string name="description_blurred_image" />
+    <string name="description_track_image">Image of the track</string>
+    <string name="progress_start_val">00:00</string>
+    <string name="button_mute_description">Mute/UnMute volume</string>
+    <string name="button_play_pause">play/pause button</string>
+    <string name="no_data">No data</string>
+    <string name="share_epub">Chia sẻ sách</string>
+    <string name="epub_search_hint_text">Nhập từ khóa</string>
+    <string name="read">Đọc</string>
+    <string name="listen">Nghe</string>
+    <string name="textColor">Màu chữ</string>
+    <string name="bgColor">Màu nền</string>
+    <string name="selectFont">Chọn phông chữ</string>
+    <string name="cancel">Hủy</string>
+    <string name="done">Xong</string>
+
+</resources>

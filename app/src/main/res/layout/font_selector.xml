@@ -30,7 +30,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Select Font"
+            android:text="@string/selectFont"
             android:paddingStart="10dp"
             android:textColor="@color/textColor"
             android:textSize="18sp" />

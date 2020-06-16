@@ -220,7 +220,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Text color"
+            android:text="@string/textColor"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 
@@ -263,7 +263,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="Background color"
+            android:text="@string/bgColor"
             android:textColor="@color/textColor"
             android:textSize="16sp" />
 

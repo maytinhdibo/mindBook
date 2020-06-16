@@ -256,7 +256,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Read"
+                    android:text="@string/read"
                     android:textAllCaps="false"
                     android:textColor="#fff"
                     android:textStyle="bold" />
@@ -282,7 +282,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Listen"
+                    android:text="@string/listen"
                     android:textAllCaps="false"
                     android:textColor="#fff"
                     android:textStyle="bold" />

@@ -50,7 +50,7 @@
             android:onClick="onCancelDialog"
             android:padding="0dp"
             android:paddingRight="30dp"
-            android:text="Cancel"
+            android:text="@string/cancel"
             android:textAllCaps="true"
             android:textColor="@color/grayColor"
             android:textStyle="bold" />
@@ -68,7 +68,7 @@
             android:layout_margin="0dp"
             android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            android:text="Done"
+            android:text="@string/done"
             android:textAllCaps="true"
             android:onClick="onPlaylistSubmit" />
     </RelativeLayout>
