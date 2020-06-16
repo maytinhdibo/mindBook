@@ -292,7 +292,7 @@
         <ImageView
             android:id="@+id/add_btn"
             android:layout_width="60dp"
-            android:layout_height="54dp"
+            android:layout_height="55dp"
             android:layout_marginLeft="6dp"
             android:background="@drawable/detail_button"
             android:backgroundTint="@color/overlayBgPrimary"
