@@ -64,77 +64,76 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/epub_search_bar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:visibility="gone"
-                android:id="@+id/epub_search_bar"
-            >
+                android:visibility="gone">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/backgroundPrimary"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:paddingHorizontal="6pt"
-                android:paddingTop="0dp"
-                app:layout_scrollFlags="scroll|enterAlways"
-                app:titleTextColor="@color/textColor">
-
-                <EditText
-                    android:id="@+id/search_keyword"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:hint="@string/epub_search_hint_text"
-                    android:inputType="text"
-                    android:textSize="16sp" />
+                    android:background="@color/backgroundPrimary"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="6pt"
+                    android:paddingTop="0dp"
+                    app:layout_scrollFlags="scroll|enterAlways"
+                    app:titleTextColor="@color/textColor">
 
-                <ImageButton
-                    android:id="@+id/epub_search_next"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:src="@drawable/ic_chevron_left"
-                    android:background="@color/transparent"
-                    android:tint="@color/colorPrimary" />
+                    <EditText
+                        android:id="@+id/search_keyword"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:hint="@string/epub_search_hint_text"
+                        android:inputType="text"
+                        android:textSize="16sp" />
 
-                <ImageButton
-                    android:id="@+id/epub_search_back"
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:src="@drawable/ic_chevron_right"
-                    android:background="@color/transparent"
-                    android:tint="@color/colorPrimary" />
+                    <ImageButton
+                        android:id="@+id/epub_search_next"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_chevron_left"
+                        android:tint="@color/colorPrimary" />
+
+                    <ImageButton
+                        android:id="@+id/epub_search_back"
+                        android:layout_width="34dp"
+                        android:layout_height="34dp"
+                        android:background="@color/transparent"
+                        android:src="@drawable/ic_chevron_right"
+                        android:tint="@color/colorPrimary" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="6pt">
+
+                    <TextView
+                        android:id="@+id/epub_search_result_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="7dp"
+                        android:text="Hiển thị kết quả 0 trên 0 kết quả."
+                        android:textSize="12sp" />
+                </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="6pt">
-
-                <TextView
-                    android:id="@+id/epub_search_result_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginBottom="7dp"
-                    android:text="Hiển thị kết quả 0 trên 0 kết quả."
-                    android:textSize="12sp" />
-            </LinearLayout>
         </LinearLayout>
 
-    </LinearLayout>
+        <!--        </com.google.android.material.appbar.AppBarLayout>-->
 
-    <!--        </com.google.android.material.appbar.AppBarLayout>-->
-
-    <WebView
-        android:id="@+id/epub_content"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-</LinearLayout><!--    <androidx.appcompat.widget.Toolbar-->
+        <WebView
+            android:id="@+id/epub_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout><!--    <androidx.appcompat.widget.Toolbar-->
     <!--        android:id="@+id/epub_bottom_bar"-->
     <!--        android:layout_width="match_parent"-->
     <!--        android:layout_height="?attr/actionBarSize"-->
@@ -142,33 +141,33 @@
     <!--        android:background="@color/backgroundPrimary"-->
     <!--        android:theme="@style/ThemeOverlay.AppCompat.Light" />-->
 
-<com.google.android.material.bottomnavigation.BottomNavigationView
-android:background="@color/backgroundPrimary"
-android:id="@+id/epub_bottom_bar"
-android:layout_height="@dimen/epub_bottom_nav"
-android:layout_width="match_parent"
-app:elevation="19dp"
-app:itemIconTint="@color/epub_bottom_nav_item"
-app:itemTextColor="@color/epub_bottom_nav_item"
-app:labelVisibilityMode="unlabeled"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintCircleRadius="3dp"
-app:menu="@menu/epub_bottom_bar" />
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/epub_bottom_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/epub_bottom_nav"
+        android:background="@color/backgroundPrimary"
+        app:elevation="19dp"
+        app:itemIconTint="@color/epub_bottom_nav_item"
+        app:itemTextColor="@color/epub_bottom_nav_item"
+        app:labelVisibilityMode="unlabeled"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintCircleRadius="3dp"
+        app:menu="@menu/epub_bottom_bar" />
 
-<ImageView
-android:background="@drawable/round"
-android:id="@+id/arrow"
-android:layout_height="76dp"
-android:layout_width="76dp"
-android:padding="16dp"
-android:src="@drawable/ic_chevron_left"
-android:tint="#F22D2D2D"
-android:visibility="gone"
-app:layout_constraintBottom_toBottomOf="parent"
-app:layout_constraintEnd_toEndOf="parent"
-app:layout_constraintHorizontal_bias="0.5"
-app:layout_constraintStart_toStartOf="parent"
-app:layout_constraintTop_toTopOf="parent" />
+    <ImageView
+        android:id="@+id/arrow"
+        android:layout_width="76dp"
+        android:layout_height="76dp"
+        android:background="@drawable/round"
+        android:padding="16dp"
+        android:src="@drawable/ic_chevron_left"
+        android:tint="#F22D2D2D"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
