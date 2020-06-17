@@ -114,5 +114,6 @@
     <string name="selectFont">Select font</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="network_error">Check your connection and try again later.</string>
 
 </resources>

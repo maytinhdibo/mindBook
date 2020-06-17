@@ -114,5 +114,6 @@
     <string name="selectFont">Chọn phông chữ</string>
     <string name="cancel">Hủy</string>
     <string name="done">Xong</string>
+    <string name="network_error">Lỗi mạng, xin vui lòng thử lại sau.</string>
 
 </resources>

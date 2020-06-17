@@ -1,6 +1,7 @@
 package com.mtc.mindbook;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -149,6 +150,7 @@ public class HomeFragment extends Fragment {
                     if (baseContext != null) {
                         Intent networkErr = new Intent(baseContext, NetworkErrorActivity.class);
                         startActivity(networkErr);
+                        ((Activity) baseContext).finish();
                     }
                 } catch (Exception e) {
                 }
