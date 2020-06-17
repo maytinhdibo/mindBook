@@ -13,7 +13,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -23,7 +22,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
@@ -58,10 +54,8 @@ import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
 import com.flask.colorpicker.builder.ColorPickerClickListener;
 import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.textfield.TextInputEditText;
 import com.mtc.mindbook.gestures.OnSwipeTouchListener;
 import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.BookDetail;
@@ -72,9 +66,7 @@ import com.mtc.mindbook.remote.APIUtils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import nl.siegmann.epublib.domain.Book;
@@ -136,6 +128,24 @@ public class ReaderActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
 
         String id = extras.getString("EXTRA_MESSAGE_ID");
+
+        SharedPreferences sharedPrefs = this.getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPrefs.getString("accessToken", "");
+        Call<DefaultResponseObj> updateLatestBookRes = apiServices.latestBook("Bearer " + accessToken, id);
+        updateLatestBookRes.enqueue(new Callback<DefaultResponseObj>() {
+            @Override
+            public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                if (response.body() == null) {
+                    onFailure(call, null);
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                Toast.makeText(ReaderActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
+            }
+        });
 
         Call<DetailReponseObj> callDetail = apiServices.detailBook(id);
         callDetail.enqueue(new Callback<DetailReponseObj>() {
@@ -741,11 +751,20 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     private void initConfigBottomValue() {
+
         // Set current Config
         TextView currentFont = dialog.findViewById(R.id.epub_current_font);
         currentFont.setText(fontFamilyString);
         Typeface typeface = getCurrentTypeface();
         currentFont.setTypeface(typeface);
+
+        SharedPreferences userSharedPrefs = getSharedPreferences("userDataPrefs", MODE_PRIVATE);
+        boolean isNightTheme = userSharedPrefs.getBoolean("isNightTheme", true);
+        if (isNightTheme) {
+            ImageView lightBtn = dialog.findViewById(R.id.color_changeable);
+            lightBtn.setColorFilter(ContextCompat.getColor(ReaderActivity.this, R.color.white), android.graphics.PorterDuff.Mode.SRC_IN);
+        }
+
 
         TextView currentFontSize = dialog.findViewById(R.id.epub_current_font_size);
         currentFontSize.setText(fontSize + "px");

@@ -102,6 +102,10 @@ public interface APIService {
     Call<DefaultResponseObj> shareBook(@Header("Authorization") String token,
                                        @Query("book_id") String bookId);
 
+    @POST("/user/update/latest_book")
+    Call<DefaultResponseObj> latestBook(@Header("Authorization") String token,
+                                        @Query("book_id") String bookId);
+
     @GET("user/profile")
     Call<UserResponseObj> fetchUserInfo(@Header("Authorization") String token);
 }

@@ -154,6 +154,24 @@ public class PlayerActivity extends AppCompatActivity {
 
         String id = extras.getString("EXTRA_MESSAGE_ID");
 
+        SharedPreferences sharedPrefs = this.getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+        String accessToken = sharedPrefs.getString("accessToken", "");
+        Call<DefaultResponseObj> updateLatestBookRes = apiServices.latestBook("Bearer " + accessToken, id);
+        updateLatestBookRes.enqueue(new Callback<DefaultResponseObj>() {
+            @Override
+            public void onResponse(Call<DefaultResponseObj> call, Response<DefaultResponseObj> response) {
+                if (response.body() == null) {
+                    onFailure(call, null);
+                    return;
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DefaultResponseObj> call, Throwable t) {
+                Toast.makeText(PlayerActivity.this, R.string.err_network, Toast.LENGTH_SHORT).show();
+            }
+        });
+
         Call<DetailReponseObj> callDetail = apiServices.detailBook(id);
         callDetail.enqueue(new Callback<DetailReponseObj>() {
             @Override

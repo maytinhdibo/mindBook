@@ -53,10 +53,12 @@
             android:orientation="vertical">
 
             <ImageView
+                android:id="@+id/color_changeable"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:contentDescription="@string/bottom_sheet_choose_font"
-                android:src="@drawable/outline_button" />
+                android:src="@drawable/outline_button"
+                />
 
             <TextView
                 android:layout_width="wrap_content"
