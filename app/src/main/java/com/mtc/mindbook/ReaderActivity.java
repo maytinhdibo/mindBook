@@ -4,6 +4,7 @@ import android.Manifest;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -34,6 +35,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -49,6 +51,8 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.flask.colorpicker.ColorPickerView;
 import com.flask.colorpicker.OnColorSelectedListener;
@@ -57,9 +61,12 @@ import com.flask.colorpicker.builder.ColorPickerDialogBuilder;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.mtc.mindbook.gestures.OnSwipeTouchListener;
+import com.mtc.mindbook.models.playlist.AddlistAdapter;
 import com.mtc.mindbook.models.responseObj.DefaultResponseObj;
 import com.mtc.mindbook.models.responseObj.detail.BookDetail;
 import com.mtc.mindbook.models.responseObj.detail.DetailReponseObj;
+import com.mtc.mindbook.models.responseObj.playlist.PlaylistDataResponseObj;
+import com.mtc.mindbook.models.responseObj.playlist.PlaylistResponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
 
@@ -79,6 +86,7 @@ import retrofit2.Response;
 
 public class ReaderActivity extends AppCompatActivity {
 
+    String id;
     private int currentChapter = 0;
     private Book book;
     private WebView epubContent;
@@ -103,8 +111,8 @@ public class ReaderActivity extends AppCompatActivity {
     private LocationManager locationManager;
     private Integer searchResultCount = 0;
     private Integer searchIndexInPage = 0;
-//    private Boolean isSearchDone;
-
+    //    private Boolean isSearchDone;
+    Context context = this;
     APIService apiServices = APIUtils.getUserService();
 
     @Override
@@ -127,9 +135,9 @@ public class ReaderActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
 
-        String id = extras.getString("EXTRA_MESSAGE_ID");
+        id = extras.getString("EXTRA_MESSAGE_ID");
 
-        SharedPreferences sharedPrefs = this.getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
+        sharedPrefs = this.getSharedPreferences("userDataPrefs", Context.MODE_PRIVATE);
         String accessToken = sharedPrefs.getString("accessToken", "");
         Call<DefaultResponseObj> updateLatestBookRes = apiServices.latestBook("Bearer " + accessToken, id);
         updateLatestBookRes.enqueue(new Callback<DefaultResponseObj>() {
@@ -229,7 +237,7 @@ public class ReaderActivity extends AppCompatActivity {
                         dialog.setContentView(view);
                         dialog.show();
 
-                        ListView listTocView = (ListView) dialog.findViewById(R.id.list_toc);
+                        ListView listTocView = dialog.findViewById(R.id.list_toc);
 
                         List<String> values = new ArrayList<>();
 
@@ -430,7 +438,7 @@ public class ReaderActivity extends AppCompatActivity {
 
 
         // Use webview
-        epubContent = (WebView) findViewById(R.id.epub_content);
+        epubContent = findViewById(R.id.epub_content);
 
         WebViewClient webViewClient = new WebViewClient() {
             @Override
@@ -494,7 +502,7 @@ public class ReaderActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         switch (requestCode) {
             case 21: {
                 if (grantResults.length > 0
@@ -633,7 +641,8 @@ public class ReaderActivity extends AppCompatActivity {
                                 break;
                             case R.id.epub_love:
                                 itemIndex = 2;
-                                Toast.makeText(getApplicationContext(), "Love Epub", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(getApplicationContext(), "Love Epub", Toast.LENGTH_SHORT).show();
+                                loadAddlist();
                                 break;
                             case R.id.epub_custom:
                                 itemIndex = 3;
@@ -707,7 +716,7 @@ public class ReaderActivity extends AppCompatActivity {
             startActivityForResult(intent, 1);
             Toast.makeText(ReaderActivity.this, R.string.logInRequest, Toast.LENGTH_SHORT).show();
         } else {
-            Location location = locationManager.getLastKnownLocation(locationManager.NETWORK_PROVIDER);
+            Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
             if (location != null) {
                 String accessToken = sharedPrefs.getString("accessToken", "");
                 Call<DefaultResponseObj> callDetail = apiServices.updateLocation("Bearer " + accessToken, location.getLatitude(), location.getLongitude());
@@ -750,6 +759,47 @@ public class ReaderActivity extends AppCompatActivity {
         }
     }
 
+    List<PlaylistDataResponseObj> addlist = null;
+
+    private void loadAddlist() {
+        String accessToken = sharedPrefs.getString("accessToken", "");
+        Call<PlaylistResponseObj> getPlaylists = apiServices.getUserPlaylistList("Bearer " + accessToken);
+        getPlaylists.enqueue(new Callback<PlaylistResponseObj>() {
+            @Override
+            public void onResponse(Call<PlaylistResponseObj> call, Response<PlaylistResponseObj> response) {
+                addlist = response.body().getData();
+                Dialog addlistDialog = new Dialog(context);
+                addlistDialog.setContentView(R.layout.add_book_to_playlist_dialog);
+                addlistDialog.show();
+                int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.8);
+
+                addlistDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+
+                RecyclerView addlistView = addlistDialog.findViewById(R.id.addlist_playlist);
+
+                LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
+                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                addlistView.setLayoutManager(layoutManager);
+
+                AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, id, addlistDialog);
+                addlistView.setAdapter(addlistAdapter);
+
+                Button cancel = addlistDialog.findViewById(R.id.addlist_cancel);
+                cancel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addlistDialog.dismiss();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(Call<PlaylistResponseObj> call, Throwable t) {
+                Log.d(",...", "onResponse: " + t.getMessage());
+            }
+        });
+
+    }
     private void initConfigBottomValue() {
 
         // Set current Config

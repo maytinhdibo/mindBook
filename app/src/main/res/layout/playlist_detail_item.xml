@@ -77,7 +77,7 @@
             android:layout_marginTop="5pt"
             android:paddingTop="2pt"
             android:singleLine="true"
-            android:text="Xóa"
+            android:text="@string/x_a"
             android:textSize="14sp" />
     </LinearLayout>
 </LinearLayout>

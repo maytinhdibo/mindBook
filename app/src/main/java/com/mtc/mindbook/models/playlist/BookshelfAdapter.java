@@ -33,7 +33,7 @@ public class BookshelfAdapter extends RecyclerView.Adapter<BookshelfAdapter.Recy
     @Override
     public void onBindViewHolder(BookshelfAdapter.RecyclerViewHolder holder, final int position) {
         holder.playlistName.setText(data.get(position).getName());
-        holder.bookCount.setText(data.get(position).getBooksCount() + " Cuốn sách");
+        holder.bookCount.setText(data.get(position).getBooksCount() + " ");
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

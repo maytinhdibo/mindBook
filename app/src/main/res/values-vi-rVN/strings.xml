@@ -115,5 +115,8 @@
     <string name="done">Xong</string>
     <string name="network_error">Lỗi mạng, xin vui lòng thử lại sau.</string>
     <string name="addToBookShelf">Thêm vào giá sách</string>
+    <string name="t_s_ch_c_a_t_i">Tủ sách của tôi</string>
+    <string name="cu_n_s_ch">Cuốn sách</string>
+    <string name="x_a">Xóa</string>
 
 </resources>

@@ -115,5 +115,8 @@
     <string name="done">Done</string>
     <string name="network_error">Check your connection and try again later.</string>
     <string name="addToBookShelf">Add to your bookshelf</string>
+    <string name="t_s_ch_c_a_t_i">My bookshelf</string>
+    <string name="cu_n_s_ch">Book(s)</string>
+    <string name="x_a">Delete</string>
 
 </resources>
