@@ -99,7 +99,6 @@
     <string name="epub_paper_template">Paper</string>
     <string name="epub_ocean_template">Ocean</string>
     <string name="appName">mindBook</string>
-    <string name="description_blurred_image" />
     <string name="description_track_image">Image of the track</string>
     <string name="progress_start_val">00:00</string>
     <string name="button_mute_description">Mute/UnMute volume</string>
@@ -115,5 +114,6 @@
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
     <string name="network_error">Check your connection and try again later.</string>
+    <string name="addToBookShelf">Add to your bookshelf</string>
 
 </resources>

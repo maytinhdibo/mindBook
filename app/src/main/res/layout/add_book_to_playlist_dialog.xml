@@ -6,6 +6,7 @@
     android:layout_gravity="left"
     android:orientation="vertical"
     android:maxHeight="300dp"
+    android:background="@color/backgroundPrimary"
     android:paddingTop="12dp">
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingHorizontal="0dp"
-        android:text="Thêm sách vào playlist"
+        android:text="@string/addToBookShelf"
         android:textColor="@color/textColor"
         android:textSize="20sp"
         android:textStyle="bold" />

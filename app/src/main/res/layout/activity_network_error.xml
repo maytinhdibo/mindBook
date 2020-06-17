@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".NetworkErrorActivity"
-    android:background="@color/backgroundNav">
+    android:background="@color/colorPrimary">
 
     <Button
         android:id="@+id/button_reload_app"
@@ -15,7 +15,8 @@
         android:padding="5dp"
         android:paddingHorizontal="10dp"
         android:text="Reload"
-        android:textSize="22sp"
+        android:textColor="@color/lightColor"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +29,10 @@
         android:layout_marginBottom="15dp"
         android:text="@string/network_error"
         android:textSize="22sp"
+        android:paddingHorizontal="9dp"
+        android:textAlignment="center"
         android:textStyle="bold"
+        android:textColor="@color/lightColor"
         app:layout_constraintBottom_toTopOf="@+id/button_reload_app"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

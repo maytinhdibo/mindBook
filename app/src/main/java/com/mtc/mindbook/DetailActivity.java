@@ -217,6 +217,10 @@ public class DetailActivity extends AppCompatActivity {
                     addlistDialog.setContentView(R.layout.add_book_to_playlist_dialog);
                     addlistDialog.show();
 
+                    int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.8);
+
+                    addlistDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+
                     RecyclerView addlistView = addlistDialog.findViewById(R.id.addlist_playlist);
 
                     LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
@@ -286,7 +290,6 @@ public class DetailActivity extends AppCompatActivity {
         reviewDialog.setContentView(R.layout.review_dialog);
 
         int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.90);
-
         reviewDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
         //write review
 
