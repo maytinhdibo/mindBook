@@ -122,5 +122,8 @@
     <string name="add_to_new_playlist">Add to new playlist</string>
     <string name="new_playlist_hint">New playlist..</string>
     <string name="favorite_list_name">Favorite Books</string>
+    <string name="toast_add_book">Added to </string>
+    <string name="toast_book_already_in_playlist">"Book existed in "</string>
+    <string name="no_book_in_playlist">There\'s no book in this playlist</string>
 
 </resources>

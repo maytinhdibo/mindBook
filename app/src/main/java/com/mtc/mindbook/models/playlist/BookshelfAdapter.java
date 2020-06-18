@@ -43,7 +43,7 @@ public class BookshelfAdapter extends RecyclerView.Adapter<BookshelfAdapter.Recy
             @Override
             public void onClick(View v) {
                 if (data.get(position).getBooksCount() == 0) {
-                    Toast.makeText(v.getContext(), "Chưa có sách trong playlist này", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(v.getContext(), context.getResources().getString(R.string.no_book_in_playlist), Toast.LENGTH_SHORT).show();
                 } else {
                     Utils.openPlaylistDetail(v.getContext(), data.get(position).getPlaylistId(), data.get(position).getName());
                 }

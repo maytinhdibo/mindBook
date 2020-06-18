@@ -31,20 +31,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:gravity="fill_horizontal">
+        android:layout_marginTop="5dp"
+        android:gravity="end">
 
         <EditText
             android:id="@+id/addlist_playlist_name"
-            android:layout_width="210dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="60dp"
-            android:hint="@string/new_playlist_hint"></EditText>
+            android:hint="@string/new_playlist_hint"
+            android:layout_gravity="start" />
 
         <ImageView
             android:id="@+id/addlist_btn"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
             android:background="@drawable/detail_button"
             android:backgroundTint="@color/overlayBgPrimary"
             android:backgroundTintMode="src_over"

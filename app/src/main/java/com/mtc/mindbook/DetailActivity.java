@@ -228,7 +228,7 @@ public class DetailActivity extends AppCompatActivity {
                     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                     addlistView.setLayoutManager(layoutManager);
 
-                    AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, id, addlistDialog);
+                    AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, context, id, addlistDialog);
                     addlistView.setAdapter(addlistAdapter);
 
                     ImageView addToNewPlaylist = addlistDialog.findViewById(R.id.addlist_btn);

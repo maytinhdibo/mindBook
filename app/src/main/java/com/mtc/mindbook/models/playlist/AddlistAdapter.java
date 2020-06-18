@@ -1,6 +1,7 @@
 package com.mtc.mindbook.models.playlist;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -31,11 +32,13 @@ public class AddlistAdapter extends RecyclerView.Adapter<AddlistAdapter.Recycler
     private List<PlaylistDataResponseObj> data = new ArrayList<>();
     private String bookId;
     private Dialog baseDialog;
+    private Context context = null;
 
-    public AddlistAdapter(List<PlaylistDataResponseObj> data, String bookId, Dialog baseDialog) {
+    public AddlistAdapter(List<PlaylistDataResponseObj> data, Context context, String bookId, Dialog baseDialog) {
         this.data = data;
         this.bookId = bookId;
         this.baseDialog = baseDialog;
+        this.context = context;
     }
 
     @Override
@@ -63,9 +66,9 @@ public class AddlistAdapter extends RecyclerView.Adapter<AddlistAdapter.Recycler
                             return;
                         }
                         if (response.body().getMesssage().equals("Success")) {
-                            Toast.makeText(v.getContext(), "Đã thêm vào " + data.get(position).getName(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(v.getContext(), context.getResources().getString(R.string.toast_add_book) + " " + data.get(position).getName(), Toast.LENGTH_SHORT).show();
                         } else {
-                            Toast.makeText(v.getContext(), "Sách đã tồn tại trong " + data.get(position).getName(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(v.getContext(), context.getResources().getString(R.string.toast_book_already_in_playlist) + " " + data.get(position).getName(), Toast.LENGTH_SHORT).show();
                         }
                         baseDialog.dismiss();
                     }

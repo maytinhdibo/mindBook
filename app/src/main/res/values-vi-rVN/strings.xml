@@ -121,5 +121,8 @@
     <string name="add_to_new_playlist">Thêm vào playlist mới</string>
     <string name="new_playlist_hint">Playlist mới..</string>
     <string name="favorite_list_name">Yêu thích</string>
+    <string name="toast_add_book">Đã thêm vào </string>
+    <string name="toast_book_already_in_playlist">"Sách đã tồn tại trong "</string>
+    <string name="no_book_in_playlist">Chưa có sách trong playlist này</string>
 
 </resources>
