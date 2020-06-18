@@ -301,7 +301,16 @@ public class ReaderActivity extends AppCompatActivity {
                 searchNextBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        epubContent.findNext(false);
+                        if (searchResultCount == 0) {
+                            try {
+                                loadPrevChapter();;
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            searchIndexInPage--;
+                            epubContent.findNext(false);
+                        }
                     }
                 });
 
@@ -309,7 +318,16 @@ public class ReaderActivity extends AppCompatActivity {
                 searchBackBtn.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        epubContent.findNext(true);
+                        if (searchResultCount == 0) {
+                            try {
+                                loadNextChapter();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            searchIndexInPage++;
+                            epubContent.findNext(true);
+                        }
                     }
                 });
 
@@ -339,25 +357,31 @@ public class ReaderActivity extends AppCompatActivity {
 //        Spine spine = book.getSpine();
 //        epubContent.setVisibility(View.GONE);
 //        isSearchDone = false;
+        searchIndexInPage = 0;
         epubContent.setFindListener(new WebView.FindListener() {
             @Override
             public void onFindResultReceived(int activeMatchOrdinal, int numberOfMatches, boolean isDoneCounting) {
                 if (isDoneCounting) {
-//                    if (activeMatchOrdinal == 0 && searchIndexInPage == numberOfMatches) {
-//                        try {
-//                            loadNextChapter();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    } else if (activeMatchOrdinal == numberOfMatches - 1 && searchIndexInPage == 1) {
-//                        try {
-//                            loadPrevChapter();
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
+                    if (searchIndexInPage >= 0 && searchIndexInPage < numberOfMatches && activeMatchOrdinal != searchIndexInPage) {
+                        searchIndexInPage = activeMatchOrdinal;
+                    }
+                    if (searchIndexInPage == numberOfMatches && numberOfMatches != 0) {
+                        try {
+                            searchIndexInPage = 0;
+                            loadNextChapter();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    } else if (searchIndexInPage == -1) {
+                        try {
+                            searchIndexInPage = 0;
+                            loadPrevChapter();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
                     searchResultCount = numberOfMatches;
-                    searchIndexInPage = numberOfMatches > 0 ? activeMatchOrdinal + 1: 0;
+//                    searchIndexInPage = numberOfMatches > 0 ? activeMatchOrdinal + 1: 0;
                     reloadSearchText();
                 }
             }
@@ -391,7 +415,7 @@ public class ReaderActivity extends AppCompatActivity {
         TextView resultText = findViewById(R.id.epub_search_result_text);
         StringBuilder newText = new StringBuilder();
         newText.append("Hiển thị kết quả ")
-                .append(searchIndexInPage)
+                .append(Math.min(searchIndexInPage + 1, searchResultCount))
                 .append(" trên ")
                 .append(searchResultCount)
                 .append(" kết quả.");
