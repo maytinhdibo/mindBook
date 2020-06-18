@@ -107,7 +107,7 @@ public class DetailActivity extends AppCompatActivity {
                 // Render rating
                 TextView rating = findViewById(R.id.detail_rating);
                 RatingBar ratingBar = findViewById(R.id.detail_rating_bar);
-                rating.setText(String.format("%.01f", bookDetail.getRating()) + "/5.0");
+                rating.setText(String.format("%.01f", bookDetail.getRating()).replace(",", ".") + "/5.0");
                 ratingBar.setRating(bookDetail.getRating());
 
                 // Render overlay
