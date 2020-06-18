@@ -69,6 +69,7 @@ import com.mtc.mindbook.models.responseObj.playlist.PlaylistDataResponseObj;
 import com.mtc.mindbook.models.responseObj.playlist.PlaylistResponseObj;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
+import com.mtc.mindbook.utils.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -303,7 +304,7 @@ public class ReaderActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         if (searchResultCount == 0) {
                             try {
-                                loadPrevChapter();;
+                                loadPrevChapter();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -807,6 +808,21 @@ public class ReaderActivity extends AppCompatActivity {
 
                 AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, id, addlistDialog);
                 addlistView.setAdapter(addlistAdapter);
+
+                ImageView addToNewPlaylist = addlistDialog.findViewById(R.id.addlist_btn);
+                EditText newPlaylistName = addlistDialog.findViewById(R.id.addlist_playlist_name);
+                addToNewPlaylist.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String name = newPlaylistName.getText().toString();
+                        if (name == null || name.equals("") || name.equals(" ")) {
+                            Toast.makeText(context, "Tên playlist không được để trống", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Utils.addBookToNewPlaylist(context, name, id);
+                            addlistDialog.dismiss();
+                        }
+                    }
+                });
 
                 Button cancel = addlistDialog.findViewById(R.id.addlist_cancel);
                 cancel.setOnClickListener(new View.OnClickListener() {

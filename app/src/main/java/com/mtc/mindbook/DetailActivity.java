@@ -34,6 +34,7 @@ import com.mtc.mindbook.models.review.RecyclerReviewAdapter;
 import com.mtc.mindbook.models.tag.TagAdapter;
 import com.mtc.mindbook.remote.APIService;
 import com.mtc.mindbook.remote.APIUtils;
+import com.mtc.mindbook.utils.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -230,6 +231,20 @@ public class DetailActivity extends AppCompatActivity {
                     AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, id, addlistDialog);
                     addlistView.setAdapter(addlistAdapter);
 
+                    ImageView addToNewPlaylist = addlistDialog.findViewById(R.id.addlist_btn);
+                    EditText newPlaylistName = addlistDialog.findViewById(R.id.addlist_playlist_name);
+                    addToNewPlaylist.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String name = newPlaylistName.getText().toString();
+                            if (name == null || name.equals("") || name.equals(" ")) {
+                                Toast.makeText(context, "Tên playlist không được để trống", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Utils.addBookToNewPlaylist(context, name, id);
+                                addlistDialog.dismiss();
+                            }
+                        }
+                    });
                     Button cancel = addlistDialog.findViewById(R.id.addlist_cancel);
                     cancel.setOnClickListener(new View.OnClickListener() {
                         @Override

@@ -118,5 +118,8 @@
     <string name="t_s_ch_c_a_t_i">Tủ sách của tôi</string>
     <string name="cu_n_s_ch">Cuốn sách</string>
     <string name="x_a">Xóa</string>
+    <string name="add_to_new_playlist">Thêm vào playlist mới</string>
+    <string name="new_playlist_hint">Playlist mới..</string>
+    <string name="favorite_list_name">Yêu thích</string>
 
 </resources>

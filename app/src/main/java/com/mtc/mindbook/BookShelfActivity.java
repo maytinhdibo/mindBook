@@ -71,7 +71,7 @@ public class BookShelfActivity extends AppCompatActivity {
                     return;
                 }
                 List<PlaylistDataResponseObj> playlists = response.body().getData();
-                BookshelfAdapter adapter = new BookshelfAdapter(playlists);
+                BookshelfAdapter adapter = new BookshelfAdapter(playlists, context);
                 listView.setAdapter(adapter);
             }
 

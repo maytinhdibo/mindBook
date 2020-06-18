@@ -119,5 +119,8 @@
     <string name="cu_n_s_ch">Book(s)</string>
     <string name="x_a">Delete</string>
     <string name="search_init_value">Hiển thị kết quả 0 trên 0 kết quả.</string>
+    <string name="add_to_new_playlist">Add to new playlist</string>
+    <string name="new_playlist_hint">New playlist..</string>
+    <string name="favorite_list_name">Favorite Books</string>
 
 </resources>

@@ -1,5 +1,6 @@
 package com.mtc.mindbook.models.playlist;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,9 +19,11 @@ import java.util.List;
 
 public class BookshelfAdapter extends RecyclerView.Adapter<BookshelfAdapter.RecyclerViewHolder> {
     private List<PlaylistDataResponseObj> data = new ArrayList<>();
+    Context context = null;
 
-    public BookshelfAdapter(List<PlaylistDataResponseObj> data) {
+    public BookshelfAdapter(List<PlaylistDataResponseObj> data, Context context) {
         this.data = data;
+        this.context = context;
     }
 
     @Override
@@ -32,7 +35,9 @@ public class BookshelfAdapter extends RecyclerView.Adapter<BookshelfAdapter.Recy
 
     @Override
     public void onBindViewHolder(BookshelfAdapter.RecyclerViewHolder holder, final int position) {
-        holder.playlistName.setText(data.get(position).getName());
+        String playlistName = position == 0 ? context.getResources().getString(R.string.favorite_list_name) : data.get(position).getName();
+
+        holder.playlistName.setText(playlistName);
         holder.bookCount.setText(data.get(position).getBooksCount() + " ");
         holder.container.setOnClickListener(new View.OnClickListener() {
             @Override
