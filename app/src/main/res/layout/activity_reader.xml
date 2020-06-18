@@ -120,7 +120,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
                         android:layout_marginBottom="7dp"
-                        android:text="Hiển thị kết quả 0 trên 0 kết quả."
+                        android:text="@string/search_init_value"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>

@@ -343,21 +343,21 @@ public class ReaderActivity extends AppCompatActivity {
             @Override
             public void onFindResultReceived(int activeMatchOrdinal, int numberOfMatches, boolean isDoneCounting) {
                 if (isDoneCounting) {
-                    if (activeMatchOrdinal == 0 && searchIndexInPage == numberOfMatches) {
-                        try {
-                            loadNextChapter();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    } else if (activeMatchOrdinal == numberOfMatches - 1 && searchIndexInPage == 1) {
-                        try {
-                            loadPrevChapter();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    }
+//                    if (activeMatchOrdinal == 0 && searchIndexInPage == numberOfMatches) {
+//                        try {
+//                            loadNextChapter();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    } else if (activeMatchOrdinal == numberOfMatches - 1 && searchIndexInPage == 1) {
+//                        try {
+//                            loadPrevChapter();
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
                     searchResultCount = numberOfMatches;
-                    searchIndexInPage = activeMatchOrdinal + 1;
+                    searchIndexInPage = numberOfMatches > 0 ? activeMatchOrdinal + 1: 0;
                     reloadSearchText();
                 }
             }

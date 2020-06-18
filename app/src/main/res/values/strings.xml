@@ -118,5 +118,6 @@
     <string name="t_s_ch_c_a_t_i">My bookshelf</string>
     <string name="cu_n_s_ch">Book(s)</string>
     <string name="x_a">Delete</string>
+    <string name="search_init_value">Hiển thị kết quả 0 trên 0 kết quả.</string>
 
 </resources>
