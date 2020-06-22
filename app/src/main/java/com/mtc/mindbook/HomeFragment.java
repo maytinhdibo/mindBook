@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -82,8 +83,6 @@ public class HomeFragment extends Fragment {
         listViewTrending = rootView.findViewById(R.id.listview_trending);
         listViewTrending.setLayoutManager(layoutManagerTrending);
 
-        loadForYou(listViewForYou, getContext());
-
         loadRandom(randomListView, getContext());
 
         loadTrending(getContext());
@@ -128,6 +127,12 @@ public class HomeFragment extends Fragment {
         });
 
         return rootView;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadForYou(listViewForYou, getContext());
     }
 
     private void loadTrending(Context context) {
