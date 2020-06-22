@@ -116,7 +116,7 @@
     <string name="network_error">Lỗi mạng, xin vui lòng thử lại sau.</string>
     <string name="addToBookShelf">Thêm vào giá sách</string>
     <string name="t_s_ch_c_a_t_i">Tủ sách của tôi</string>
-    <string name="cu_n_s_ch">Cuốn sách</string>
+    <string name="cu_n_s_ch">cuốn sách</string>
     <string name="x_a">Xóa</string>
     <string name="add_to_new_playlist">Thêm vào playlist mới</string>
     <string name="new_playlist_hint">Playlist mới..</string>
@@ -124,5 +124,7 @@
     <string name="toast_add_book">Đã thêm vào </string>
     <string name="toast_book_already_in_playlist">"Sách đã tồn tại trong "</string>
     <string name="no_book_in_playlist">Chưa có sách trong playlist này</string>
+    <string name="new_playlist_dialog_title">Playlist mới</string>
+    <string name="create_new_playlist_hint">Tên của playlist</string>
 
 </resources>
