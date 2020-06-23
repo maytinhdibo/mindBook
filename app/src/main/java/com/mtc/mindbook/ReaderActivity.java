@@ -666,7 +666,6 @@ public class ReaderActivity extends AppCompatActivity {
                                 break;
                             case R.id.epub_love:
                                 itemIndex = 2;
-//                                Toast.makeText(getApplicationContext(), "Love Epub", Toast.LENGTH_SHORT).show();
                                 loadAddlist();
                                 break;
                             case R.id.epub_custom:
@@ -787,58 +786,64 @@ public class ReaderActivity extends AppCompatActivity {
     List<PlaylistDataResponseObj> addlist = null;
 
     private void loadAddlist() {
-        String accessToken = sharedPrefs.getString("accessToken", "");
-        Call<PlaylistResponseObj> getPlaylists = apiServices.getUserPlaylistList("Bearer " + accessToken);
-        getPlaylists.enqueue(new Callback<PlaylistResponseObj>() {
-            @Override
-            public void onResponse(Call<PlaylistResponseObj> call, Response<PlaylistResponseObj> response) {
-                addlist = response.body().getData();
-                Dialog addlistDialog = new Dialog(context);
-                addlistDialog.setContentView(R.layout.add_book_to_playlist_dialog);
-                addlistDialog.show();
-                int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.8);
+        boolean isLoggedIn = sharedPrefs.getBoolean("isLoggedIn", false);
+        if (isLoggedIn) {
+            String accessToken = sharedPrefs.getString("accessToken", "");
+            Call<PlaylistResponseObj> getPlaylists = apiServices.getUserPlaylistList("Bearer " + accessToken);
+            getPlaylists.enqueue(new Callback<PlaylistResponseObj>() {
+                @Override
+                public void onResponse(Call<PlaylistResponseObj> call, Response<PlaylistResponseObj> response) {
+                    addlist = response.body().getData();
+                    Dialog addlistDialog = new Dialog(context);
+                    addlistDialog.setContentView(R.layout.add_book_to_playlist_dialog);
+                    addlistDialog.show();
+                    int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.8);
 
-                addlistDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    addlistDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-                RecyclerView addlistView = addlistDialog.findViewById(R.id.addlist_playlist);
+                    RecyclerView addlistView = addlistDialog.findViewById(R.id.addlist_playlist);
 
-                LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
-                layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                addlistView.setLayoutManager(layoutManager);
+                    LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
+                    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                    addlistView.setLayoutManager(layoutManager);
 
-                AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, context, id, addlistDialog);
-                addlistView.setAdapter(addlistAdapter);
+                    AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, context, id, addlistDialog);
+                    addlistView.setAdapter(addlistAdapter);
 
-                ImageView addToNewPlaylist = addlistDialog.findViewById(R.id.addlist_btn);
-                EditText newPlaylistName = addlistDialog.findViewById(R.id.addlist_playlist_name);
-                addToNewPlaylist.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        String name = newPlaylistName.getText().toString();
-                        if (name == null || name.equals("") || name.equals(" ")) {
-                            Toast.makeText(context, "Tên playlist không được để trống", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Utils.addBookToNewPlaylist(context, name, id);
+                    ImageView addToNewPlaylist = addlistDialog.findViewById(R.id.addlist_btn);
+                    EditText newPlaylistName = addlistDialog.findViewById(R.id.addlist_playlist_name);
+                    addToNewPlaylist.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            String name = newPlaylistName.getText().toString();
+                            if (name == null || name.equals("") || name.equals(" ")) {
+                                Toast.makeText(context, "Tên playlist không được để trống", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Utils.addBookToNewPlaylist(context, name, id);
+                                addlistDialog.dismiss();
+                            }
+                        }
+                    });
+
+                    Button cancel = addlistDialog.findViewById(R.id.addlist_cancel);
+                    cancel.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
                             addlistDialog.dismiss();
                         }
-                    }
-                });
+                    });
+                }
 
-                Button cancel = addlistDialog.findViewById(R.id.addlist_cancel);
-                cancel.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        addlistDialog.dismiss();
-                    }
-                });
-            }
-
-            @Override
-            public void onFailure(Call<PlaylistResponseObj> call, Throwable t) {
-                Log.d(",...", "onResponse: " + t.getMessage());
-            }
-        });
-
+                @Override
+                public void onFailure(Call<PlaylistResponseObj> call, Throwable t) {
+                    Log.d(",...", "onResponse: " + t.getMessage());
+                }
+            });
+        } else {
+            Intent intent = new Intent(context, LoginActivity.class);
+            startActivityForResult(intent, 1);
+            Toast.makeText(context, R.string.logInRequest, Toast.LENGTH_SHORT).show();
+        }
     }
     private void initConfigBottomValue() {
 
