@@ -66,7 +66,7 @@ public class RecyclerNearAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             holder.ratingBar.setRating(data.get(position).getBookDetail().getRating());
             holder.bookAuthorName.setText(data.get(position).getBookDetail().getAuthor());
             holder.bookName.setText(data.get(position).getBookDetail().getBookTitle());
-            holder.distance.setText(Utils.convertDistance(data.get(position).getDistance()));
+            holder.distance.setText(Utils.convertDistance(data.get(position).getDistance()).replace(",", "."));
             Picasso.get().load(data.get(position).getBookDetail().getBookCover()).into(holder.avt);
             holder.nearItem.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -53,7 +53,7 @@ public interface APIService {
     @GET("ratings/new?limit=5")
     Call<ShareItemResponseObj> getShares(@Query("page") int page);
 
-    @GET("user/nearby?limit=2&radius=999999999999999999999999999999999999999999999")
+    @GET("user/nearby?limit=2&radius=2000000")
     Call<NearbyResponseObj> getNearBy(@Header("Authorization") String token,
                                       @Query("page") int page);
 
