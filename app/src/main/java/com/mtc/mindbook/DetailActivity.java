@@ -200,6 +200,7 @@ public class DetailActivity extends AppCompatActivity {
         getPlaylists.enqueue(new Callback<PlaylistResponseObj>() {
             @Override
             public void onResponse(Call<PlaylistResponseObj> call, Response<PlaylistResponseObj> response) {
+                assert response.body() != null;
                 addlist = response.body().getData();
                 favoritePlaylistId = addlist.get(0).getPlaylistId();
             }

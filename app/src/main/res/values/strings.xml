@@ -116,7 +116,7 @@
     <string name="network_error">Check your connection and try again later.</string>
     <string name="addToBookShelf">Add to your bookshelf</string>
     <string name="t_s_ch_c_a_t_i">My bookshelf</string>
-    <string name="cu_n_s_ch">Book(s)</string>
+    <string name="cu_n_s_ch">book(s)</string>
     <string name="x_a">Delete</string>
     <string name="search_init_value">Hiển thị kết quả 0 trên 0 kết quả.</string>
     <string name="add_to_new_playlist">Add to new playlist</string>
@@ -125,5 +125,7 @@
     <string name="toast_add_book">Added to </string>
     <string name="toast_book_already_in_playlist">"Book existed in "</string>
     <string name="no_book_in_playlist">There\'s no book in this playlist</string>
+    <string name="new_playlist_dialog_title">New Playlist</string>
+    <string name="create_new_playlist_hint">Playlist\'s name</string>
 
 </resources>
