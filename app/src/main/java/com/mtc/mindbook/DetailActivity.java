@@ -62,7 +62,6 @@ public class DetailActivity extends AppCompatActivity {
     boolean isLoggedIn = false;
     String id;
     List<PlaylistDataResponseObj> addlist = null;
-    Integer favoritePlaylistId = null;
 
     @Override
     protected void onStart() {
@@ -196,20 +195,6 @@ public class DetailActivity extends AppCompatActivity {
 
         View view = findViewById(android.R.id.content).getRootView();
 //        List<PlaylistDataResponseObj> playlists= null;
-        Call<PlaylistResponseObj> getPlaylists = apiServices.getUserPlaylistList("Bearer " + accessToken);
-        getPlaylists.enqueue(new Callback<PlaylistResponseObj>() {
-            @Override
-            public void onResponse(Call<PlaylistResponseObj> call, Response<PlaylistResponseObj> response) {
-                assert response.body() != null;
-                addlist = response.body().getData();
-                favoritePlaylistId = addlist.get(0).getPlaylistId();
-            }
-
-            @Override
-            public void onFailure(Call<PlaylistResponseObj> call, Throwable t) {
-                Log.d(",...", "onResponse: " + t.getMessage());
-            }
-        });
         ImageView addBtn = findViewById(R.id.add_btn);
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -222,15 +207,27 @@ public class DetailActivity extends AppCompatActivity {
                     int width = (int) (getResources().getDisplayMetrics().widthPixels * 0.8);
 
                     addlistDialog.getWindow().setLayout(width, LinearLayout.LayoutParams.WRAP_CONTENT);
+                    Call<PlaylistResponseObj> getPlaylists = apiServices.getUserPlaylistList("Bearer " + accessToken);
+                    getPlaylists.enqueue(new Callback<PlaylistResponseObj>() {
+                        @Override
+                        public void onResponse(Call<PlaylistResponseObj> call, Response<PlaylistResponseObj> response) {
+                            assert response.body() != null;
+                            addlist = response.body().getData();
+                            RecyclerView addlistView = addlistDialog.findViewById(R.id.addlist_playlist);
 
-                    RecyclerView addlistView = addlistDialog.findViewById(R.id.addlist_playlist);
+                            LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
+                            layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                            addlistView.setLayoutManager(layoutManager);
 
-                    LinearLayoutManager layoutManager = new LinearLayoutManager(getBaseContext());
-                    layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                    addlistView.setLayoutManager(layoutManager);
+                            AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, context, id, addlistDialog);
+                            addlistView.setAdapter(addlistAdapter);
+                        }
 
-                    AddlistAdapter addlistAdapter = new AddlistAdapter(addlist, context, id, addlistDialog);
-                    addlistView.setAdapter(addlistAdapter);
+                        @Override
+                        public void onFailure(Call<PlaylistResponseObj> call, Throwable t) {
+                            Log.d(",...", "onResponse: " + t.getMessage());
+                        }
+                    });
 
                     ImageView addToNewPlaylist = addlistDialog.findViewById(R.id.addlist_btn);
                     EditText newPlaylistName = addlistDialog.findViewById(R.id.addlist_playlist_name);
