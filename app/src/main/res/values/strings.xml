@@ -52,6 +52,8 @@
     <!--    epub reader-->
     <string name="toc">Table of content</string>
     <string name="chapter">Chapter</string>
+    <string name="shared_string">Shared with your nearby friends</string>
+    <string name="err_location_permission">Please provide location permission for mindBook to share this book.</string>
 
     <!--    Profile-->
     <string name="des">Interesting books</string>

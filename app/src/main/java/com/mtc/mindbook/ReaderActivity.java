@@ -727,6 +727,7 @@ public class ReaderActivity extends AppCompatActivity {
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(ReaderActivity.this, R.string.err_location_permission, Toast.LENGTH_LONG).show();
             requestPermissions(new String[]{
                             android.Manifest.permission.ACCESS_FINE_LOCATION
                     },
@@ -764,7 +765,7 @@ public class ReaderActivity extends AppCompatActivity {
                                     onFailure(call, null);
                                     return;
                                 }
-                                Toast.makeText(ReaderActivity.this, "Đã chia sẻ sách với những người gần bạn", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ReaderActivity.this, R.string.shared_string, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override

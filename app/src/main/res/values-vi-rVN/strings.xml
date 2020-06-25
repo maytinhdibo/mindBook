@@ -52,6 +52,8 @@
     <!--    epub reader-->
     <string name="toc">Mục lục</string>
     <string name="chapter">Chương</string>
+    <string name="shared_string">Đã chia sẻ sách với những người gần bạn</string>
+    <string name="err_location_permission">Bạn cần cung cấp quyền truy cập vị trí cho mindBook để chia sẻ sách.</string>
 
     <!--    Profile-->
     <string name="des">Những cuốn sánh thú vị</string>

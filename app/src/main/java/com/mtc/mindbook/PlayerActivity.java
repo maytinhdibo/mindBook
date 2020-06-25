@@ -1,6 +1,7 @@
 package com.mtc.mindbook;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -89,7 +90,7 @@ public class PlayerActivity extends AppCompatActivity {
             try {
                 System.out.println("Initializing.....");
                 mediaPlayer.prepare();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
             mediaPlayer.start();
@@ -181,7 +182,7 @@ public class PlayerActivity extends AppCompatActivity {
 
                 chapters = Arrays.stream(bookDetail.getAudio().toArray())
                         .sorted()
-                        .map(link -> new Track("Chương " + index.incrementAndGet(), bookDetail.getBookTitle(), bookDetail.getAuthor(), (String) link, bookDetail.getBookCover()))
+                        .map(link -> new Track(getString(R.string.chapter) + " " + index.incrementAndGet(), bookDetail.getBookTitle(), bookDetail.getAuthor(), (String) link, bookDetail.getBookCover()))
                         .collect(Collectors.toList());
 
                 epubTitle = findViewById(R.id.player_booktitle);
@@ -328,6 +329,15 @@ public class PlayerActivity extends AppCompatActivity {
                         }
                     }
                 });
+                mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener() {
+                    @Override
+                    public boolean onError(MediaPlayer mp, int what, int extra) {
+                        Intent networkErr = new Intent(PlayerActivity.this, NetworkErrorActivity.class);
+                        startActivity(networkErr);
+                        PlayerActivity.this.finish();
+                        return false;
+                    }
+                });
                 mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
                     @Override
                     public void onPrepared(MediaPlayer mediaPlayer) {
@@ -352,6 +362,7 @@ public class PlayerActivity extends AppCompatActivity {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Toast.makeText(PlayerActivity.this, R.string.err_location_permission, Toast.LENGTH_LONG).show();
             requestPermissions(new String[]{
                             android.Manifest.permission.ACCESS_FINE_LOCATION
                     },
@@ -390,7 +401,7 @@ public class PlayerActivity extends AppCompatActivity {
                                     onFailure(call, null);
                                     return;
                                 }
-                                Toast.makeText(PlayerActivity.this, "Đã chia sẻ sách với những người gần bạn", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(PlayerActivity.this, R.string.shared_string, Toast.LENGTH_SHORT).show();
                             }
 
                             @Override
